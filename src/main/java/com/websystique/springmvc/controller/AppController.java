@@ -17,8 +17,13 @@ import com.websystique.springmvc.service.UsersService;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,19 +112,16 @@ public class AppController {
 //	
 //
 
-    /**
-     * This method will be called on form submission, handling POST request for
-     * saving user in database. It also validates the user input
-     */
+   
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String saveUser(@Valid Users user, BindingResult result,
             ModelMap model) {
         System.out.println("INSIDE");
-        if (result.hasErrors()) {
-            return "registration";
-        }
+//        if (result.hasErrors()) {
+//            return "registration";
+//        }
 
-        System.out.println(user);
+      //  System.out.println(user);
 
         /*
          * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
@@ -134,15 +136,24 @@ public class AppController {
 //		    result.addError(ssoError);
 //			return "registration";
 //		}
-		//userService.saveUser(user);
-        model.addAttribute("user", user);
-        model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+ //model.addAttribute("user", user);
+     //   model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+
+
+		userService.saveUser(user);
+       // model.addAttribute("user", user);
+        //model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
         //return "success";
         return "registrationsuccess";
     }
 //
 //
-
+//@InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+//        sdf.setLenient(true);
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+//    }
     /**
      * This method will provide the medium to update an existing user.
      */
