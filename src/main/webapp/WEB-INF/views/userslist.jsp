@@ -74,7 +74,7 @@
                                                 <c:out value="Approved" />
                                             </c:when>
                                             <c:otherwise>
-                                                <c:out value="Approved" />
+                                                <c:out value="Suspended" />
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
