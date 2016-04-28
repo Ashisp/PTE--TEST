@@ -57,20 +57,27 @@
                                 <tr>
                                     <td>${user.firstName}</td>
 
-                                    <td>${user.firstName}</td>
                                     <td>${user.lastName}</td>
                                     <td>${user.email}</td>
-                                    <td>${user.password}</td>
                                     <td>${user.dob}</td>
                                     <td>${user.examDate}</td>
                                     <td>${user.phoneNo}</td>
                                     <td>${user.streetAddress1}</td>
-                                    <td>${user.streetAddress2}</td> 
+                                    <td>${user.streetAddress2}</td>
                                     <td>${user.city}</td>
                                     <td>${user.state}</td>
                                     <td>${user.postalCode}</td>
                                     <td>${user.country}</td>
-                                    <td>${user.approveStatus}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${user.approveStatus}">
+                                                <c:out value="Approved" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:out value="Approved" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
 
 
 

@@ -114,7 +114,7 @@ public class AppController {
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String saveUser(@Valid Users user, BindingResult result,
             ModelMap model) {
-
+        System.out.println("INSIDE");
         if (result.hasErrors()) {
             return "registration";
         }
