@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <html>
 
     <head>
@@ -95,7 +96,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-label" for="dob">Date of Birth</label>
                         <div class="col-md-7">
-                            <form:input type="date" path="dob" id="dob" class="form-control input-sm" />
+                            <form:input type="date" path="dob" id="dob"  class="form-control input-sm" value="yyyy-mm-dd" />
                             <div class="has-error">
                                 <form:errors path="dob" class="help-inline"/>
                             </div>
@@ -143,7 +144,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-label" for="examDate">Exam date</label>
                         <div class="col-md-7">
-                            <form:input type="date" path="examDate" id="examDate" class="form-control input-sm" />
+                            <form:input type="date" path="examDate" id="examDate" class="form-control input-sm" value="yyyy-mm-dd"/>
                             <div class="has-error">
                                 <form:errors path="examDate" class="help-inline"/>
                             </div>
