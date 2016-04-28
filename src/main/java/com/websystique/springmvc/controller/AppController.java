@@ -29,8 +29,8 @@ public class AppController {
 
     //Nikesh you can write the controller class with refrence to below code
     //it gave me error with previous code so i commented out
-@Autowired
-	UsersService userService;
+    @Autowired
+    UsersService userService;
 //
 //	@Autowired
 //        private UserAuthenticateService userAuthenticateService;
@@ -55,23 +55,24 @@ public class AppController {
 //	/**
 //	 * This method will list all existing users.
 //	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-	public String listUsers(ModelMap model) {
-		          Collection<Users> users = userService.findAllUsers();
-                          model.addAttribute("users", users);
-		return "userslist";
-        }
+
+    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "userslist";
+    }
 
 //	/**
 //	 * This method will provide the medium to add a new user.
 //	 */
-//	@RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
-//	public String newUser(ModelMap model) {
-//		User user = new User();
-//		model.addAttribute("user", user);
-//		model.addAttribute("edit", false);
-//		return "registration";
-//	}
+    @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
+    public String newUser(ModelMap model) {
+        Users user = new Users();
+        model.addAttribute("user", user);
+        model.addAttribute("edit", false);
+        return "registration";
+    }
 //        
 //  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
 //	public String Categories(ModelMap model) {
@@ -105,52 +106,54 @@ public class AppController {
 //
 //	
 //
-//	/**
-//	 * This method will be called on form submission, handling POST request for
-//	 * saving user in database. It also validates the user input
-//	 */
-//	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
-//	public String saveUser(@Valid User user, BindingResult result,
-//			ModelMap model) {
-//
-//		if (result.hasErrors()) {
-//			return "registration";
-//		}
-//
-//		/*
-//		 * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
-//		 * and applying it on field [sso] of Model class [User].
-//		 * 
-//		 * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-//		 * framework as well while still using internationalized messages.
-//		 * 
-//		 */
+
+    /**
+     * This method will be called on form submission, handling POST request for
+     * saving user in database. It also validates the user input
+     */
+    @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
+    public String saveUser(@Valid Users user, BindingResult result,
+            ModelMap model) {
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        System.out.println(user);
+
+        /*
+         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
+         * and applying it on field [sso] of Model class [User].
+         * 
+         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+         * framework as well while still using internationalized messages.
+         * 
+         */
 //		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
 //			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
 //		    result.addError(ssoError);
 //			return "registration";
 //		}
-//		
-//		userService.saveUser(user);
-//		
-//		model.addAttribute("user", user);
-//		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
-//		//return "success";
-//		return "registrationsuccess";
-//	}
+		//userService.saveUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+        //return "success";
+        return "registrationsuccess";
+    }
 //
 //
-	/**
-	 * This method will provide the medium to update an existing user.
-	 */
-	@RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable int id, ModelMap model) {
-		Users user = userService.findById(id);
-		model.addAttribute("user", user);
-		model.addAttribute("edit", true);
-		return "registration";
-	}
-        
+
+    /**
+     * This method will provide the medium to update an existing user.
+     */
+    @RequestMapping(value = {"/edit-user-{id}"}, method = RequestMethod.GET)
+    public String editUser(@PathVariable int id, ModelMap model) {
+        Users user = userService.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("edit", true);
+        return "registration";
+    }
+
 //        @RequestMapping(value = { "/approve-user-{ssoId}" }, method = RequestMethod.GET)
 //	public String approveUser(@PathVariable String ssoId, ModelMap model) {
 //		User user = userService.findBySSO(ssoId);
@@ -176,32 +179,29 @@ public class AppController {
 //	 * This method will be called on form submission, handling POST request for
 //	 * updating user in database. It also validates the user input
 //	 */
-	@RequestMapping(value = { "/edit-user-{id}" }, method = RequestMethod.POST)
-	public String updateUser(@Valid Users user, BindingResult result,
-			ModelMap model, @PathVariable int id) {
+    @RequestMapping(value = {"/edit-user-{id}"}, method = RequestMethod.POST)
+    public String updateUser(@Valid Users user, BindingResult result,
+            ModelMap model, @PathVariable int id) {
 
-		if (result.hasErrors()) {
-			return "registration";
-		}
+        if (result.hasErrors()) {
+            return "registration";
+        }
 
-		userService.updateUser(user);
+        userService.updateUser(user);
 
-		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
-		return "registrationsuccess";
-	}
+        model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " updated successfully");
+        return "registrationsuccess";
+    }
 
-	
-	/**
-	 * This method will delete an user by it's SSOID value.
-	 */
-	@RequestMapping(value = { "/delete-user-{id}" }, method = RequestMethod.GET)
-	public String deleteUser(@PathVariable int id) {
-		userService.deleteById(id);
-		return "userslist";
-	}
-	
+    /**
+     * This method will delete an user by it's SSOID value.
+     */
+    @RequestMapping(value = {"/delete-user-{id}"}, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable int id) {
+        userService.deleteById(id);
+        return "userslist";
+    }
 
-	
 //	@RequestMapping(value = { "/add-document-{id}" }, method = RequestMethod.GET)
 //	public String addDocuments(@PathVariable int id, ModelMap model) {
 //		Users user = userService.findById(id);
@@ -216,26 +216,23 @@ public class AppController {
 //		return "userlist";
 //	}
 //        
-        
-        
-    
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public @ResponseBody
     String uploadFileHandler(@RequestParam("name") String name,
             @RequestParam("file") MultipartFile file) {
- 
+
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
- 
+
                 // Creating the directory to store file
                 //C:\xampp\tomcat\tmpFiles
-                
                 String rootPath = System.getProperty("catalina.home");
                 File dir = new File(rootPath + File.separator + "AudioFiles");
-                if (!dir.exists())
+                if (!dir.exists()) {
                     dir.mkdirs();
- 
+                }
+
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
@@ -251,8 +248,9 @@ public class AppController {
             return "You failed to upload " + name
                     + " because the file was empty.";
         }
-    }}
-	
+    }
+}
+
 //
 //	@RequestMapping(value = { "/download-document-{userId}-{docId}" }, method = RequestMethod.GET)
 //	public String downloadDocument(@PathVariable int userId, @PathVariable int docId, HttpServletResponse response) throws IOException {
