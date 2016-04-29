@@ -37,7 +37,7 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
     public Collection<Questions> findAllQuestions() {
     
         
-            Criteria criteria = createEntityCriteria().addOrder(Order.asc("question_id"));
+            Criteria criteria = createEntityCriteria().addOrder(Order.asc("questionId"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<Questions> questions = (List<Questions>) criteria.list();
 		
