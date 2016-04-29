@@ -26,10 +26,11 @@
                         <label class="col-md-3 control-label" for="category">Category</label>
                         <div class="col-md-7">
                             <select name="category" class="form-control input-sm">
-                                <option value="1">Listening</option>
-                                <option value="2">Reading</option>
-                                <option value="3">Speaking</option>
-                                <option value="4">Writing</option>
+                                <c:forEach items="${categories}" var="category">
+                                    <c:set var="id" value="${category.catId}" />
+                                    <c:set var="name" value="${category.catName}" />
+                                    <option value="<c:out value="${id}" />"><c:out value="${name}" /></option>
+                                </c:forEach>
                             </select>
                             <div class="has-error">
                                 <form:errors path="firstName" class="help-inline"/>
@@ -42,9 +43,11 @@
                         <label class="col-md-3 control-label" for="type">Type</label>
                         <div class="col-md-7">
                             <select name="type" class="form-control input-sm">
-                                <option value="1">Fill in the blanks</option>
-                                <option value="2">MCQ1 (Single choice)</option>
-                                <option value="3">MCQ2 (Multiple choice)</option>
+                                <c:forEach items="${types}" var="type">
+                                    <c:set var="typeId" value="${type.typeId}" />
+                                    <c:set var="typeName" value="${type.typeName}" />
+                                    <option value="<c:out value="${typeId}" />"><c:out value="${typeName}" /></option>
+                                </c:forEach>
                             </select>
                             <div class="has-error">
                                 <form:errors path="firstName" class="help-inline"/>
