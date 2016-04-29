@@ -1,7 +1,7 @@
 package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.Answers;
-import com.websystique.springmvc.model.FileBucket;
+//import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.Questions;
 import javax.validation.Valid;
 
@@ -84,7 +84,7 @@ public class AppController {
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
         model.addAttribute("questions", questions);
-        return "newjsp";
+        return "addquestion";
     }
    
     
@@ -102,7 +102,7 @@ public class AppController {
         Users user = new Users();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
-        return "registrationsuccess";
+        return "registration";
     }
 //        
 //  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
