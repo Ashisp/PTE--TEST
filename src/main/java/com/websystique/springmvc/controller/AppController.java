@@ -1,6 +1,8 @@
 package com.websystique.springmvc.controller;
 
+import com.websystique.springmvc.model.Answers;
 import com.websystique.springmvc.model.FileBucket;
+import com.websystique.springmvc.model.Questions;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.websystique.springmvc.model.Users;
+import com.websystique.springmvc.service.AnswersService;
+import com.websystique.springmvc.service.QuestionsService;
 import com.websystique.springmvc.service.UsersService;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -36,7 +40,14 @@ public class AppController {
     //it gave me error with previous code so i commented out
     @Autowired
     UsersService userService;
+   
+    
+    @Autowired
+    QuestionsService questionService;
 //
+     
+    @Autowired
+    AnswersService answersService;
 //	@Autowired
 //        private UserAuthenticateService userAuthenticateService;
 //	@Autowired
@@ -67,16 +78,31 @@ public class AppController {
         model.addAttribute("users", users);
         return "userslist";
     }
-
-//	/**
-//	 * This method will provide the medium to add a new user.
-//	 */
+    
+    
+     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
+    public String listQuestions(ModelMap model) {
+        Collection<Questions> questions = questionService.findAllQuestions();
+        model.addAttribute("questions", questions);
+        return "newjsp";
+    }
+   
+    
+     @RequestMapping(value = {"/answers"}, method = RequestMethod.GET)
+    public String listAnswers(ModelMap model) {
+        Collection<Answers> answers = answersService.findAllAnswers();
+        model.addAttribute("answers", answers);
+        return "newjsp";
+    }
+   
+    
+    
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String newUser(ModelMap model) {
         Users user = new Users();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
-        return "registration";
+        return "registrationsuccess";
     }
 //        
 //  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
@@ -150,7 +176,7 @@ public class AppController {
 //
 @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
