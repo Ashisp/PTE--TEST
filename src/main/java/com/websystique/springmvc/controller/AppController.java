@@ -99,7 +99,15 @@ public class AppController {
         model.addAttribute("questions", questions);
         model.addAttribute("categories", categoriesService.findAllCategories());
         model.addAttribute("types", questionTypeService.findAllQuestionTypes());
+        model.addAttribute("sections", sectionService.findAllSections());
         return "addquestion";
+    }
+    
+    @RequestMapping(value={"/questions"}, method = RequestMethod.POST)
+    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file){
+        questionService.saveQuestions(question);
+        uploadFileHandler("testfile", file);
+        return "redirect:/questions";
     }
 
     @RequestMapping(value = {"/answers"}, method = RequestMethod.GET)
@@ -281,7 +289,7 @@ public class AppController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public @ResponseBody
     String uploadFileHandler(@RequestParam("name") String name,
-            @RequestParam("file") MultipartFile file) {
+            MultipartFile file) {
 
         if (!file.isEmpty()) {
             try {

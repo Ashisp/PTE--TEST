@@ -36,7 +36,7 @@ return sections;
 
     @SuppressWarnings("unchecked")
     public Collection<Sections> findAllSections() {
-    Criteria criteria = createEntityCriteria().addOrder(Order.asc("section_id"));
+    Criteria criteria = createEntityCriteria().addOrder(Order.asc("sectionId"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<Sections> sections = (List<Sections>) criteria.list();
 		

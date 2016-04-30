@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(name = "question_types", catalog = "rendron_db", schema = "")
@@ -36,7 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "QuestionTypes.findByTypeId", query = "SELECT q FROM QuestionTypes q WHERE q.typeId = :typeId"),
     @NamedQuery(name = "QuestionTypes.findByTypeName", query = "SELECT q FROM QuestionTypes q WHERE q.typeName = :typeName")})
 public class QuestionTypes implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

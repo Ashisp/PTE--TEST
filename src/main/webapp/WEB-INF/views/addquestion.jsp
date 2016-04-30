@@ -16,42 +16,18 @@
     </head>
     <body>
         <div class="generic-container">
-            <c:forEach items="${questions}" var="q">
-                <c:out value="${q.question}" />
-            </c:forEach>
-            
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-label" for="category">Category</label>
                         <div class="col-md-7">
-                            <select name="category" class="form-control input-sm">
+                            <select name="catId.catId" class="form-control input-sm">
                                 <c:forEach items="${categories}" var="category">
                                     <c:set var="id" value="${category.catId}" />
                                     <c:set var="name" value="${category.catName}" />
                                     <option value="<c:out value="${id}" />"><c:out value="${name}" /></option>
                                 </c:forEach>
                             </select>
-                            <div class="has-error">
-                                <form:errors path="firstName" class="help-inline"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-3 control-label" for="type">Type</label>
-                        <div class="col-md-7">
-                            <select name="type" class="form-control input-sm">
-                                <c:forEach items="${types}" var="type">
-                                    <c:set var="typeId" value="${type.typeId}" />
-                                    <c:set var="typeName" value="${type.typeName}" />
-                                    <option value="<c:out value="${typeId}" />"><c:out value="${typeName}" /></option>
-                                </c:forEach>
-                            </select>
-                            <div class="has-error">
-                                <form:errors path="firstName" class="help-inline"/>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,10 +35,34 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-label" for="instructions">Instructions</label>
                         <div class="col-md-7">
-                            <textarea name="instructions" class="form-control input-sm" style="resize: none" rows="5"></textarea>
-                            <div class="has-error">
-                                <form:errors path="instructions" class="help-inline"/>
-                            </div>
+                            <textarea name="instructions" style="resize: none;" class="form-control input-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="type">Type</label>
+                        <div class="col-md-7">
+                            <select name="typeId.typeId" class="form-control input-sm">
+                                <c:forEach items="${types}" var="type">
+                                    <c:set var="typeId" value="${type.typeId}" />
+                                    <c:set var="typeName" value="${type.typeName}" />
+                                    <option value="<c:out value="${typeId}" />"><c:out value="${typeName}" /></option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="section">Section</label>
+                        <div class="col-md-7">
+                            <select name="sectionId.sectionId" class="form-control input-sm">
+                                <c:forEach items="${sections}" var="section">
+                                    <c:set var="sectionId" value="${section.sectionId}" />
+                                    <option value="<c:out value="${sectionId}" />"><c:out value="${sectionId}" /></option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                 </div>

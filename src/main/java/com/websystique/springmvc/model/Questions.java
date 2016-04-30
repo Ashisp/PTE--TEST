@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(catalog = "rendron_db", schema = "")
@@ -38,13 +38,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Questions.findByQuestionId", query = "SELECT q FROM Questions q WHERE q.questionId = :questionId"),
     @NamedQuery(name = "Questions.findByMediaPath", query = "SELECT q FROM Questions q WHERE q.mediaPath = :mediaPath")})
 public class Questions implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "question_id", nullable = false)
     private Integer questionId;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(nullable = false, length = 65535)
+    private String instructions;
     @Size(max = 255)
     @Column(name = "media_path", length = 255)
     private String mediaPath;
@@ -79,8 +84,9 @@ public class Questions implements Serializable {
         this.questionId = questionId;
     }
 
-    public Questions(Integer questionId, String question) {
+    public Questions(Integer questionId, String instructions, String question) {
         this.questionId = questionId;
+        this.instructions = instructions;
         this.question = question;
     }
 
@@ -90,6 +96,14 @@ public class Questions implements Serializable {
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public String getMediaPath() {

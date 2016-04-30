@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(catalog = "rendron_db", schema = "")
@@ -36,7 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sections.findByTime", query = "SELECT s FROM Sections s WHERE s.time = :time"),
     @NamedQuery(name = "Sections.findByOrderSequence", query = "SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence")})
 public class Sections implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
