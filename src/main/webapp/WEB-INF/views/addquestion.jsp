@@ -55,6 +55,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="instructions">Instructions</label>
+                        <div class="col-md-7">
+                            <textarea name="instructions" class="form-control input-sm" style="resize: none" rows="5"></textarea>
+                            <div class="has-error">
+                                <form:errors path="instructions" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="audio">Audio</label>
+                        <div class="col-md-7">
+                            <input type="file" name="audio" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="image">Image</label>
+                        <div class="col-md-7">
+                            <input type="file" name="image" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="passage">Passage</label>
+                        <div class="col-md-7">
+                            <textarea name="passage" class="form-control input-sm" style="resize: none" rows="5"></textarea>
+                            <div class="has-error">
+                                <form:errors path="passage" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-label" for="question">Question</label>
+                        <div class="col-md-7">
+                            <textarea name="question" class="form-control input-sm" style="resize: none" rows="5"></textarea>
+                            <div class="has-error">
+                                <form:errors path="question" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Save" class="btn btn-success custom-width" />
             </form>
         </div>
     </body>

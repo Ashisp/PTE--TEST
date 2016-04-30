@@ -38,7 +38,7 @@ public class QuestionTypesDaoIml extends AbstractDao<Integer, QuestionTypes> imp
     public Collection<QuestionTypes> findAllQuestionTypes() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("type_id"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("typeId"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<QuestionTypes> questionTypes = (List<QuestionTypes>) criteria.list();
 

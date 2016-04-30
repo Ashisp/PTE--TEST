@@ -1,8 +1,11 @@
 package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.Answers;
+import com.websystique.springmvc.model.Categories;
+import com.websystique.springmvc.model.QuestionTypes;
 //import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.Questions;
+import com.websystique.springmvc.model.Sections;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.websystique.springmvc.model.Users;
 import com.websystique.springmvc.service.AnswersService;
+import com.websystique.springmvc.service.CategoriesService;
+import com.websystique.springmvc.service.QuestionTypesService;
 import com.websystique.springmvc.service.QuestionsService;
+import com.websystique.springmvc.service.SectionsService;
 import com.websystique.springmvc.service.UsersService;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -40,14 +46,22 @@ public class AppController {
     //it gave me error with previous code so i commented out
     @Autowired
     UsersService userService;
-   
-    
+
     @Autowired
     QuestionsService questionService;
 //
-     
+
     @Autowired
     AnswersService answersService;
+
+    @Autowired
+    CategoriesService categoriesService;
+
+    @Autowired
+    QuestionTypesService questionTypeService;
+    
+    @Autowired
+    SectionsService sectionService;
 //	@Autowired
 //        private UserAuthenticateService userAuthenticateService;
 //	@Autowired
@@ -78,31 +92,43 @@ public class AppController {
         model.addAttribute("users", users);
         return "userslist";
     }
-    
-    
-     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
         model.addAttribute("questions", questions);
+        model.addAttribute("categories", categoriesService.findAllCategories());
+        model.addAttribute("types", questionTypeService.findAllQuestionTypes());
         return "addquestion";
     }
-   
-    
-     @RequestMapping(value = {"/answers"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/answers"}, method = RequestMethod.GET)
     public String listAnswers(ModelMap model) {
         Collection<Answers> answers = answersService.findAllAnswers();
         model.addAttribute("answers", answers);
         return "newjsp";
     }
-   
-    
-    
+
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String newUser(ModelMap model) {
         Users user = new Users();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
         return "registration";
+    }
+
+    @RequestMapping(value = {"/section"}, method = RequestMethod.GET)
+    public String newSection(ModelMap map) {
+
+        Collection<Categories> categories = categoriesService.findAllCategories();
+        map.addAttribute("categories", categories);
+        return "addsection";
+    }
+
+    @RequestMapping(value = {"/section"}, method = RequestMethod.POST)
+    public String addSection(Sections section) {
+        sectionService.saveSections(section);
+        return "redirect:/questions";
     }
 //        
 //  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
@@ -138,7 +164,6 @@ public class AppController {
 //	
 //
 
-   
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String saveUser(@Valid Users user, BindingResult result,
             ModelMap model) {
@@ -162,24 +187,24 @@ public class AppController {
 //		    result.addError(ssoError);
 //			return "registration";
 //		}
- //model.addAttribute("user", user);
-     //   model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
-
-
-		userService.saveUser(user);
-       // model.addAttribute("user", user);
+        //model.addAttribute("user", user);
+        //   model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
+        userService.saveUser(user);
+        // model.addAttribute("user", user);
         //model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
         //return "success";
         return "registrationsuccess";
     }
 //
 //
-@InitBinder
+
+    @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
+
     /**
      * This method will provide the medium to update an existing user.
      */

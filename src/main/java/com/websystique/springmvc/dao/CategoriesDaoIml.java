@@ -35,7 +35,7 @@ return categories;
     public Collection<Categories> findAllCategories() {
       
         
-          Criteria criteria = createEntityCriteria().addOrder(Order.asc("cat_id"));
+          Criteria criteria = createEntityCriteria().addOrder(Order.asc("catId"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<Categories> categories = (List<Categories>) criteria.list();
 		
