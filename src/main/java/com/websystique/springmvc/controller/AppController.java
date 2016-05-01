@@ -215,6 +215,57 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "BB_BREAK";
     }
+    
+    @RequestMapping(value = { "/LW-GAPS" }, method = RequestMethod.POST)
+	public String saveUser(@Valid Answers answers, BindingResult result,
+			ModelMap model) {
+		if (result.hasErrors()) {
+			return "LW-GAPS";
+		}
+                
+		answersService.saveAnswers(answers);
+		
+		model.addAttribute("user", answers);
+	
+		return "registrationsuccess";
+	}
+
+    
+    
+    //  post methods for form
+    @RequestMapping(value = { "/LW-GAPS" }, method = RequestMethod.POST)
+	public String saveLWGAPS(@Valid Answers answers, BindingResult result,
+			ModelMap model) {
+		if (result.hasErrors()) {
+			return "LW-GAPS";
+		}
+                
+		answersService.saveAnswers(answers);
+		
+		model.addAttribute("answers", answers);
+	
+		return "registrationsuccess";
+	} 
+    
+    
+    
+    //post method for from 
+    @RequestMapping(value = { "/LR-HOTS" }, method = RequestMethod.POST)
+	public String save(@Valid Answers answers, BindingResult result,
+			ModelMap model) {
+		if (result.hasErrors()) {
+			return "LR-HOTS";
+		}
+                
+		answersService.saveAnswers(answers);
+		
+		model.addAttribute("answers", answers);
+	
+		return "registrationsuccess";
+	} 
+    
+    
+    
 
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
