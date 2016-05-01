@@ -58,10 +58,7 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
-    
-    
-    
-    
+
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
@@ -71,146 +68,150 @@ public class AppController {
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
     public String listAllLWGPAS(ModelMap model) {
+        int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        System.out.println("" + questions);
+        System.out.println("" + questions);
         return "LW-GAPS";
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
     public String listAllLRHOTS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LR_HOTS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LR-HOTS";
     }
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
     public String listALLLRHILI(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LR-HILI");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LR-HILI";
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
     public String listALLMAMC(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LL-MAMC");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LL-MAMC";
     }
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LL-SAMC");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LL-SAMC";
     }
 
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
     public String listALLLLGAPS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LL-GAPS";
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
     public String listALLLWSUMM(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LW-SUMM");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LW-SUMM";
     }
 
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
     public String listALLLWDICT(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LW-DICT";
     }
 
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
     public String listALLRRSAMC(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RR-SAMC";
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
     public String listRWGAPS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RW-GAPS";
     }
 
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
     public String listALLRRGAPS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RR-GAPS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RR-GAPS";
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
     public String listALLRRMAMC(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RR-MAMC");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RR-MAMC";
     }
 
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
     public String listALLRRDRDR(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RR-DRDR";
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listSSDESC(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("SS-DESC");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "SS-DESC";
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
     public String listALLSRREAD(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "SR-READ";
     }
 
     @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
     public String listALlLSSAQS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LS-SAQS";
     }
 
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
     public String listALLLSPRES(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LS-PRES";
     }
 
     @RequestMapping(value = {"/LS-REPT"}, method = RequestMethod.GET)
     public String listALLLSREPT(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LS-REPT");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LS-REPT";
     }
 
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.GET)
     public String listALLRWSUMM(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("RW-SUMM");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "RW-SUMM";
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
     public String listALLWWESSA(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("WW-ESSA");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "WW-ESSA";
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
     public String listALLBBBREAK(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        int sectionId = sectionService.findSectionIdByUrlPattern("BB-BREAK");
+        Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "BB-BREAK";
     }
 
@@ -224,10 +225,10 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/questions"}, method = RequestMethod.POST)
-    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file,@RequestParam("image") MultipartFile file2, 
+    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file, @RequestParam("image") MultipartFile file2,
             @RequestParam("answerOptionsCollection.option[]") String[] options) {
         List<AnswerOptions> answerOptions = new LinkedList<AnswerOptions>();
-        for(String option : options){
+        for (String option : options) {
             answerOptions.add(new AnswerOptions(null, option));
         }
         question.setAnswerOptionsCollection(answerOptions);
@@ -268,11 +269,12 @@ public class AppController {
         sectionService.saveSections(section);
         return "redirect:/questions";
     }
-    
-    @RequestMapping(value="/test", method=RequestMethod.POST)
-    public String test(@RequestParam("options[]") String[] options){
-        for(int i = 0; i < options.length; i++)
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String test(@RequestParam("options[]") String[] options) {
+        for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
+        }
         return "redirect:/questions";
     }
 //        
