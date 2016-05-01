@@ -13,6 +13,7 @@
         <title>Add Question</title>
         <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
         <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+        <script src="<c:url value='/static/js/jquery.js' />"></script>
     </head>
     <body>
         <div class="generic-container">
@@ -91,8 +92,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-12 control-label" for="options">Options</label>
+                        <p class="clear" />
+                        <div class="multi-field-wrapper">
+                            <div class="multi-fields">
+                                <div class="multi-field" style="display:block;padding:5px">
+                                    <input type="text" name="answerOptionsCollection.option[]">
+                                    <button type="button" class="remove-field">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" class="add-field">Add field</button>
+                        </div>
+                    </div>
+                </div>
                 <input type="submit" value="Save" class="btn btn-success custom-width" />
             </form>
         </div>
+
+        <script type="text/javascript">
+            $('.multi-field-wrapper').each(function () {
+                var $wrapper = $('.multi-fields', this);
+                $(".add-field", $(this)).click(function (e) {
+                    $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+                });
+                $('.multi-field .remove-field', $wrapper).click(function () {
+                    if ($('.multi-field', $wrapper).length > 1)
+                        $(this).parent('.multi-field').remove();
+                });
+            });
+        </script>
     </body>
 </html>

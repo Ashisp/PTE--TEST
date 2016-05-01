@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sections.findByOrderSequence", query = "SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence"),
     @NamedQuery(name = "Sections.findByAudioPlayAfter", query = "SELECT s FROM Sections s WHERE s.audioPlayAfter = :audioPlayAfter"),
     @NamedQuery(name = "Sections.findByStartRecordAfter", query = "SELECT s FROM Sections s WHERE s.startRecordAfter = :startRecordAfter"),
-    @NamedQuery(name = "Sections.findByMaxRecordingTime", query = "SELECT s FROM Sections s WHERE s.maxRecordingTime = :maxRecordingTime")})
+    @NamedQuery(name = "Sections.findByMaxRecordingTime", query = "SELECT s FROM Sections s WHERE s.maxRecordingTime = :maxRecordingTime"),
+    @NamedQuery(name = "Sections.findByUrlPattern", query = "SELECT s FROM Sections s WHERE s.urlPattern = :urlPattern")})
 public class Sections implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,6 +80,11 @@ public class Sections implements Serializable {
     @Size(max = 30)
     @Column(name = "max_recording_time", length = 30)
     private String maxRecordingTime;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "url_pattern", nullable = false, length = 255)
+    private String urlPattern;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sectionId")
     private Collection<Questions> questionsCollection;
 
@@ -89,13 +95,14 @@ public class Sections implements Serializable {
         this.sectionId = sectionId;
     }
 
-    public Sections(Integer sectionId, String sectionName, int catId, int time, String instructions, int orderSequence) {
+    public Sections(Integer sectionId, String sectionName, int catId, int time, String instructions, int orderSequence, String urlPattern) {
         this.sectionId = sectionId;
         this.sectionName = sectionName;
         this.catId = catId;
         this.time = time;
         this.instructions = instructions;
         this.orderSequence = orderSequence;
+        this.urlPattern = urlPattern;
     }
 
     public Integer getSectionId() {
@@ -168,6 +175,14 @@ public class Sections implements Serializable {
 
     public void setMaxRecordingTime(String maxRecordingTime) {
         this.maxRecordingTime = maxRecordingTime;
+    }
+
+    public String getUrlPattern() {
+        return urlPattern;
+    }
+
+    public void setUrlPattern(String urlPattern) {
+        this.urlPattern = urlPattern;
     }
 
     @XmlTransient

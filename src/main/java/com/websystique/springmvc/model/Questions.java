@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Questions.findAll", query = "SELECT q FROM Questions q"),
     @NamedQuery(name = "Questions.findByQuestionId", query = "SELECT q FROM Questions q WHERE q.questionId = :questionId"),
-    @NamedQuery(name = "Questions.findByMediaPath", query = "SELECT q FROM Questions q WHERE q.mediaPath = :mediaPath")})
+    @NamedQuery(name = "Questions.findByAudioPath", query = "SELECT q FROM Questions q WHERE q.audioPath = :audioPath"),
+    @NamedQuery(name = "Questions.findByImagePath", query = "SELECT q FROM Questions q WHERE q.imagePath = :imagePath")})
 public class Questions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,9 +45,12 @@ public class Questions implements Serializable {
     @Basic(optional = false)
     @Column(name = "question_id", nullable = false)
     private Integer questionId;
-    @Size(max = 20)
-    @Column(name = "media_path", length = 20)
-    private String mediaPath;
+    @Size(max = 50)
+    @Column(name = "audio_path", length = 50)
+    private String audioPath;
+    @Size(max = 50)
+    @Column(name = "image_path", length = 50)
+    private String imagePath;
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
@@ -88,12 +92,20 @@ public class Questions implements Serializable {
         this.questionId = questionId;
     }
 
-    public String getMediaPath() {
-        return mediaPath;
+    public String getAudioPath() {
+        return audioPath;
     }
 
-    public void setMediaPath(String mediaPath) {
-        this.mediaPath = mediaPath;
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getPassage() {

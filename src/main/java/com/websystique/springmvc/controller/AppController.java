@@ -257,6 +257,13 @@ public class AppController {
         sectionService.saveSections(section);
         return "redirect:/questions";
     }
+    
+    @RequestMapping(value="/test", method=RequestMethod.POST)
+    public String test(@RequestParam("options[]") String[] options){
+        for(int i = 0; i < options.length; i++)
+            System.out.println(options[i]);
+        return "redirect:/questions";
+    }
 //        
 //  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
 //	public String Categories(ModelMap model) {

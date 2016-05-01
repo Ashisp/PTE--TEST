@@ -39,7 +39,8 @@ public class QuestionsServiceIml implements QuestionsService {
         Questions entity = dao.findById(questions.getQuestionId());
         if (entity != null) {
             entity.setCatId(questions.getCatId());
-            entity.setMediaPath(questions.getMediaPath());
+            entity.setAudioPath(questions.getAudioPath());
+            entity.setImagePath(questions.getImagePath());
             entity.setPassage(questions.getQuestion());
             entity.setSectionId(questions.getSectionId());
 
