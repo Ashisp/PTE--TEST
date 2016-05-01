@@ -59,33 +59,10 @@ public class AppController {
 
     @Autowired
     QuestionTypesService questionTypeService;
-    
+
     @Autowired
     SectionsService sectionService;
-//	@Autowired
-//        private UserAuthenticateService userAuthenticateService;
-//	@Autowired
-//	UserDocumentService userDocumentService;
-//	
-//	@Autowired
-//	MessageSource messageSource;
-//
-//	@Autowired
-//	FileValidator fileValidator;
-//	
-//	@InitBinder("fileBucket")
-//	protected void initBinder(WebDataBinder binder) {
-//	   binder.setValidator(fileValidator);
-//	
-//        
-//        
-//        
-//        }
-//	
-//	/**
-//	 * This method will list all existing users.
-//	 */
-
+    
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
@@ -93,26 +70,19 @@ public class AppController {
         return "userslist";
     }
 
-        @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
     public String listAllLWGPAS(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "LW-GAPS";
     }
 
-
-        @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
     public String listAllLRHOTS(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "LR-HOTS";
     }
-    
-    
-    
-    
-    
-    
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
@@ -121,8 +91,7 @@ public class AppController {
         return "LR-HILI";
     }
 
-
-        @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
@@ -135,17 +104,14 @@ public class AppController {
         model.addAttribute("users", users);
         return "LL-SAMC";
     }
-    
-    
- @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "LL-GAPS";
     }
 
-
-    
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
@@ -153,201 +119,111 @@ public class AppController {
         return "LW-SUMM";
     }
 
-    
-     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "LW-DICT";
     }
-    
-    
-      @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "RR-SAMC";
     }
 
-    
-      @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "RW-GAPS";
-    } 
-    
-    
-    
+    }
+
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "RR-GAPS";
-    } 
-    
-     
-    
+    }
+
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "RR-MAMC";
-    } 
-    
-    
-    
-     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "RR-DRDR";
-    } 
-    
-    
-     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "RR-DRDR";
-    } 
-    
-    
-      @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "SS-DESC";
-    } 
-  
-      @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "SS-DESC";
-    } 
-    
-    
-    
-         @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "SR-READ";
-    } 
-    
-    
-    
-         @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "LS-SAQS";
-    } 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }
+
+    @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LS-PRES";
+    }
+
+    @RequestMapping(value = {"/LS-REPT"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LS-REPT";
+    }
+
+    @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RW-SUMM";
+    }
+
+    @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "WW-ESSA";
+    }
+
+    @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "BB-BREAK";
+    }
+
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
@@ -357,9 +233,9 @@ public class AppController {
         model.addAttribute("sections", sectionService.findAllSections());
         return "addquestion";
     }
-    
-    @RequestMapping(value={"/questions"}, method = RequestMethod.POST)
-    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file){
+
+    @RequestMapping(value = {"/questions"}, method = RequestMethod.POST)
+    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file) {
         questionService.saveQuestions(question);
         uploadFileHandler(file.getName(), file);
         return "redirect:/questions";
@@ -435,7 +311,7 @@ public class AppController {
 //            return "registration";
 //        }
 
-      //  System.out.println(user);
+        //  System.out.println(user);
 
         /*
          * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
