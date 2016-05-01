@@ -7,11 +7,14 @@ package com.websystique.springmvc.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -76,7 +79,7 @@ public class AnswerOptions implements Serializable {
     public void setOption(String option) {
         this.option = option;
     }
-
+    
     public Questions getQuestionId() {
         return questionId;
     }

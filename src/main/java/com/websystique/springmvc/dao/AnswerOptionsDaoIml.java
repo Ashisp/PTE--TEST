@@ -31,7 +31,7 @@ public class AnswerOptionsDaoIml extends AbstractDao<Integer, AnswerOptions> imp
 
     public Collection<AnswerOptions> findAllAnswerOptions() {
 
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("optId"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<AnswerOptions> answerOptions = (List<AnswerOptions>) criteria.list();
 

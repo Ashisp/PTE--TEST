@@ -1,5 +1,6 @@
 package com.websystique.springmvc.controller;
 
+import com.websystique.springmvc.model.AnswerOptions;
 import com.websystique.springmvc.model.Answers;
 import com.websystique.springmvc.model.Categories;
 //import com.websystique.springmvc.model.FileBucket;
@@ -68,8 +69,6 @@ public class AppController {
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
     public String listAllLWGPAS(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
-        model.addAttribute("users", users);
         return "LW-GAPS";
     }
 
@@ -223,9 +222,17 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/questions"}, method = RequestMethod.POST)
-    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file) {
+    public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file,@RequestParam("image") MultipartFile file2, 
+            @RequestParam("answerOptionsCollection.option[]") String[] options) {
+        for(String option : options){
+            question.getAnswerOptionsCollection().add(new AnswerOptions(null, option));
+        }
+        question.setAudioPath(file.getName());
+        question.setImagePath(file2.getName());
         questionService.saveQuestions(question);
-        uploadFileHandler(file.getName(), file);
+        //System.out.println();
+        //uploadFileHandler(file.getName(), file);
+        //uploadFileHandler(file2.getName(), file2);
         return "redirect:/questions";
     }
 
@@ -416,7 +423,7 @@ public class AppController {
     public String uploadFileHandler(String name,
             MultipartFile file) {
 
-        if (!file.isEmpty()) {
+        if (!file.isEmpty() || file != null) {
             try {
                 byte[] bytes = file.getBytes();
 
