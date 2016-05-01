@@ -11,10 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -61,12 +63,17 @@ public class Questions implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(nullable = false, length = 65535)
     private String question;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<AnswerOptions> answerOptionsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
+    
+    
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<Answers> answersCollection;
     @JoinColumn(name = "section_id", referencedColumnName = "section_id", nullable = false)
+    
+    
     @ManyToOne(optional = false)
+    
     private Sections sectionId;
     @JoinColumn(name = "cat_id", referencedColumnName = "cat_id", nullable = false)
     @ManyToOne(optional = false)

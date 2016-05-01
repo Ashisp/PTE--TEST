@@ -55,4 +55,13 @@ public class QuestionsServiceIml implements QuestionsService {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+   
+    public Collection<Questions> findALquestionsBySectionId(int sectionId) {
+return dao.findAllQuestionsBySectionId(sectionId);      
+
+//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
 }

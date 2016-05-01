@@ -29,6 +29,11 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	public T getByKey(PK key) {
 		return (T) getSession().get(persistentClass, key);
 	}
+        
+        @SuppressWarnings("unchecked")
+	public T getByUrlPattern(String url_pattern) {
+		return (T) getSession().get(persistentClass, url_pattern);
+	}
 
 	public void persist(T entity) {
 		getSession().persist(entity);

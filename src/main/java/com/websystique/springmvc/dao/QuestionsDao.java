@@ -22,5 +22,5 @@ public interface QuestionsDao {
   
 
     Collection<Questions> findAllQuestions();
-
+    Collection<Questions>findAllQuestionsBySectionId(int sectionId);
 }

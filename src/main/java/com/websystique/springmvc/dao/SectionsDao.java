@@ -19,6 +19,8 @@ public interface SectionsDao {
     void save(Sections sections);
     
     Collection<Sections> findAllSections();
+            int findSectionIdByUrlPattern(String url_pattern);
+            
    
     
     

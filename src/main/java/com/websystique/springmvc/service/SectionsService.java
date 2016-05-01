@@ -23,5 +23,6 @@ public interface SectionsService {
     void updateSections(Sections sections);
 
     Collection<Sections> findAllSections();
+    int findSectionIdByUrlPattern(String url_pattern);
     
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nikesh
+ * @author Ashis
  */
 @Entity
 @Table(catalog = "rendron_db", schema = "", uniqueConstraints = {
@@ -53,6 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country"),
     @NamedQuery(name = "Users.findByApproveStatus", query = "SELECT u FROM Users u WHERE u.approveStatus = :approveStatus")})
 public class Users implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

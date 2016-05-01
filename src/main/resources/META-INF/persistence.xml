@@ -9,8 +9,8 @@
     <class>com.websystique.springmvc.model.Categories</class>
     <class>com.websystique.springmvc.model.Users</class>
     <class>com.websystique.springmvc.model.Questions</class>
-    <class>com.websystique.springmvc.model.Sections_1</class>
-    <class>com.websystique.springmvc.model.Categories_1</class>
+    <class>com.websystique.springmvc.model.Sections</class>
+    <class>com.websystique.springmvc.model.Categories</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rendron_db?zeroDateTimeBehavior=convertToNull"/>

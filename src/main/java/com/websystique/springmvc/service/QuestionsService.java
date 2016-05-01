@@ -18,4 +18,5 @@ public interface QuestionsService {
     void saveQuestions(Questions questions);
     void updateQuestions(Questions questions);
     Collection<Questions> findAllQuestions();
+    Collection<Questions>findALquestionsBySectionId(int section_id);
 }

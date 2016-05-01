@@ -34,7 +34,7 @@ public class AnswersDaoIml extends AbstractDao<Integer, Answers> implements Answ
     }
     @SuppressWarnings("unchecked")
     public Collection<Answers> findAllAnswers() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("answer_id"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("answerId"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<Answers> answers = (List<Answers>) criteria.list();
 	

@@ -19,7 +19,6 @@ public interface CategoriesDao {
     void save(Categories categories);
 
 
-
     Collection<Categories> findAllCategories();
 
     
