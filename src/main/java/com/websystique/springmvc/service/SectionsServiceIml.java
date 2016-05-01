@@ -54,5 +54,14 @@ dao.save(sections);
    return dao.findAllSections();
     
     }
+
+    public int findSectionIdByUrlPattern(String url_pattern) {
+        
+
+return dao.findSectionIdByUrlPattern(url_pattern);
+//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
     
 }
