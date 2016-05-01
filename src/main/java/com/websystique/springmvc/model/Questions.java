@@ -44,14 +44,8 @@ public class Questions implements Serializable {
     @Basic(optional = false)
     @Column(name = "question_id", nullable = false)
     private Integer questionId;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(nullable = false, length = 65535)
-    private String instructions;
-    @Size(max = 255)
-    @Column(name = "media_path", length = 255)
+    @Size(max = 20)
+    @Column(name = "media_path", length = 20)
     private String mediaPath;
     @Lob
     @Size(max = 65535)
@@ -67,9 +61,6 @@ public class Questions implements Serializable {
     private Collection<AnswerOptions> answerOptionsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<Answers> answersCollection;
-    @JoinColumn(name = "type_id", referencedColumnName = "type_id", nullable = false)
-    @ManyToOne(optional = false)
-    private QuestionTypes typeId;
     @JoinColumn(name = "section_id", referencedColumnName = "section_id", nullable = false)
     @ManyToOne(optional = false)
     private Sections sectionId;
@@ -84,9 +75,8 @@ public class Questions implements Serializable {
         this.questionId = questionId;
     }
 
-    public Questions(Integer questionId, String instructions, String question) {
+    public Questions(Integer questionId, String question) {
         this.questionId = questionId;
-        this.instructions = instructions;
         this.question = question;
     }
 
@@ -96,14 +86,6 @@ public class Questions implements Serializable {
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
     }
 
     public String getMediaPath() {
@@ -146,14 +128,6 @@ public class Questions implements Serializable {
 
     public void setAnswersCollection(Collection<Answers> answersCollection) {
         this.answersCollection = answersCollection;
-    }
-
-    public QuestionTypes getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(QuestionTypes typeId) {
-        this.typeId = typeId;
     }
 
     public Sections getSectionId() {

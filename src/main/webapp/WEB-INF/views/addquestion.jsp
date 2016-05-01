@@ -41,26 +41,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label class="col-md-3 control-label" for="type">Type</label>
-                        <div class="col-md-7">
-                            <select name="typeId.typeId" class="form-control input-sm">
-                                <c:forEach items="${types}" var="type">
-                                    <c:set var="typeId" value="${type.typeId}" />
-                                    <c:set var="typeName" value="${type.typeName}" />
-                                    <option value="<c:out value="${typeId}" />"><c:out value="${typeName}" /></option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
                         <label class="col-md-3 control-label" for="section">Section</label>
                         <div class="col-md-7">
                             <select name="sectionId.sectionId" class="form-control input-sm">
                                 <c:forEach items="${sections}" var="section">
                                     <c:set var="sectionId" value="${section.sectionId}" />
-                                    <option value="<c:out value="${sectionId}" />"><c:out value="${sectionId}" /></option>
+                                    <c:set var="sectionName" value="${section.sectionName}" />
+                                    <option value="<c:out value="${sectionId}" />"><c:out value="${sectionName}" /></option>
                                 </c:forEach>
                             </select>
                         </div>

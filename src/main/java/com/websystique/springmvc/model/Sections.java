@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,9 +33,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Sections.findAll", query = "SELECT s FROM Sections s"),
     @NamedQuery(name = "Sections.findBySectionId", query = "SELECT s FROM Sections s WHERE s.sectionId = :sectionId"),
+    @NamedQuery(name = "Sections.findBySectionName", query = "SELECT s FROM Sections s WHERE s.sectionName = :sectionName"),
     @NamedQuery(name = "Sections.findByCatId", query = "SELECT s FROM Sections s WHERE s.catId = :catId"),
     @NamedQuery(name = "Sections.findByTime", query = "SELECT s FROM Sections s WHERE s.time = :time"),
-    @NamedQuery(name = "Sections.findByOrderSequence", query = "SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence")})
+    @NamedQuery(name = "Sections.findByInstructions", query = "SELECT s FROM Sections s WHERE s.instructions = :instructions"),
+    @NamedQuery(name = "Sections.findByOrderSequence", query = "SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence"),
+    @NamedQuery(name = "Sections.findByAudioPlayAfter", query = "SELECT s FROM Sections s WHERE s.audioPlayAfter = :audioPlayAfter"),
+    @NamedQuery(name = "Sections.findByStartRecordAfter", query = "SELECT s FROM Sections s WHERE s.startRecordAfter = :startRecordAfter"),
+    @NamedQuery(name = "Sections.findByMaxRecordingTime", query = "SELECT s FROM Sections s WHERE s.maxRecordingTime = :maxRecordingTime")})
 public class Sections implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,6 +48,11 @@ public class Sections implements Serializable {
     @Basic(optional = false)
     @Column(name = "section_id", nullable = false)
     private Integer sectionId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
+    @Column(name = "section_name", nullable = false, length = 1000)
+    private String sectionName;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cat_id", nullable = false)
@@ -52,8 +63,22 @@ public class Sections implements Serializable {
     private int time;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 500)
+    @Column(nullable = false, length = 500)
+    private String instructions;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "order_sequence", nullable = false)
     private int orderSequence;
+    @Size(max = 30)
+    @Column(name = "audio_play_after", length = 30)
+    private String audioPlayAfter;
+    @Size(max = 30)
+    @Column(name = "start_record_after", length = 30)
+    private String startRecordAfter;
+    @Size(max = 30)
+    @Column(name = "max_recording_time", length = 30)
+    private String maxRecordingTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sectionId")
     private Collection<Questions> questionsCollection;
 
@@ -64,10 +89,12 @@ public class Sections implements Serializable {
         this.sectionId = sectionId;
     }
 
-    public Sections(Integer sectionId, int catId, int time, int orderSequence) {
+    public Sections(Integer sectionId, String sectionName, int catId, int time, String instructions, int orderSequence) {
         this.sectionId = sectionId;
+        this.sectionName = sectionName;
         this.catId = catId;
         this.time = time;
+        this.instructions = instructions;
         this.orderSequence = orderSequence;
     }
 
@@ -77,6 +104,14 @@ public class Sections implements Serializable {
 
     public void setSectionId(Integer sectionId) {
         this.sectionId = sectionId;
+    }
+
+    public String getSectionName() {
+        return sectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
     }
 
     public int getCatId() {
@@ -95,12 +130,44 @@ public class Sections implements Serializable {
         this.time = time;
     }
 
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
     public int getOrderSequence() {
         return orderSequence;
     }
 
     public void setOrderSequence(int orderSequence) {
         this.orderSequence = orderSequence;
+    }
+
+    public String getAudioPlayAfter() {
+        return audioPlayAfter;
+    }
+
+    public void setAudioPlayAfter(String audioPlayAfter) {
+        this.audioPlayAfter = audioPlayAfter;
+    }
+
+    public String getStartRecordAfter() {
+        return startRecordAfter;
+    }
+
+    public void setStartRecordAfter(String startRecordAfter) {
+        this.startRecordAfter = startRecordAfter;
+    }
+
+    public String getMaxRecordingTime() {
+        return maxRecordingTime;
+    }
+
+    public void setMaxRecordingTime(String maxRecordingTime) {
+        this.maxRecordingTime = maxRecordingTime;
     }
 
     @XmlTransient

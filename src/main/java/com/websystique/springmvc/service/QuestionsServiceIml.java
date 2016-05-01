@@ -5,9 +5,7 @@
  */
 package com.websystique.springmvc.service;
 
-import com.websystique.springmvc.dao.QuestionTypesDao;
 import com.websystique.springmvc.dao.QuestionsDao;
-import com.websystique.springmvc.model.QuestionTypes;
 import com.websystique.springmvc.model.Questions;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,6 @@ public class QuestionsServiceIml implements QuestionsService {
         Questions entity = dao.findById(questions.getQuestionId());
         if (entity != null) {
             entity.setCatId(questions.getCatId());
-            entity.setTypeId(questions.getTypeId());
             entity.setMediaPath(questions.getMediaPath());
             entity.setPassage(questions.getQuestion());
             entity.setSectionId(questions.getSectionId());

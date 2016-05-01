@@ -2,7 +2,6 @@ package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.Answers;
 import com.websystique.springmvc.model.Categories;
-import com.websystique.springmvc.model.QuestionTypes;
 //import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.Questions;
 import com.websystique.springmvc.model.Sections;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.websystique.springmvc.model.Users;
 import com.websystique.springmvc.service.AnswersService;
 import com.websystique.springmvc.service.CategoriesService;
-import com.websystique.springmvc.service.QuestionTypesService;
 import com.websystique.springmvc.service.QuestionsService;
 import com.websystique.springmvc.service.SectionsService;
 import com.websystique.springmvc.service.UsersService;
@@ -30,13 +28,11 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
@@ -56,9 +52,6 @@ public class AppController {
 
     @Autowired
     CategoriesService categoriesService;
-
-    @Autowired
-    QuestionTypesService questionTypeService;
 
     @Autowired
     SectionsService sectionService;
@@ -83,7 +76,7 @@ public class AppController {
         model.addAttribute("users", users);
         return "LR-HOTS";
     }
-
+/*
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         Collection<Users> users = userService.findAllUsers();
@@ -223,13 +216,12 @@ public class AppController {
         model.addAttribute("users", users);
         return "BB-BREAK";
     }
-
+*/
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
         model.addAttribute("questions", questions);
         model.addAttribute("categories", categoriesService.findAllCategories());
-        model.addAttribute("types", questionTypeService.findAllQuestionTypes());
         model.addAttribute("sections", sectionService.findAllSections());
         return "addquestion";
     }
