@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -224,9 +226,11 @@ public class AppController {
     @RequestMapping(value = {"/questions"}, method = RequestMethod.POST)
     public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file,@RequestParam("image") MultipartFile file2, 
             @RequestParam("answerOptionsCollection.option[]") String[] options) {
+        List<AnswerOptions> answerOptions = new LinkedList<AnswerOptions>();
         for(String option : options){
-            question.getAnswerOptionsCollection().add(new AnswerOptions(null, option));
+            answerOptions.add(new AnswerOptions(null, option));
         }
+        question.setAnswerOptionsCollection(answerOptions);
         question.setAudioPath(file.getName());
         question.setImagePath(file2.getName());
         questionService.saveQuestions(question);
