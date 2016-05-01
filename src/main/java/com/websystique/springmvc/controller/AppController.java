@@ -93,6 +93,261 @@ public class AppController {
         return "userslist";
     }
 
+        @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
+    public String listAllLWGPAS(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LW-GAPS";
+    }
+
+
+        @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
+    public String listAllLRHOTS(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LR-HOTS";
+    }
+    
+    
+    
+    
+    
+    
+
+    @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LR-HILI";
+    }
+
+
+        @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LL-MAMC";
+    }
+
+    @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LL-SAMC";
+    }
+    
+    
+ @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LL-GAPS";
+    }
+
+
+    
+    @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LW-SUMM";
+    }
+
+    
+     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LW-DICT";
+    }
+    
+    
+      @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RR-SAMC";
+    }
+
+    
+      @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RW-GAPS";
+    } 
+    
+    
+    
+    @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RR-GAPS";
+    } 
+    
+     
+    
+    @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RR-MAMC";
+    } 
+    
+    
+    
+     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RR-DRDR";
+    } 
+    
+    
+     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "RR-DRDR";
+    } 
+    
+    
+      @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "SS-DESC";
+    } 
+  
+      @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "SS-DESC";
+    } 
+    
+    
+    
+         @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "SR-READ";
+    } 
+    
+    
+    
+         @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        Collection<Users> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "LS-SAQS";
+    } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
@@ -106,7 +361,7 @@ public class AppController {
     @RequestMapping(value={"/questions"}, method = RequestMethod.POST)
     public String addQuestion(Questions question, @RequestParam("audio") MultipartFile file){
         questionService.saveQuestions(question);
-        uploadFileHandler("testfile", file);
+        uploadFileHandler(file.getName(), file);
         return "redirect:/questions";
     }
 
@@ -286,9 +541,8 @@ public class AppController {
 //		return "userlist";
 //	}
 //        
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadFileHandler(@RequestParam("name") String name,
+//    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public String uploadFileHandler(String name,
             MultipartFile file) {
 
         if (!file.isEmpty()) {
