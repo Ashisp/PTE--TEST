@@ -70,15 +70,22 @@ public class AppController {
     public String listAllLWGPAS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
-        System.out.println("" + questions);
-        System.out.println("" + questions);
+        for (Questions q : questions) {
+            String question = q.getQuestion();
+            if (!question.isEmpty()) {
+                String replaced = question.replaceAll("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" />");
+                q.setQuestion(replaced);
+            }
+        }
+        model.addAttribute("listOfQuestions", questions);
         return "LW_GAPS";
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
     public String listAllLRHOTS(ModelMap model) {
-        int sectionId = sectionService.findSectionIdByUrlPattern("LR_HOTS");
+        int sectionId = sectionService.findSectionIdByUrlPattern("LR-HOTS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LR_HOTS";
     }
 
@@ -86,7 +93,7 @@ public class AppController {
     public String listALLLRHILI(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LR-HILI");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
-        System.out.println();
+        model.addAttribute("listOfQuestions", questions);
         return "LR_HILI";
     }
 
@@ -94,6 +101,7 @@ public class AppController {
     public String listALLMAMC(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-MAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LL_MAMC";
     }
 
@@ -101,6 +109,7 @@ public class AppController {
     public String listALLSAMC(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-SAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LL_SAMC";
     }
 
@@ -108,6 +117,7 @@ public class AppController {
     public String listALLLLGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LL_GAPS";
     }
 
@@ -129,6 +139,7 @@ public class AppController {
     public String listALLRRSAMC(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "RR_SAMC";
     }
 
@@ -136,6 +147,7 @@ public class AppController {
     public String listRWGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "RW_GAPS";
     }
 
@@ -180,11 +192,12 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LS_SAQS";
     }
-
+/****************************BAKI CHA **********************/
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
     public String listALLLSPRES(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LS_PRES";
     }
 
@@ -199,6 +212,7 @@ public class AppController {
     public String listALLRWSUMM(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-SUMM");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "RW_SUMM";
     }
 
@@ -206,6 +220,7 @@ public class AppController {
     public String listALLWWESSA(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("WW-ESSA");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "WW_ESSA";
     }
 
@@ -215,57 +230,36 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "BB_BREAK";
     }
-    
-    @RequestMapping(value = { "/LW-GAPS" }, method = RequestMethod.POST)
-	public String saveUser(@Valid Answers answers, BindingResult result,
-			ModelMap model) {
-		if (result.hasErrors()) {
-			return "LW-GAPS";
-		}
-                
-		answersService.saveAnswers(answers);
-		
-		model.addAttribute("user", answers);
-	
-		return "registrationsuccess";
-	}
 
-    
-    
     //  post methods for form
-    @RequestMapping(value = { "/LW-GAPS" }, method = RequestMethod.POST)
-	public String saveLWGAPS(@Valid Answers answers, BindingResult result,
-			ModelMap model) {
-		if (result.hasErrors()) {
-			return "LW-GAPS";
-		}
-                
-		answersService.saveAnswers(answers);
-		
-		model.addAttribute("answers", answers);
-	
-		return "registrationsuccess";
-	} 
-    
-    
-    
+    @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
+    public String saveLWGAPS(@Valid Answers answers, BindingResult result,
+            ModelMap model) {
+        if (result.hasErrors()) {
+            return "LW-GAPS";
+        }
+
+        answersService.saveAnswers(answers);
+
+        model.addAttribute("answers", answers);
+
+        return "registrationsuccess";
+    }
+
     //post method for from 
-    @RequestMapping(value = { "/LR-HOTS" }, method = RequestMethod.POST)
-	public String save(@Valid Answers answers, BindingResult result,
-			ModelMap model) {
-		if (result.hasErrors()) {
-			return "LR-HOTS";
-		}
-                
-		answersService.saveAnswers(answers);
-		
-		model.addAttribute("answers", answers);
-	
-		return "registrationsuccess";
-	} 
-    
-    
-    
+    @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.POST)
+    public String save(@Valid Answers answers, BindingResult result,
+            ModelMap model) {
+        if (result.hasErrors()) {
+            return "LR-HOTS";
+        }
+
+        answersService.saveAnswers(answers);
+
+        model.addAttribute("answers", answers);
+
+        return "registrationsuccess";
+    }
 
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {

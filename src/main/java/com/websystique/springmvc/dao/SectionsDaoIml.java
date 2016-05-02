@@ -75,5 +75,4 @@ public class SectionsDaoIml extends AbstractDao<Integer, Sections> implements Se
         return data.get(0).getSectionId();
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

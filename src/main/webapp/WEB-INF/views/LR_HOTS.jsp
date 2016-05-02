@@ -10,27 +10,28 @@
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
     </head>
     <body>
-        <div class="col-md-10 col-md-offset-1">
-            <h1>Highlight correct summary</h1>
-            <p class="instruction">You will hear a recording. Click on the paragraph that best relates the recording.</p>
-            <hr />
-            <div class="col-md-5 audioBox">
-                <h3 class="audioPlayer">Audio Player</h3>
-                <audio controls="controls" src="../raw_res/audio"></audio>
+        <c:forEach var="question" items="${listOfQuestions}">
+            <div class="col-md-10 col-md-offset-1">
+                <h1>Highlight correct summary</h1>
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+                <hr />
+                <div class="col-md-5 audioBox">
+                    <h3 class="audioPlayer">Audio Player</h3>
+                    <audio controls="controls" src="<c:url value='${question.audioPath}' />"></audio>
+                </div>
+                <p class="clear" />
+                <form action="" method="post">
+                    <div class="userspace">
+                        <c:forEach items="${question.answerOptionsCollection}" var="answerOption">
+                            <input type="radio" name="choice" value="<c:out value='${answerOption.optId}' />"><c:out value="${answerOption.option}" /><br/>
+                        </c:forEach>
+                    </div>
+                    <div>
+                        <input type="submit" name="done" value="Done" class="form-control done" />
+                    </div>
+                </form>
             </div>
-            <p class="clear" />
-            <form action="" method="post">
-                <div class="userspace">
-                    <input type="radio" name="choice" value="value1"> The long statement number one.<br/>
-                    <input type="radio" name="choice" value="value2"> The long statement number two.<br/>
-                    <input type="radio" name="choice" value="value3"> The long statement number three.<br/>
-                    <input type="radio" name="choice" value="value4"> The long statement number four.<br/>                    
-                </div>
-                <div>
-                    <input type="submit" name="done" value="Done" class="form-control done" />
-                </div>
-            </form>
-        </div>
+        </c:forEach>
     </body>
 
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
