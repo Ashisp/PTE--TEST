@@ -147,14 +147,23 @@ public class AppController {
     public String listRWGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
-        model.addAttribute("listOfQuestions", questions);
+        //model.addAttribute("listOfQuestions", questions);
         return "RW_GAPS";
     }
 
+    // ERROR WHILE DROPING OPTION
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
     public String listALLRRGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        for (Questions q : questions) {
+            String passage = q.getPassage();
+            if (!passage.isEmpty()) {
+                String replaced = passage.replaceAll("%_%", "<span class=\"blank-box\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></span>");
+                q.setPassage(replaced);
+            }
+        }
+        model.addAttribute("listOfQuestions", questions);
         return "RR_GAPS";
     }
 
@@ -162,6 +171,7 @@ public class AppController {
     public String listALLRRMAMC(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-MAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "RR_MAMC";
     }
 

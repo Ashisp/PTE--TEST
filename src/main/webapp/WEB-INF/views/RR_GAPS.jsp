@@ -29,36 +29,34 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div class="col-md-10 col-md-offset-1">
-            <h1>Fill in the blanks (Reading)</h1>
-            <p class="instruction">In the text below some words are missing. Drag words from the box below to the appropriate place in the text. 
-                To undo an answer choice, drag the word back to the box below the text.</p>
-            <hr />
-            <p class="clear" />
-            <form action="" method="post">
-                <div class="userspace">
-                    <p id="paragraph">
-                        Video provides a powerful way to help you <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"></span> 
-                        your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword 
-                        to search online for the <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"></span> that best fits your 
-                        document.To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that 
-                        <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"></span> each other. For example, you can add a matching 
-                        cover page, header, and sidebar. Click Insert and then choose the elements you want from the different galleries.
-                    </p>
-                    <br>
+        <c:forEach items="${listOfQuestions}" var="question">
+            <div class="col-md-10 col-md-offset-1">
+                <h1>Fill in the blanks (Reading)</h1>
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+                <hr />
+                <p class="clear" />
+                <form action="" method="post">
+                    <div class="userspace">
+                        <p id="paragraph">
+                            <c:out value="${question.passage}" escapeXml="false" />
+                        </p>
+                        <br>
 
-                    <div style="height:50px">
-                        <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"><div id="drag1" class="answer-box" draggable="true" ondragstart="drag(event)">prove</div></span>
-                        <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"><div id="drag2" class="answer-box" draggable="true" ondragstart="drag(event)">video</div></span>
-                        <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)"><div id="drag3" class="answer-box" draggable="true" ondragstart="drag(event)">complement</div></span>
+                        <div style="height:50px">
+                            <c:forEach items="${question.answerOptionsCollection}" var="option">
+                                <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                    <div class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.option}" /></div>
+                                </span>
+                            </c:forEach>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <!-- SHOULD SENED AJAX REQUEST ON CLICK -->
-                    <input type="submit" name="done" value="Done" class="form-control done" />
-                </div>
-            </form>
-        </div>
+                    <div>
+                        <!-- SHOULD SENED AJAX REQUEST ON CLICK -->
+                        <input type="submit" name="done" value="Done" class="form-control done" />
+                    </div>
+                </form>
+            </div>
+        </c:forEach>
 
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
