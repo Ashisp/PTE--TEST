@@ -18,6 +18,7 @@
             <div class="imageView">
                 <img src="../raw_res/image.jpg" alt="image" />
             </div>
+            
             <div class="recorderSpace">
                 <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden"><br/>
                 <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden"><br/>
