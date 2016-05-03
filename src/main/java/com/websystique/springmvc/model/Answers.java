@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Answers.findAll", query = "SELECT a FROM Answers a"),
-    @NamedQuery(name = "Answers.findByAnswerId", query = "SELECT a FROM Answers a WHERE a.answerId = :answerId"),
-    @NamedQuery(name = "Answers.findByAudioPath", query = "SELECT a FROM Answers a WHERE a.audioPath = :audioPath")})
+    @NamedQuery(name = "Answers.findByAnswerId", query = "SELECT a FROM Answers a WHERE a.answerId = :answerId")})
 public class Answers implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,13 +39,12 @@ public class Answers implements Serializable {
     @Basic(optional = false)
     @Column(name = "answer_id", nullable = false)
     private Integer answerId;
+    @Basic(optional = false)
+    @NotNull
     @Lob
-    @Size(max = 65535)
-    @Column(length = 65535)
+    @Size(min = 1, max = 65535)
+    @Column(nullable = false, length = 65535)
     private String answer;
-    @Size(max = 50)
-    @Column(name = "audio_path", length = 50)
-    private String audioPath;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     @ManyToOne(optional = false)
     private Users userId;
@@ -58,6 +57,11 @@ public class Answers implements Serializable {
 
     public Answers(Integer answerId) {
         this.answerId = answerId;
+    }
+
+    public Answers(Integer answerId, String answer) {
+        this.answerId = answerId;
+        this.answer = answer;
     }
 
     public Integer getAnswerId() {
@@ -74,14 +78,6 @@ public class Answers implements Serializable {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public String getAudioPath() {
-        return audioPath;
-    }
-
-    public void setAudioPath(String audioPath) {
-        this.audioPath = audioPath;
     }
 
     public Users getUserId() {

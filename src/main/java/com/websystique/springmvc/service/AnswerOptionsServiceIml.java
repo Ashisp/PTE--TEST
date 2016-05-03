@@ -45,7 +45,7 @@ return dao.findById(id);
        AnswerOptions entity = dao.findById(answeroptions.getOptId());
 		if(entity!=null){
 			
-			entity.setOption(answeroptions.getOption());
+			entity.setAnsOption(answeroptions.getAnsOption());
 			entity.setQuestionId(answeroptions.getQuestionId());
 		
 		}

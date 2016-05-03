@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AnswerOptions.findAll", query = "SELECT a FROM AnswerOptions a"),
-    @NamedQuery(name = "AnswerOptions.findByOptId", query = "SELECT a FROM AnswerOptions a WHERE a.optId = :optId")})
+    @NamedQuery(name = "AnswerOptions.findByOptId", query = "SELECT a FROM AnswerOptions a WHERE a.optId = :optId"),
+    @NamedQuery(name = "AnswerOptions.findByCorrectOption", query = "SELECT a FROM AnswerOptions a WHERE a.correctOption = :correctOption")})
 public class AnswerOptions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,8 +44,12 @@ public class AnswerOptions implements Serializable {
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
-    @Column(nullable = false, length = 65535)
-    private String option;
+    @Column(name = "ans_option", nullable = false, length = 65535)
+    private String ansOption;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "correct_option", nullable = false)
+    private boolean correctOption;
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     @ManyToOne(optional = false)
     private Questions questionId;
@@ -56,9 +61,10 @@ public class AnswerOptions implements Serializable {
         this.optId = optId;
     }
 
-    public AnswerOptions(Integer optId, String option) {
+    public AnswerOptions(Integer optId, String ansOption, boolean correctOption) {
         this.optId = optId;
-        this.option = option;
+        this.ansOption = ansOption;
+        this.correctOption = correctOption;
     }
 
     public Integer getOptId() {
@@ -69,12 +75,20 @@ public class AnswerOptions implements Serializable {
         this.optId = optId;
     }
 
-    public String getOption() {
-        return option;
+    public String getAnsOption() {
+        return ansOption;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setAnsOption(String ansOption) {
+        this.ansOption = ansOption;
+    }
+
+    public boolean getCorrectOption() {
+        return correctOption;
+    }
+
+    public void setCorrectOption(boolean correctOption) {
+        this.correctOption = correctOption;
     }
 
     public Questions getQuestionId() {

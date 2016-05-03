@@ -99,8 +99,8 @@ public class AppController {
         Enumeration<String> parameterNames = req.getParameterNames();
         while(parameterNames.hasMoreElements()){
             String parameter = parameterNames.nextElement();
-            if(!req.getParameter(parameter).equals("submit")){
-                answers = answers + "," + req.getParameter(parameter);
+            if(!parameter.equals("questionId") && !parameter.equals("userId") && !parameter.equals("done")){
+                answers = answers + req.getParameter(parameter) + ",";
             }
         }
         answer.setAnswer(answers);
@@ -174,7 +174,7 @@ public class AppController {
     public String listRWGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
-        //model.addAttribute("listOfQuestions", questions);
+        model.addAttribute("listOfQuestions", questions);
         return "RW_GAPS";
     }
 
@@ -220,6 +220,7 @@ public class AppController {
     public String listALLSRREAD(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "SR_READ";
     }
 
@@ -262,6 +263,16 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "WW_ESSA";
+    }
+    
+    @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.POST)
+    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, @RequestParam("userId") int userId){
+        Answers answer = new Answers();
+        answer.setQuestionId(new Questions(questionId));
+        answer.setUserId(new Users(userId));
+        answer.setAnswer(essay);
+        answersService.saveAnswers(answer);
+        return "redirect:/WW-ESSA";
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
@@ -314,7 +325,9 @@ public class AppController {
             @RequestParam("answerOptionsCollection.option[]") String[] options) {
         List<AnswerOptions> answerOptions = new LinkedList<AnswerOptions>();
         for (String option : options) {
-            answerOptions.add(new AnswerOptions(null, option));
+            AnswerOptions ansOption = new AnswerOptions();
+            ansOption.setAnsOption(option);
+            answerOptions.add(ansOption);
         }
         question.setAnswerOptionsCollection(answerOptions);
         question.setAudioPath(file.getName());
