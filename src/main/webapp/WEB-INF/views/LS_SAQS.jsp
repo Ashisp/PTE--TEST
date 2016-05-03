@@ -11,13 +11,16 @@
         
     </head>
     <body>
+        <c:forEach var="question" items="${listOfQuestions}">
+            
+    
         <div class="col-md-10 col-md-offset-1">
             <h1>Answer short question</h1>
-            <p class="instruction">You will hear a question. Please give a simple and short answer. Often just one or a few words is enough.</p>
+            <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
             <hr />
             <div class="col-md-5 audioBox">
                 <h3 class="audioPlayer">Audio Player</h3>
-                <audio controls="controls" src="../raw_res/audio.mp3" onended="alert(\"ended\")"></audio>
+                <audio controls="controls" src="<c:url value='${question.audioPath}' />" onended="alert(\"ended\")"></audio>
             </div>
             <p class="clear" />
             <hr/>
@@ -45,5 +48,6 @@
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>
         <script src="<c:url value='/static/js/RecorderDemo.js' />"></script>
-    </body>
+        </c:forEach>
+        </body>
 </html>

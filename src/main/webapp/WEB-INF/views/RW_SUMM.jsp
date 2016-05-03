@@ -22,7 +22,7 @@ and open the template in the editor.
                 <hr />
                 <div class="question">
                     <p>
-                        <c:out value="${question.question}" />
+                        <c:out value="${question.passage}" />
                     </p>
                 </div>
                 <p class="clear" />

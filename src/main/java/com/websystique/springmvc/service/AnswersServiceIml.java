@@ -66,5 +66,9 @@ public class AnswersServiceIml implements AnswersService{
         
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public Collection<Answers> findAllAnswersByUserId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
