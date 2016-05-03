@@ -52,7 +52,7 @@ public class AppController {
     @Autowired
     QuestionsService questionService;
 //
-    
+
     @Autowired
     UserAuthenticateService userAuthenticateService;
 
@@ -119,9 +119,9 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "LR_HOTS";
     }
-    
-    @RequestMapping(value="/LR-HOTS", method=RequestMethod.POST)
-    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+
+    @RequestMapping(value = "/LR-HOTS", method = RequestMethod.POST)
+    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
         Answers answer = new Answers();
         answer.setQuestionId(new Questions(questionId));
         answer.setUserId(new Users(userId));
@@ -145,9 +145,9 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "LL_MAMC";
     }
-    
-    @RequestMapping(value="/LL-MAMC", method=RequestMethod.POST)
-    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choice){
+
+    @RequestMapping(value = "/LL-MAMC", method = RequestMethod.POST)
+    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choice) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -155,25 +155,19 @@ public class AppController {
         answersService.saveAnswers(ans);
         return "redirect:/LL-MAMC";
     }
-    
-    
-        	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
-                
-                public String processCredentialModelAndView(@RequestParam("email")String username,@RequestParam("password")String password)
-                {
-                 
-                    
-String message="invalid";                    
-                  
-                if(userAuthenticateService.verifyLogin(username,password ))
-                {
-                      return "redirect:/list";
-             // message="valid";
-                }
-               return "redirect:/newUser";
-                }
-                    
-	
+
+    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+
+    public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password) {
+
+        String message = "invalid";
+
+        if (userAuthenticateService.verifyLogin(username, password)) {
+            return "redirect:/list";
+            // message="valid";
+        }
+        return "redirect:/newUser";
+    }
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model) {
@@ -183,8 +177,8 @@ String message="invalid";
         return "LL_SAMC";
     }
 
-    @RequestMapping(value = "/LL-SAMC", method=RequestMethod.POST)
-    public String processSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+    @RequestMapping(value = "/LL-SAMC", method = RequestMethod.POST)
+    public String processSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
         Answers ans = new Answers();
         ans.setAnswer(choice);
         ans.setQuestionId(new Questions(questionId));
@@ -192,7 +186,7 @@ String message="invalid";
         answersService.saveAnswers(ans);
         return "redirect:/LL-SAMC";
     }
-    
+
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
     public String listALLLLGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
@@ -200,9 +194,9 @@ String message="invalid";
         model.addAttribute("listOfQuestions", questions);
         return "LL_GAPS";
     }
-    
-    @RequestMapping(value="/LL-GAPS", method=RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("missing") String missing){
+
+    @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
+    public String processLLGAPS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("missing") String missing) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -219,6 +213,16 @@ String message="invalid";
         return "LW_SUMM";
     }
 
+    @RequestMapping(value="/LW-SUMM", method=RequestMethod.POST)
+    public String processLWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(summary);
+        answersService.saveAnswers(ans);
+        return "redirect:/LW-SUMM";
+    }
+    
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
     public String listALLLWDICT(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
@@ -233,6 +237,16 @@ String message="invalid";
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "RR_SAMC";
+    }
+    
+    @RequestMapping(value="/RR-SAMC", method=RequestMethod.POST)
+    public String processRRSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(choice);
+        answersService.saveAnswers(ans);
+        return "redirect:/RR-SAMC";
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -267,6 +281,16 @@ String message="invalid";
         return "RR_MAMC";
     }
 
+    @RequestMapping(value="/RR-MAMC", method=RequestMethod.POST)
+    public String processRRMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choices){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(choices);
+        answersService.saveAnswers(ans);
+        return "redirect:/RR-MAMC";
+    }
+    
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
     public String listALLRRDRDR(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
@@ -367,19 +391,18 @@ String message="invalid";
      }*/
     //post method for from 
     /*@RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.POST)
-    public String save(@Valid Answers answers, BindingResult result,
-            ModelMap model) {
-        if (result.hasErrors()) {
-            return "LR-HOTS";
-        }
+     public String save(@Valid Answers answers, BindingResult result,
+     ModelMap model) {
+     if (result.hasErrors()) {
+     return "LR-HOTS";
+     }
 
-        answersService.saveAnswers(answers);
+     answersService.saveAnswers(answers);
 
-        model.addAttribute("answers", answers);
+     model.addAttribute("answers", answers);
 
-        return "registrationsuccess";
-    }*/
-
+     return "registrationsuccess";
+     }*/
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();

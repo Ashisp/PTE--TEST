@@ -26,10 +26,12 @@ and open the template in the editor.
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
 
                 <form action="" method="post">
+                    <input type="hidden" name="userId" value="1000" />
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace col-md-5">
                         <p><c:out value="${question.question}" /></p>
                         <c:forEach items="${question.answerOptionsCollection}" var="option">
-                            <input type="checkbox" name="choice" value="<c:out value="${option.optId}" />"><c:out value="${option.ansOption}" /><br/>
+                            <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"><c:out value="${option.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>

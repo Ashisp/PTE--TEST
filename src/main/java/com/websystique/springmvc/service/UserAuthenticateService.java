@@ -56,7 +56,7 @@ public boolean verifyLogin(String username,String password)
          	Session session = sessionFactory.openSession();
                 
                 List users = sessionFactory.getCurrentSession()
-        .createQuery( "from User where email = :email and password = :password" )
+        .createQuery( "from Users where email = :email and password = :password" )
         .setString( "email", username ).setString("password",password)
                         
         .list();
