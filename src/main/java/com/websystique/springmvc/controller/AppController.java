@@ -141,6 +141,16 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "LL_MAMC";
     }
+    
+    @RequestMapping(value="/LL-MAMC", method=RequestMethod.POST)
+    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choice){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(choice);
+        answersService.saveAnswers(ans);
+        return "redirect:/LL-MAMC";
+    }
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model) {
@@ -150,6 +160,16 @@ public class AppController {
         return "LL_SAMC";
     }
 
+    @RequestMapping(value = "/LL-SAMC", method=RequestMethod.POST)
+    public String processSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+        Answers ans = new Answers();
+        ans.setAnswer(choice);
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        answersService.saveAnswers(ans);
+        return "redirect:/LL-SAMC";
+    }
+    
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
     public String listALLLLGAPS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");

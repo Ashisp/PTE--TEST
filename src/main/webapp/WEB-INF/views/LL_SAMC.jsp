@@ -27,9 +27,11 @@
                 <p class="clear" />
 
                 <form action="" method="post">
+                    <input type="hidden" name="userId" value="1000" />
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
-                            <input type="radio" name="choice" value="<c:out value='${options.optId}' />"><c:out value="${options.option}" /><br/>
+                            <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>
