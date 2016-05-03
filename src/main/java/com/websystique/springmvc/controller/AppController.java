@@ -152,6 +152,7 @@ public class AppController {
     public String listALLLWSUMM(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-SUMM");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LW_SUMM";
     }
 
@@ -159,6 +160,7 @@ public class AppController {
     public String listALLLWDICT(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LW_DICT";
     }
 
@@ -206,6 +208,7 @@ public class AppController {
     public String listALLRRDRDR(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "RR_DRDR";
     }
 
@@ -213,6 +216,7 @@ public class AppController {
     public String listSSDESC(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("SS-DESC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "SS_DESC";
     }
 
@@ -228,6 +232,7 @@ public class AppController {
     public String listALlLSSAQS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        model.addAttribute("listOfQuestions", questions);
         return "LS_SAQS";
     }
 
