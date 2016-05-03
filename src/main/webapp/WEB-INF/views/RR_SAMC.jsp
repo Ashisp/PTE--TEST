@@ -29,7 +29,7 @@ and open the template in the editor.
                     <div class="userspace col-md-6">
                         <p><c:out value="${question.question}" /></p>
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
-                            <input type="radio" name="choice" value="<c:out value='${options.optId}' />"><c:out value="${options.option}" /><br/>
+                            <input type="radio" name="choice" value="<c:out value='${options.optId}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>

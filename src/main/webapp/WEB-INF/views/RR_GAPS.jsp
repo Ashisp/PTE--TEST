@@ -45,7 +45,7 @@ and open the template in the editor.
                         <div style="height:50px">
                             <c:forEach items="${question.answerOptionsCollection}" var="option">
                                 <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
-                                    <div class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.option}" /></div>
+                                    <div class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
                                 </span>
                             </c:forEach>
                         </div>
