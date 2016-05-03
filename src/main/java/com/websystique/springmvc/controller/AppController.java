@@ -71,9 +71,18 @@ public class AppController {
         model.addAttribute("users", users);
         return "userslist";
     }
+    
+    @RequestMapping(value="/home", method=RequestMethod.GET)
+    public String loadIndex(){
+        return "index";
+    }
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
-    public String listAllLWGPAS(ModelMap model) {
+    public String listAllLWGPAS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if (userId == null) {
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         int counter = 0;
@@ -95,7 +104,6 @@ public class AppController {
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
     public String processLWGAPS(ModelMap map, @RequestParam("questionId") int questionId, @RequestParam("userId") int userId, HttpServletRequest req) {
-        System.out.println();
         Answers answer = new Answers();
         answer.setQuestionId(new Questions(questionId));
         answer.setUserId(new Users(userId));
@@ -113,7 +121,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
-    public String listAllLRHOTS(ModelMap model) {
+    public String listAllLRHOTS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if (userId == null) {
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LR-HOTS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -131,7 +143,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
-    public String listALLLRHILI(ModelMap model) {
+    public String listALLLRHILI(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if (userId == null) {
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LR-HILI");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -139,7 +155,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
-    public String listALLMAMC(ModelMap model) {
+    public String listALLMAMC(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-MAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -157,31 +177,31 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password, HttpServletRequest request) {
+        String userId = (String) request.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
+        List<Users> users = userAuthenticateService.verifyLogin(username, password);
+        if ((users != null) && (users.size() > 0)) {
+            request.getSession(false).setAttribute("uid", users.get(0).getUserId().toString());
+            //request.setAttribute();
+            String message = "invalid";
 
-    public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password,HttpServletRequest request) {
-List<Users> users=userAuthenticateService.verifyLogin(username, password);
-         if ((users != null) && (users.size() > 0))
-        {
-            request.setAttribute("uid", users.get(0).getUserId().toString());
-                   String message = "invalid";
-
-            
             return "redirect:/list";
             // message="valid";
-        
+
+        } else {
+            return "redirect:/newUser";
         }
-         else
-         {
-        return "redirect:/newUser";
-         }
     }
-    
-        
-    
-        
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
-    public String listALLSAMC(ModelMap model) {
+    public String listALLSAMC(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-SAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -199,7 +219,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
-    public String listALLLLGAPS(ModelMap model) {
+    public String listALLLLGAPS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -217,15 +241,19 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
-    public String listALLLWSUMM(ModelMap model) {
+    public String listALLLWSUMM(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-SUMM");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "LW_SUMM";
     }
 
-    @RequestMapping(value="/LW-SUMM", method=RequestMethod.POST)
-    public String processLWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary){
+    @RequestMapping(value = "/LW-SUMM", method = RequestMethod.POST)
+    public String processLWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -233,9 +261,13 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
         answersService.saveAnswers(ans);
         return "redirect:/LW-SUMM";
     }
-    
+
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
-    public String listALLLWDICT(ModelMap model) {
+    public String listALLLWDICT(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -243,15 +275,19 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
-    public String listALLRRSAMC(ModelMap model) {
+    public String listALLRRSAMC(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "RR_SAMC";
     }
-    
-    @RequestMapping(value="/RR-SAMC", method=RequestMethod.POST)
-    public String processRRSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+
+    @RequestMapping(value = "/RR-SAMC", method = RequestMethod.POST)
+    public String processRRSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -261,7 +297,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
-    public String listRWGAPS(ModelMap model) {
+    public String listRWGAPS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -270,7 +310,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
 
     // ERROR WHILE DROPING OPTION
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
-    public String listALLRRGAPS(ModelMap model) {
+    public String listALLRRGAPS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         for (Questions q : questions) {
@@ -285,15 +329,19 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
-    public String listALLRRMAMC(ModelMap model) {
+    public String listALLRRMAMC(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-MAMC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "RR_MAMC";
     }
 
-    @RequestMapping(value="/RR-MAMC", method=RequestMethod.POST)
-    public String processRRMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choices){
+    @RequestMapping(value = "/RR-MAMC", method = RequestMethod.POST)
+    public String processRRMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choices) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -301,9 +349,13 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
         answersService.saveAnswers(ans);
         return "redirect:/RR-MAMC";
     }
-    
+
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
-    public String listALLRRDRDR(ModelMap model) {
+    public String listALLRRDRDR(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -311,21 +363,29 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
-    public String listSSDESC(ModelMap model) {
+    public String listSSDESC(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("SS-DESC");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "SS_DESC";
     }
-    
-    @RequestMapping(value="/SS-DESC", method = RequestMethod.POST)
-    public String processSSDESC(HttpServletRequest req){
+
+    @RequestMapping(value = "/SS-DESC", method = RequestMethod.POST)
+    public String processSSDESC(HttpServletRequest req) {
         System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
         return "redirect:/SS-DESC";
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
-    public String listALLSRREAD(ModelMap model) {
+    public String listALLSRREAD(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -333,7 +393,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
-    public String listALlLSSAQS(ModelMap model) {
+    public String listALlLSSAQS(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -344,7 +408,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
      * **************************BAKI CHA *********************
      */
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
-    public String listALLLSPRES(ModelMap model) {
+    public String listALLLSPRES(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -352,7 +420,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/LS-REPT"}, method = RequestMethod.GET)
-    public String listALLLSREPT(ModelMap model) {
+    public String listALLLSREPT(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-REPT");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -360,15 +432,19 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.GET)
-    public String listALLRWSUMM(ModelMap model) {
+    public String listALLRWSUMM(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-SUMM");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
         return "RW_SUMM";
     }
-    
+
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
-    public String processRWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary){
+    public String processRWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary) {
         Answers ans = new Answers();
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(userId));
@@ -378,7 +454,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
-    public String listALLWWESSA(ModelMap model) {
+    public String listALLWWESSA(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("WW-ESSA");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         model.addAttribute("listOfQuestions", questions);
@@ -396,7 +476,11 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
-    public String listALLBBBREAK(ModelMap model) {
+    public String listALLBBBREAK(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if(userId == null){
+            return "redirect:/register";
+        }
         int sectionId = sectionService.findSectionIdByUrlPattern("BB-BREAK");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "BB_BREAK";
