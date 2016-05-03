@@ -115,6 +115,16 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "LR_HOTS";
     }
+    
+    @RequestMapping(value="/LR-HOTS", method=RequestMethod.POST)
+    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice){
+        Answers answer = new Answers();
+        answer.setQuestionId(new Questions(questionId));
+        answer.setUserId(new Users(userId));
+        answer.setAnswer(choice);
+        answersService.saveAnswers(answer);
+        return "redirect:/LR-HOTS";
+    }
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
     public String listALLLRHILI(ModelMap model) {
