@@ -177,6 +177,16 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "LL_GAPS";
     }
+    
+    @RequestMapping(value="/LL-GAPS", method=RequestMethod.POST)
+    public String processLLGAPS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("missing") String missing){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(missing);
+        answersService.saveAnswers(ans);
+        return "redirect:/LL-GAPS";
+    }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
     public String listALLLWSUMM(ModelMap model) {

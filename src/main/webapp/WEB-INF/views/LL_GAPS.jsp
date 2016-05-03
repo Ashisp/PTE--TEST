@@ -21,10 +21,12 @@
                     <audio controls="controls" src="<c:url value='${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
-                <form action="" method="post">
+                <form method="post">
+                    <input type="hidden" name="userId" value="1000" />
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption">
-                            <input type="radio" name="missing" value="<c:out value='${answerOption.optId}' />"><c:out value="${answerOption.ansOption}" /><br/>
+                            <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>
