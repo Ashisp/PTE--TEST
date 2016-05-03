@@ -7,7 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
-        <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" /><script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
+        <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+        <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>
+        <script src="<c:url value='/static/js/RecorderDemo.js' />"></script>
     </head>
     <body>
         <c:forEach items="${listOfQuestions}" var="question">
@@ -38,9 +41,8 @@
                     </div>
                 </div>
             </div>
-            <div id="recording-list">
-            </div>
         </c:forEach>
+        <div id="recording-list"></div>
 
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
