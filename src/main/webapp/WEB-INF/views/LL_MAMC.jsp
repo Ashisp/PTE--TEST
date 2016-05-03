@@ -34,7 +34,7 @@ and open the template in the editor.
                 <form action="" method="post">
                     <div class="userspace">
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
-                            <input type="checkbox" name="choices" value="<c:out value='${options.optId}' />"><c:out value="${options.option}" /><br/>
+                            <input type="checkbox" name="choices" value="<c:out value='${options.optId}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>

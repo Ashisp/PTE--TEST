@@ -24,7 +24,7 @@
                 <form action="" method="post">
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption">
-                            <input type="radio" name="missing" value="<c:out value='${answerOption.optId}' />"><c:out value="${answerOption.option}" /><br/>
+                            <input type="radio" name="missing" value="<c:out value='${answerOption.optId}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>
