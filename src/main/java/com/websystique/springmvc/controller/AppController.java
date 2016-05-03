@@ -74,13 +74,13 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         int counter = 0;
         for (Questions q : questions) {
-            String question = q.getQuestion();
-            if (!question.isEmpty()) {
-                while (question.contains("%_%")) {
-                    String replaced = question.replaceFirst("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter + "\" />");
+            String passage = q.getPassage();
+            if (!passage.isEmpty()) {
+                while (passage.contains("%_%")) {
+                    String replaced = passage.replaceFirst("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter + "\" />");
                     //String replaced = question.replaceAll("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter +"\"/>");
-                    q.setQuestion(replaced);
-                    question = q.getQuestion();
+                    q.setPassage(replaced);
+                    passage = q.getPassage();
                     counter++;
                 }
             }

@@ -25,7 +25,7 @@
                 <form method="post">
                     <div class="userspace">
                         <p>
-                            <c:out value="${question.question}" escapeXml="false" />
+                            <c:out value="${question.passage}" escapeXml="false" />
                             <input type="hidden" name="questionId" value="${question.questionId}" />
                             <input type="hidden" name="userId" value="1000" />
                         </p>
