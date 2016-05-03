@@ -520,12 +520,12 @@ public class AppController {
 
                 // Creating the directory to store file
                 //C:\xampp\tomcat\tmpFiles
-                String rootPath = System.getProperty("catalina.home");
+                String rootPath = System.getProperty("user.home");
                 File dir = new File(rootPath + File.separator + "AudioFiles");
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-
+              
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
