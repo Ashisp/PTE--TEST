@@ -97,9 +97,9 @@ public class AppController {
         answer.setUserId(new Users(userId));
         String answers = "";
         Enumeration<String> parameterNames = req.getParameterNames();
-        while(parameterNames.hasMoreElements()){
+        while (parameterNames.hasMoreElements()) {
             String parameter = parameterNames.nextElement();
-            if(!parameter.equals("questionId") && !parameter.equals("userId") && !parameter.equals("done")){
+            if (!parameter.equals("questionId") && !parameter.equals("userId") && !parameter.equals("done")) {
                 answers = answers + req.getParameter(parameter) + ",";
             }
         }
@@ -232,7 +232,7 @@ public class AppController {
     public String listALlLSSAQS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
-         model.addAttribute("listOfQuestions", questions);
+        model.addAttribute("listOfQuestions", questions);
         return "LS_SAQS";
     }
 
@@ -270,9 +270,9 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "WW_ESSA";
     }
-    
+
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.POST)
-    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, @RequestParam("userId") int userId){
+    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, @RequestParam("userId") int userId) {
         Answers answer = new Answers();
         answer.setQuestionId(new Questions(questionId));
         answer.setUserId(new Users(userId));
@@ -317,11 +317,6 @@ public class AppController {
         return "registrationsuccess";
     }
 
-    
-    
-    
-    
-    
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();
@@ -549,7 +544,7 @@ public class AppController {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-              
+
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
