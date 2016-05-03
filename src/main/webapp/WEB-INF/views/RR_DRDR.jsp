@@ -45,32 +45,30 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div class="col-md-10 col-md-offset-1">
-            <h1>Re-order paragraphs</h1>
+        <c:forEach items="${listOfQuestions}" var="question">
+            <div class="col-md-10 col-md-offset-1">
+                <h1>Re-order paragraphs</h1>
 
-            <p class="instruction">The text boxes in the left panel have been placed in a random order. Restore the original order by dragging the 
-                text boxes from the left panel to the right panel.</p>
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
 
-            <div class="col-md-6" style="float: left;">
-                <h3>Source</h3>
-                <ul class="source">
-                    <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">Video provides a powerful way to help you prove your point.</li>
-                    <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">When you click Online Video, you can paste in the embed code for the video you want to add.</li>
-                    <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">You can also type a keyword to search online for the video that best fits your document.</li>
-                    <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">Themes and styles also help keep your document coordinated.</li>
-                    <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">Save time in Word with new buttons that show up where you need them.</li>
-                </ul>
+                <div class="col-md-6" style="float: left;">
+                    <h3>Source</h3>
+                    <ul class="source">
+                        <c:forEach items="${question.answerOptionsCollection}" var="option">
+                            <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)"><c:out value="${option.ansOption}" /></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+
+                <div class="col-md-6" style="float: left;">
+                    <h3>Target</h3>
+                    <ul class="target">
+                        <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
+                    </ul>
+                </div>
+                <p class="clear" />
             </div>
-
-            <div class="col-md-6" style="float: left;">
-                <h3>Target</h3>
-                <ul class="target">
-                    <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
-                </ul>
-            </div>
-            <p class="clear" />
-        </div>
-
+        </c:forEach>
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
