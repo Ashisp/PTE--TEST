@@ -313,7 +313,7 @@ public class AppController {
      return "registrationsuccess";
      }*/
     //post method for from 
-    @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.POST)
+    /*@RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.POST)
     public String save(@Valid Answers answers, BindingResult result,
             ModelMap model) {
         if (result.hasErrors()) {
@@ -325,7 +325,7 @@ public class AppController {
         model.addAttribute("answers", answers);
 
         return "registrationsuccess";
-    }
+    }*/
 
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {

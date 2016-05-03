@@ -25,7 +25,7 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption">
-                            <input type="radio" name="choice" value="<c:out value='${answerOption.optId}' />"><c:out value="${answerOption.ansOption}" /><br/>
+                            <input type="radio" name="choice" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>
