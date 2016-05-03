@@ -28,7 +28,7 @@ and open the template in the editor.
                 return false;
             }
 
-            function dragenter(e) {
+            function dragensster(e) {
                 if (isbefore(source, e.target)) {
                     e.target.parentNode.insertBefore(source, e.target);
                 }
