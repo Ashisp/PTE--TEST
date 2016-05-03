@@ -29,8 +29,10 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -70,15 +72,40 @@ public class AppController {
     public String listAllLWGPAS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+        int counter = 0;
         for (Questions q : questions) {
             String question = q.getQuestion();
             if (!question.isEmpty()) {
-                String replaced = question.replaceAll("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" />");
-                q.setQuestion(replaced);
+                while (question.contains("%_%")) {
+                    String replaced = question.replaceFirst("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter + "\" />");
+                    //String replaced = question.replaceAll("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter +"\"/>");
+                    q.setQuestion(replaced);
+                    question = q.getQuestion();
+                    counter++;
+                }
             }
         }
         model.addAttribute("listOfQuestions", questions);
         return "LW_GAPS";
+    }
+
+    @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
+    public String processLWGAPS(ModelMap map, @RequestParam("questionId") int questionId, @RequestParam("userId") int userId, HttpServletRequest req) {
+        System.out.println();
+        Answers answer = new Answers();
+        answer.setQuestionId(new Questions(questionId));
+        answer.setUserId(new Users(userId));
+        String answers = "";
+        Enumeration<String> parameterNames = req.getParameterNames();
+        while(parameterNames.hasMoreElements()){
+            String parameter = parameterNames.nextElement();
+            if(!req.getParameter(parameter).equals("submit")){
+                answers = answers + "," + req.getParameter(parameter);
+            }
+        }
+        answer.setAnswer(answers);
+        answersService.saveAnswers(answer);
+        return "redirect:/LW-GAPS";
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
@@ -202,7 +229,10 @@ public class AppController {
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
         return "LS_SAQS";
     }
-/****************************BAKI CHA **********************/
+
+    /**
+     * **************************BAKI CHA *********************
+     */
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
     public String listALLLSPRES(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
@@ -242,20 +272,19 @@ public class AppController {
     }
 
     //  post methods for form
-    @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
-    public String saveLWGAPS(@Valid Answers answers, BindingResult result,
-            ModelMap model) {
-        if (result.hasErrors()) {
-            return "LW-GAPS";
-        }
+    /*@RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
+     public String saveLWGAPS(@Valid Answers answers, BindingResult result,
+     ModelMap model) {
+     if (result.hasErrors()) {
+     return "LW-GAPS";
+     }
 
-        answersService.saveAnswers(answers);
+     answersService.saveAnswers(answers);
 
-        model.addAttribute("answers", answers);
+     model.addAttribute("answers", answers);
 
-        return "registrationsuccess";
-    }
-
+     return "registrationsuccess";
+     }*/
     //post method for from 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.POST)
     public String save(@Valid Answers answers, BindingResult result,

@@ -22,23 +22,12 @@
                     <audio controls="controls" src="<c:url value='${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
-                <form action="" method="post">
+                <form method="post">
                     <div class="userspace">
                         <p>
                             <c:out value="${question.question}" escapeXml="false" />
-                            <!--One seminal difference in policy remains; the <input type="text" id="blank1" spellcheck="false" class="blanks form-control" /> 
-                            has not matched what is Labor's most important innovation promise. 
-                            That is to bring together responsibilities for innovation, industry, science and research under one single federal minister. 
-                            Innovation responsibilities <input type="text" id="blank2" spellcheck="false" class="blanks form-control" /> 
-                            lie within the powerful Department of Education and Science, and while there is a 
-                            <input type="text" id="blank3" spellcheck="false" class="blanks form-control" /> 
-                            industry department, it has little influence within Cabinet. This has 
-                            <input type="text" id="blank4" spellcheck="false" class="blanks form-control" /> 
-                            policy development and given Australia's innovation policies a distinctly science and research
-                            <input type="text" id="blank5" spellcheck="false" class="blanks form-control" /> 
-                            . It is the scientists rather than the engineers who call the tune in innovation policy in Canberra, 
-                            so it's no surprise our policies are all about boosting government funded research and later 
-                            their results.-->
+                            <input type="hidden" name="questionId" value="${question.questionId}" />
+                            <input type="hidden" name="userId" value="1000" />
                         </p>
                     </div>
                     <div>

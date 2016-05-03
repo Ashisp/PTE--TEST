@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(name = "answer_options", catalog = "rendron_db", schema = "")
@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AnswerOptions.findAll", query = "SELECT a FROM AnswerOptions a"),
     @NamedQuery(name = "AnswerOptions.findByOptId", query = "SELECT a FROM AnswerOptions a WHERE a.optId = :optId")})
 public class AnswerOptions implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,12 +11,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -50,9 +48,6 @@ public class Questions implements Serializable {
     @Size(max = 50)
     @Column(name = "audio_path", length = 50)
     private String audioPath;
-    @Size(max = 50)
-    @Column(name = "image_path", length = 50)
-    private String imagePath;
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
@@ -63,17 +58,17 @@ public class Questions implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(nullable = false, length = 65535)
     private String question;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "questionId")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "image_path", nullable = false, length = 50)
+    private String imagePath;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<AnswerOptions> answerOptionsCollection;
-    
-    
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "questionId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<Answers> answersCollection;
     @JoinColumn(name = "section_id", referencedColumnName = "section_id", nullable = false)
-    
-    
     @ManyToOne(optional = false)
-    
     private Sections sectionId;
     @JoinColumn(name = "cat_id", referencedColumnName = "cat_id", nullable = false)
     @ManyToOne(optional = false)
@@ -86,9 +81,10 @@ public class Questions implements Serializable {
         this.questionId = questionId;
     }
 
-    public Questions(Integer questionId, String question) {
+    public Questions(Integer questionId, String question, String imagePath) {
         this.questionId = questionId;
         this.question = question;
+        this.imagePath = imagePath;
     }
 
     public Integer getQuestionId() {
@@ -107,14 +103,6 @@ public class Questions implements Serializable {
         this.audioPath = audioPath;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public String getPassage() {
         return passage;
     }
@@ -129,6 +117,14 @@ public class Questions implements Serializable {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @XmlTransient
