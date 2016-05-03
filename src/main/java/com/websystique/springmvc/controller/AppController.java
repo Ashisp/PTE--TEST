@@ -313,6 +313,11 @@ public class AppController {
         return "registrationsuccess";
     }
 
+    
+    
+    
+    
+    
     @RequestMapping(value = {"/questions"}, method = RequestMethod.GET)
     public String listQuestions(ModelMap model) {
         Collection<Questions> questions = questionService.findAllQuestions();

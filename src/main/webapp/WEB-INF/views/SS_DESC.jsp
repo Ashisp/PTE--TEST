@@ -20,7 +20,7 @@
             </div>
             
             <div class="recorderSpace">
-                <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden"><br/>
+                <input id="time-limitS" type="range" min="1" max="10" value="10" class="hidden"><br/>
                 <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden"><br/>
                 <button class="btn btn-success" id="turnOn" onclick="turnMicrophoneOn()">Turn Mic On</button>
                 <input id="report-interval" type="range" min="1" max="5" value="1" class="hidden"><br/>
