@@ -28,7 +28,7 @@ and open the template in the editor.
                 return false;
             }
 
-            function dragensster(e) {
+            function dragenter(e) {
                 if (isbefore(source, e.target)) {
                     e.target.parentNode.insertBefore(source, e.target);
                 }
@@ -56,7 +56,7 @@ and open the template in the editor.
                     <ul class="source">
                         <c:forEach items="${question.answerOptionsCollection}" var="option">
                             <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)"><c:out value="${option.ansOption}" /></li>
-                        </c:forEach>
+                            </c:forEach>
                     </ul>
                 </div>
 
@@ -67,6 +67,9 @@ and open the template in the editor.
                     </ul>
                 </div>
                 <p class="clear" />
+                <div>
+                    <input type="submit" name="done" value="Done" class="form-control done" />
+                </div>
             </div>
         </c:forEach>
 

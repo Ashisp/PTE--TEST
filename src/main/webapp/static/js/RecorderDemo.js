@@ -285,7 +285,7 @@ function saveRecording(blob, encoding) {
 	xhr.open("POST", "handleUpload.php", true);
 	xhr.send(fd);*/
 	
-  $recordingList.prepend($(html));
+  $recordingList.append($(html));
 }
 
 $recordingList.on('click', 'button', function(event) {

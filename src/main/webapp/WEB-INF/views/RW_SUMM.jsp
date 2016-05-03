@@ -27,6 +27,8 @@ and open the template in the editor.
                 </div>
                 <p class="clear" />
                 <form action="" method="post">
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
+                    <input type="hidden" name="userId" value="1000" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/75 Word Limit</h5>
                         <textarea name="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10"></textarea>

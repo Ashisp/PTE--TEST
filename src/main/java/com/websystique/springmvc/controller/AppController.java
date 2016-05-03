@@ -349,6 +349,16 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "RW_SUMM";
     }
+    
+    @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
+    public String processRWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary){
+        Answers ans = new Answers();
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(userId));
+        ans.setAnswer(summary);
+        answersService.saveAnswers(ans);
+        return "redirect:/RW-SUMM";
+    }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
     public String listALLWWESSA(ModelMap model) {

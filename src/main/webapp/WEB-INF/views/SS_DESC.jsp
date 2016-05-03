@@ -38,6 +38,8 @@
                     </div>
                 </div>
             </div>
+            <div id="recording-list">
+            </div>
         </c:forEach>
 
 
