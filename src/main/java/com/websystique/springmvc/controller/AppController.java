@@ -317,6 +317,12 @@ List<Users> users=userAuthenticateService.verifyLogin(username, password);
         model.addAttribute("listOfQuestions", questions);
         return "SS_DESC";
     }
+    
+    @RequestMapping(value="/SS-DESC", method = RequestMethod.POST)
+    public String processSSDESC(HttpServletRequest req){
+        System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
+        return "redirect:/SS-DESC";
+    }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
     public String listALLSRREAD(ModelMap model) {
