@@ -228,6 +228,7 @@ public class AppController {
     public String listALlLSSAQS(ModelMap model) {
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
         Collection<Questions> questions = questionService.findALquestionsBySectionId(sectionId);
+         model.addAttribute("listOfQuestions", questions);
         return "LS_SAQS";
     }
 
