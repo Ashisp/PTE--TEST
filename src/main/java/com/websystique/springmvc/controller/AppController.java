@@ -22,6 +22,7 @@ import com.websystique.springmvc.service.AnswersService;
 import com.websystique.springmvc.service.CategoriesService;
 import com.websystique.springmvc.service.QuestionsService;
 import com.websystique.springmvc.service.SectionsService;
+import com.websystique.springmvc.service.UserAuthenticateService;
 import com.websystique.springmvc.service.UsersService;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,6 +52,9 @@ public class AppController {
     @Autowired
     QuestionsService questionService;
 //
+    
+    @Autowired
+    UserAuthenticateService userAuthenticateService;
 
     @Autowired
     AnswersService answersService;
@@ -151,6 +155,25 @@ public class AppController {
         answersService.saveAnswers(ans);
         return "redirect:/LL-MAMC";
     }
+    
+    
+        	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+                
+                public String processCredentialModelAndView(@RequestParam("email")String username,@RequestParam("password")String password)
+                {
+                 
+                    
+String message="invalid";                    
+                  
+                if(userAuthenticateService.verifyLogin(username,password ))
+                {
+                      return "redirect:/list";
+             // message="valid";
+                }
+               return "redirect:/newUser";
+                }
+                    
+	
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model) {
