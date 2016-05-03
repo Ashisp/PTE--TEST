@@ -43,16 +43,12 @@ public class UserAuthenticateService {
             this.sessionFactory=sessionFactory;
         }
     
-public boolean verifyLogin(String username,String password)
+public List<Users> verifyLogin(String username,String password)
 {
      boolean status=false;
     try {
         
         
-        
-        
-        
-
          	Session session = sessionFactory.openSession();
                 
                 List users = sessionFactory.getCurrentSession()
@@ -60,11 +56,15 @@ public boolean verifyLogin(String username,String password)
         .setString( "email", username ).setString("password",password)
                         
         .list();
+                
+                
                 System.out.println(users.size());
 
 
 			if ((users != null) && (users.size() > 0)) {
-status=true;			
+status=true;	
+return users;
+
                         }
 //         
 //List<User> user=(List<User>) hibernateTemplate.find("from User where email = ?1",username);
@@ -78,7 +78,7 @@ e.printStackTrace();    ;
     }
    
 
-return status;
+return null;
 }
 
 

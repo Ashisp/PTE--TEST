@@ -158,16 +158,27 @@ public class AppController {
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
 
-    public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password) {
+    public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password,HttpServletRequest request) {
+List<Users> users=userAuthenticateService.verifyLogin(username, password);
+         if ((users != null) && (users.size() > 0))
+        {
+            request.setAttribute("uid", users.get(0).getUserId().toString());
+                   String message = "invalid";
 
-        String message = "invalid";
-
-        if (userAuthenticateService.verifyLogin(username, password)) {
+            
             return "redirect:/list";
             // message="valid";
+        
         }
+         else
+         {
         return "redirect:/newUser";
+         }
     }
+    
+        
+    
+        
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model) {
