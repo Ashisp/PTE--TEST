@@ -65,7 +65,7 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
 
             data = sessionFactory.getCurrentSession().
                     createQuery("SELECT q FROM Questions q WHERE q.sectionId = :sectionId").
-                    setString("sectionId", String.valueOf(sectionId)).setFirstResult(0).setMaxResults(1).
+                    setString("sectionId", String.valueOf(sectionId)).
                     list();
             System.out.println("" + data);
             System.out.println("" + data);
