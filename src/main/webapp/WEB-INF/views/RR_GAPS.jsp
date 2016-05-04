@@ -25,6 +25,11 @@ and open the template in the editor.
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
                 ev.target.appendChild(document.getElementById(data));
+                setAnswer();
+            }
+            
+            function setAnswer(){
+                document.getElementById("answerPassage").value = document.getElementById("paragraph").innerHTML;
             }
         </script>
     </head>
@@ -37,6 +42,8 @@ and open the template in the editor.
                 <p class="clear" />
                 <form action="" method="post">
                     <div class="userspace">
+                        <input type="hidden" name="questionId" value="${question.questionId}" />
+                        <input type="hidden" id="answerPassage" name="answerPassage" value="" />
                         <p id="paragraph">
                             <c:out value="${question.passage}" escapeXml="false" />
                         </p>
@@ -45,7 +52,7 @@ and open the template in the editor.
                         <div style="height:50px">
                             <c:forEach items="${question.answerOptionsCollection}" var="option">
                                 <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
-                                    <div class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
+                                    <div id="<c:out value="${option.optId}" />" class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
                                 </span>
                             </c:forEach>
                         </div>

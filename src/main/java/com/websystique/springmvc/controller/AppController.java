@@ -379,6 +379,17 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "RR_GAPS";
     }
+    
+    @RequestMapping(value="/RR-GAPS", method=RequestMethod.POST)
+    public String processRRGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage){
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
+        ans.setQuestionId(new Questions(questionId));
+        ans.setAnswer(answerPassage);
+        answersService.saveAnswers(ans);
+        return "redirect:/RR-GAPS";
+    }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
     public String listALLRRMAMC(ModelMap model, HttpServletRequest req) {
