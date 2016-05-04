@@ -84,6 +84,7 @@
 
                                     <td><a href="<c:url value='/edit-user-${user.userId}' />" class="btn btn-success custom-width">edit</a></td>
                                     <td><a href="<c:url value='/delete-user-${user.userId}' />" class="btn btn-danger custom-width">delete</a></td>
+                                    <td><a href="<c:url value='/answers-${user.userId}' />" class="btn btn-success custom-width">SeeAnsersSheet</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -91,7 +92,8 @@
                 </div>
             </div>
             <div class="well">
-                <a href="<c:url value='/register' />">Add New User</a>
+                <a href="<c:url value='/register' />">Add New User</a>|
+                <a href="<c:url value='/logout' />">Logout</a>
             </div>
         </div>
     </body>

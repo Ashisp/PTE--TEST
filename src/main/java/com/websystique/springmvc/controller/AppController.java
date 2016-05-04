@@ -71,9 +71,33 @@ public class AppController {
         model.addAttribute("users", users);
         return "userslist";
     }
-    
-    @RequestMapping(value="/home", method=RequestMethod.GET)
-    public String loadIndex(){
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loadLogin(HttpServletRequest req) {
+        /*String userId = "";
+        if (req.getSession(false) != null) {
+            userId = (String) req.getSession(false).getAttribute("uid");
+        } else {
+            return "login";
+        }
+        if (userId != null || !userId.equals("")) {
+            return "redirect:/list";
+        }*/
+        return "login";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest req) {
+        req.getSession(false).invalidate();
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/sections-list", method = RequestMethod.GET)
+    public String loadList(HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        if (userId == null) {
+            return "redirect:/login";
+        }
         return "index";
     }
 
@@ -157,7 +181,7 @@ public class AppController {
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
     public String listALLMAMC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-MAMC");
@@ -176,12 +200,8 @@ public class AppController {
         return "redirect:/LL-MAMC";
     }
 
-    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String processCredentialModelAndView(@RequestParam("email") String username, @RequestParam("password") String password, HttpServletRequest request) {
-        String userId = (String) request.getSession(false).getAttribute("uid");
-        if(userId == null){
-            return "redirect:/register";
-        }
         List<Users> users = userAuthenticateService.verifyLogin(username, password);
         if ((users != null) && (users.size() > 0)) {
             request.getSession(false).setAttribute("uid", users.get(0).getUserId().toString());
@@ -192,14 +212,14 @@ public class AppController {
             // message="valid";
 
         } else {
-            return "redirect:/newUser";
+            return "redirect:/login";
         }
     }
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-SAMC");
@@ -221,7 +241,7 @@ public class AppController {
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
     public String listALLLLGAPS(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
@@ -243,7 +263,7 @@ public class AppController {
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
     public String listALLLWSUMM(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-SUMM");
@@ -265,7 +285,7 @@ public class AppController {
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
     public String listALLLWDICT(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
@@ -277,7 +297,7 @@ public class AppController {
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
     public String listALLRRSAMC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
@@ -299,7 +319,7 @@ public class AppController {
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
     public String listRWGAPS(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
@@ -312,7 +332,7 @@ public class AppController {
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
     public String listALLRRGAPS(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-GAPS");
@@ -331,7 +351,7 @@ public class AppController {
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
     public String listALLRRMAMC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-MAMC");
@@ -353,7 +373,7 @@ public class AppController {
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
     public String listALLRRDRDR(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
@@ -365,7 +385,7 @@ public class AppController {
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listSSDESC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("SS-DESC");
@@ -383,7 +403,7 @@ public class AppController {
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
     public String listALLSRREAD(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
@@ -395,7 +415,7 @@ public class AppController {
     @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
     public String listALlLSSAQS(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
@@ -410,7 +430,7 @@ public class AppController {
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
     public String listALLLSPRES(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
@@ -422,7 +442,7 @@ public class AppController {
     @RequestMapping(value = {"/LS-REPT"}, method = RequestMethod.GET)
     public String listALLLSREPT(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-REPT");
@@ -434,7 +454,7 @@ public class AppController {
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.GET)
     public String listALLRWSUMM(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-SUMM");
@@ -456,7 +476,7 @@ public class AppController {
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
     public String listALLWWESSA(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("WW-ESSA");
@@ -478,7 +498,7 @@ public class AppController {
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
     public String listALLBBBREAK(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if(userId == null){
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("BB-BREAK");
