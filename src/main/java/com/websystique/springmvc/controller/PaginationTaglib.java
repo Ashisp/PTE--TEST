@@ -10,7 +10,7 @@ public class PaginationTaglib extends SimpleTagSupport {
 	private String uri;
 	private int offset;
 	private int count;
-	private int max = 10;
+	private int max = 1;
 	private int steps = 1;
 	private String previous = "Previous";
 	private String next = "Next";

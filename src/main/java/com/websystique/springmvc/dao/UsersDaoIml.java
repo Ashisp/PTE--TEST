@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -43,7 +44,7 @@ public class UsersDaoIml extends AbstractDao<Integer, Users> implements UsersDao
       Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
     criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
     criteria.setFirstResult(offset!=null?offset:0)
-    .setMaxResults(maxResults!=null?maxResults:10);
+    .setMaxResults(maxResults!=null?maxResults:1);
     List<Users> users = (List<Users>) criteria.list();
 
     return users;
@@ -51,7 +52,12 @@ public class UsersDaoIml extends AbstractDao<Integer, Users> implements UsersDao
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
- 
+  public Long countUsers(){
+            Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
+            
+  return (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+ }
+  
 
     public void deleteById(int id) {
         Criteria crit = createEntityCriteria();
