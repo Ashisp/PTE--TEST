@@ -47,8 +47,8 @@
                             listOfSelectedWords.push(word + "");
                         }
                     }
-                    //alert("You selected:\n"+st);
                     document.getElementById("selected").innerHTML = listOfSelectedWords;
+                    updateSelectedValue();
                 }
             };
 
@@ -71,6 +71,10 @@
                 var index = wordExistsInList(word);
                 listOfSelectedWords.splice(index, 1);
             }
+            
+            function updateSelectedValue(){
+                document.getElementById("selected-hidden").value = document.getElementById('selected').innerHTML;
+            }
         </script>
 
     </head>
@@ -91,6 +95,8 @@
                             <c:out value="${question.passage}" />
                         </p>
                     </div>
+                        <input type="hidden" name="questionId" value="${question.questionId}" />
+                        <input type="hidden" name="selected" id="selected-hidden" value="" />
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
                     </div>

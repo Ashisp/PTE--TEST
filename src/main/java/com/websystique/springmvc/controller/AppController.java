@@ -178,6 +178,18 @@ public class AppController {
         return "LR_HILI";
     }
 
+    /** SHOULD RETRIEVE ALL USER ID THIS WAY **/
+    @RequestMapping(value="/LR-HILI", method=RequestMethod.POST)
+    public String processLRHILI(@RequestParam("questionId") int questionId, @RequestParam("selected") String selected, HttpServletRequest req){
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
+        ans.setAnswer(selected);
+        ans.setQuestionId(new Questions(questionId));
+        answersService.saveAnswers(ans);
+        return "redirect:/LR-HILI";
+    }
+    
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
     public String listALLMAMC(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
