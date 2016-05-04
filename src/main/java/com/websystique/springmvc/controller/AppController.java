@@ -425,6 +425,17 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         return "RR_DRDR";
     }
+    
+    @RequestMapping(value="/RR-DRDR", method=RequestMethod.POST)
+    public String processRRDRDR(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answer") String answer) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
+        ans.setQuestionId(new Questions(questionId));
+        ans.setAnswer(answer);
+        answersService.saveAnswers(ans);
+        return "redirect:/RR-DRDR";
+    }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listSSDESC(ModelMap model, HttpServletRequest req) {
