@@ -42,6 +42,9 @@ and open the template in the editor.
                 e.dataTransfer.effectAllowed = 'move';
             }
 
+            function setAnswer(){
+                document.getElementById("answer").value = document.getElementById("target").innerHTML;
+            }
         </script>
     </head>
     <body>
@@ -51,25 +54,31 @@ and open the template in the editor.
 
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
 
-                <div class="col-md-6" style="float: left;">
-                    <h3>Source</h3>
-                    <ul class="source">
-                        <c:forEach items="${question.answerOptionsCollection}" var="option">
-                            <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)"><c:out value="${option.ansOption}" /></li>
+                <form method="POST"  onsubmit="setAnswer()">
+                    <div class="col-md-6" style="float: left;">
+                        <input type="hidden" value="${question.questionId}" name="questionId" />
+                        <input type="hidden" name="answer" id="answer" />
+                        <h3>Source</h3>
+                        <ul class="source" id="source">
+                            <c:forEach items="${question.answerOptionsCollection}" var="option">
+                                <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">
+                                    <c:out value="${option.ansOption}" />
+                                </li>
                             </c:forEach>
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
 
-                <div class="col-md-6" style="float: left;">
-                    <h3>Target</h3>
-                    <ul class="target">
-                        <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
-                    </ul>
-                </div>
-                <p class="clear" />
-                <div>
-                    <input type="submit" name="done" value="Done" class="form-control done" />
-                </div>
+                    <div class="col-md-6" style="float: left;">
+                        <h3>Target</h3>
+                        <ul class="target" id="target">
+                            <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
+                        </ul>
+                    </div>
+                    <p class="clear" />
+                    <div>
+                        <input type="submit" name="done" value="Done" class="form-control done" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
 

@@ -65,7 +65,7 @@ public class Questions implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "image_path", nullable = false, length = 50)
     private String imagePath;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId", fetch = FetchType.EAGER)
     private Collection<AnswerOptions> answerOptionsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
     private Collection<Answers> answersCollection;
