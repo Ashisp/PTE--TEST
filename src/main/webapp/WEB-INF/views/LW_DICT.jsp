@@ -27,8 +27,9 @@ and open the template in the editor.
                 </div>
                 <p class="clear" />
                 <form action="" method="post">
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <input type="text" spellcheck="false" maxLength="250" class="form-control" />
+                        <input type="text" name="answer" spellcheck="false" maxLength="250" class="form-control" />
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
