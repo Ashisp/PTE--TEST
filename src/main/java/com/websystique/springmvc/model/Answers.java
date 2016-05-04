@@ -53,6 +53,9 @@ public class Answers implements Serializable {
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     @ManyToOne(optional = false)
     private Questions questionId;
+    @JoinColumn(name = "section_id", referencedColumnName = "section_id", nullable = false)
+    @ManyToOne(optional = false)
+    private Sections sectionId;
 
     public Answers() {
     }
@@ -99,6 +102,14 @@ public class Answers implements Serializable {
 
     public void setQuestionId(Questions questionId) {
         this.questionId = questionId;
+    }
+
+    public Sections getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(Sections sectionId) {
+        this.sectionId = sectionId;
     }
 
     @Override

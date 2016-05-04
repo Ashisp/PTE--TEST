@@ -87,6 +87,8 @@ public class Sections implements Serializable {
     @Column(name = "url_pattern", nullable = false, length = 255)
     private String urlPattern;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sectionId")
+    private Collection<Answers> answersCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sectionId")
     private Collection<Questions> questionsCollection;
 
     public Sections() {
@@ -184,6 +186,15 @@ public class Sections implements Serializable {
 
     public void setUrlPattern(String urlPattern) {
         this.urlPattern = urlPattern;
+    }
+
+    @XmlTransient
+    public Collection<Answers> getAnswersCollection() {
+        return answersCollection;
+    }
+
+    public void setAnswersCollection(Collection<Answers> answersCollection) {
+        this.answersCollection = answersCollection;
     }
 
     @XmlTransient
