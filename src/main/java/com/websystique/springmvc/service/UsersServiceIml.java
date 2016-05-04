@@ -62,10 +62,10 @@ entity.setApproveStatus(user.getApproveStatus());
 
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public Collection<Users> findAllUsers() {
+    public Collection<Users> findAllUsers(Integer offset,Integer maxResults) {
 
 
-       return dao.findAllUsers();
+       return dao.findAllUsers(offset,maxResults);
         
         
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

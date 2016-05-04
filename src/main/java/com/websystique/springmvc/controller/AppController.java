@@ -68,9 +68,13 @@ public class AppController {
     
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
-        Collection<Users> users = userService.findAllUsers();
+    public String listUsers(ModelMap model,Integer offset, Integer maxResults) {
+        
+        Collection<Users> users = userService.findAllUsers(offset,maxResults);
         model.addAttribute("users", users);
+        model.addAttribute("count", users.size());
+        model.addAttribute("offset", offset);
+        
         return "userslist";
     }
 

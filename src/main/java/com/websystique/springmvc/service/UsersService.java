@@ -20,6 +20,6 @@ public interface UsersService {
 
     void updateUser(Users user);
    void deleteById(int id);
-    Collection<Users> findAllUsers();
+    Collection<Users> findAllUsers(Integer offset,Integer maxResults);
 
 }

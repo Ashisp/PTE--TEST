@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <html>
 
     <head>
@@ -49,8 +51,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${users}" var="user">
+                            <c:forEach items="${users}" var="user" varStatus="itr">
+                                  <td>${offset + itr.index +1 }</td>
                                 <tr>
+                                  
                                     <td>${user.firstName}</td>
 
                                     <td>${user.lastName}</td>
@@ -94,8 +98,14 @@
             <div class="well">
                 <a href="<c:url value='/register' />">Add New User</a>|
                 <a href="<c:url value='/logout' />">Logout</a>
+
             </div>
-        </div>
+              
             
+        </div>
+                
+                
+          <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/list/" next="&raquo;" previous="&laquo;" />
     </body>
 </html>

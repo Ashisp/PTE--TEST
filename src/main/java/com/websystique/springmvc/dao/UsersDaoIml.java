@@ -38,10 +38,12 @@ public class UsersDaoIml extends AbstractDao<Integer, Users> implements UsersDao
 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 @SuppressWarnings("unchecked")
-    public Collection<Users> findAllUsers() {
+    public Collection<Users> findAllUsers(Integer offset,Integer maxResults) {
       
       Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
     criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+    criteria.setFirstResult(offset!=null?offset:0)
+    .setMaxResults(maxResults!=null?maxResults:10);
     List<Users> users = (List<Users>) criteria.list();
 
     return users;
@@ -49,7 +51,7 @@ public class UsersDaoIml extends AbstractDao<Integer, Users> implements UsersDao
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-   
+ 
 
     public void deleteById(int id) {
         Criteria crit = createEntityCriteria();
