@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Nikesh
+ * @author Ashis
  */
 @Entity
 @Table(name = "answer_options", catalog = "rendron_db", schema = "")
@@ -32,8 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "AnswerOptions.findAll", query = "SELECT a FROM AnswerOptions a"),
     @NamedQuery(name = "AnswerOptions.findByOptId", query = "SELECT a FROM AnswerOptions a WHERE a.optId = :optId"),
-    @NamedQuery(name = "AnswerOptions.findByCorrectOption", query = "SELECT a FROM AnswerOptions a WHERE a.correctOption = :correctOption")})
+    @NamedQuery(name = "AnswerOptions.findByCorrectOption", query = "SELECT a FROM AnswerOptions a WHERE a.correctOption = :correctOption"),
+    @NamedQuery(name = "AnswerOptions.findByOrderBlanks", query = "SELECT a FROM AnswerOptions a WHERE a.orderBlanks = :orderBlanks")})
 public class AnswerOptions implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +48,11 @@ public class AnswerOptions implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "ans_option", nullable = false, length = 65535)
     private String ansOption;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "correct_option", nullable = false)
-    private boolean correctOption;
+    @Column(name = "correct_option")
+    private Boolean correctOption;
+    @Size(max = 20)
+    @Column(name = "order_blanks", length = 20)
+    private String orderBlanks;
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     @ManyToOne(optional = false)
     private Questions questionId;
@@ -61,10 +64,9 @@ public class AnswerOptions implements Serializable {
         this.optId = optId;
     }
 
-    public AnswerOptions(Integer optId, String ansOption, boolean correctOption) {
+    public AnswerOptions(Integer optId, String ansOption) {
         this.optId = optId;
         this.ansOption = ansOption;
-        this.correctOption = correctOption;
     }
 
     public Integer getOptId() {
@@ -83,12 +85,20 @@ public class AnswerOptions implements Serializable {
         this.ansOption = ansOption;
     }
 
-    public boolean getCorrectOption() {
+    public Boolean getCorrectOption() {
         return correctOption;
     }
 
-    public void setCorrectOption(boolean correctOption) {
+    public void setCorrectOption(Boolean correctOption) {
         this.correctOption = correctOption;
+    }
+
+    public String getOrderBlanks() {
+        return orderBlanks;
+    }
+
+    public void setOrderBlanks(String orderBlanks) {
+        this.orderBlanks = orderBlanks;
     }
 
     public Questions getQuestionId() {

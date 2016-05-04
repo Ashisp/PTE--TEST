@@ -60,14 +60,13 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
     public Collection<Questions> findAllQuestionsBySectionId(int sectionId) {
         Collection<Questions> data = null;
         try {
-
+            
             Session session = sessionFactory.openSession();
 
             data = sessionFactory.getCurrentSession().
                     createQuery("SELECT q FROM Questions q WHERE q.sectionId = :sectionId").
-                    setString("sectionId", String.valueOf(sectionId)).
+                    setString("sectionId", String.valueOf(sectionId)).setFirstResult(0).setMaxResults(1).
                     list();
-
             System.out.println("" + data);
             System.out.println("" + data);
         } catch (Exception exe) {

@@ -96,5 +96,6 @@
                 <a href="<c:url value='/logout' />">Logout</a>
             </div>
         </div>
+            
     </body>
 </html>

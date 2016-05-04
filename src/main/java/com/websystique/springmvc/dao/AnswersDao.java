@@ -20,4 +20,6 @@ public interface AnswersDao {
     void save(Answers answers);
 
     Collection<Answers> findAllAnswers();
+    Collection<Answers> findAllAnswersByUserId(int id);
+    
 }

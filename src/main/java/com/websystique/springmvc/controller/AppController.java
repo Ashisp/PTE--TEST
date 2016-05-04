@@ -64,6 +64,8 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
+    
+    
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
@@ -633,73 +635,14 @@ public class AppController {
         }
         return "redirect:/questions";
     }
-//        
-//  @RequestMapping(value = { "/categories" }, method = RequestMethod.GET)
-//	public String Categories(ModelMap model) {
-//		Categories sections = new Categories();
-//		model.addAttribute("user", sections);
-//		//model.addAttribute("edit", false);
-//		return "multiplechoice";
-//	}
-//        
-//        
-//        
-//        	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
-//                
-//                public String processCredentialModelAndView(@RequestParam("email")String username,@RequestParam("password")String password)
-//                {
-//                 
-//                    
-//String message="invalid";                    
-//                  
-//                if(userAuthenticateService.verifyLogin(username,password ))
-//                {
-//                      return "redirect:/list";
-//             // message="valid";
-//                }
-//               return "redirect:/newUser";
-//                }
-//                    
-//	
-//		
-//		//model.addAttribute("edit", false);
-//
-//	
-//
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String saveUser(@Valid Users user, BindingResult result,
             ModelMap model) {
         System.out.println("INSIDE");
-//        if (result.hasErrors()) {
-//            return "registration";
-//        }
-
-        //  System.out.println(user);
-
-        /*
-         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
-         * and applying it on field [sso] of Model class [User].
-         * 
-         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-         * framework as well while still using internationalized messages.
-         * 
-         */
-//		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
-//			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
-//		    result.addError(ssoError);
-//			return "registration";
-//		}
-        //model.addAttribute("user", user);
-        //   model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
         userService.saveUser(user);
-        // model.addAttribute("user", user);
-        //model.addAttribute("success", "User " + user.getFirstName() + " " + user.getLastName() + " registered successfully");
-        //return "success";
         return "registrationsuccess";
     }
-//
-//
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -708,9 +651,6 @@ public class AppController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    /**
-     * This method will provide the medium to update an existing user.
-     */
     @RequestMapping(value = {"/edit-user-{id}"}, method = RequestMethod.GET)
     public String editUser(@PathVariable int id, ModelMap model) {
         Users user = userService.findById(id);
@@ -719,31 +659,6 @@ public class AppController {
         return "registration";
     }
 
-//        @RequestMapping(value = { "/approve-user-{ssoId}" }, method = RequestMethod.GET)
-//	public String approveUser(@PathVariable String ssoId, ModelMap model) {
-//		User user = userService.findBySSO(ssoId);
-//		//userService.approveUser(user);
-//               model.addAttribute("approve", true);
-//              //  user.setApprove(1);
-//		model.addAttribute("user", user);
-//                userService.approveUser(user);
-//		return "redirect:/list";
-//	}
-//       
-//            @RequestMapping(value = { "/suspend-user-{ssoId}" }, method = RequestMethod.GET)
-//	public String suspendUser(@PathVariable String ssoId, ModelMap model) {
-//		User user = userService.findBySSO(ssoId);
-//		model.addAttribute("approve", false);
-//                model.addAttribute("user", user);
-//                userService.suspendUser(user);
-//		return "redirect:/list";
-//	}
-//        
-//   
-//	/**
-//	 * This method will be called on form submission, handling POST request for
-//	 * updating user in database. It also validates the user input
-//	 */
     @RequestMapping(value = {"/edit-user-{id}"}, method = RequestMethod.POST)
     public String updateUser(@Valid Users user, BindingResult result,
             ModelMap model, @PathVariable int id) {
@@ -766,6 +681,34 @@ public class AppController {
         userService.deleteById(id);
         return "userslist";
     }
+    
+    ///get for Answers
+    
+    
+     @RequestMapping(value = {"/answers-{id}"}, method = RequestMethod.GET)
+    public String ListAllAnswers(@Valid Answers answers, BindingResult result,
+            ModelMap model, @PathVariable int id) {
+
+        Collection<Answers> answerss= answersService.findAllAnswersByUserId(id);
+ 
+        model.addAttribute("answers",answerss);
+        return "Answers";
+   
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 //	@RequestMapping(value = { "/add-document-{id}" }, method = RequestMethod.GET)
 //	public String addDocuments(@PathVariable int id, ModelMap model) {
@@ -776,7 +719,7 @@ public class AppController {
 //		model.addAttribute("fileBucket", fileModel);
 //
 ////		List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
-////		model.addAttribute("documents", documents);
+ ///		model.addAttribute("documents", documents);
 //		
 //		return "userlist";
 //	}

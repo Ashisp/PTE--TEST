@@ -22,6 +22,6 @@ public interface AnswersService {
     void updateAnswers(Answers answers);
 
     Collection<Answers> findAllAnswers();
-    Collection<Answers> findAllAnswersByUserId();
+    Collection<Answers> findAllAnswersByUserId(int ids);
 
 }
