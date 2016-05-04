@@ -127,10 +127,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
-    public String processLWGAPS(ModelMap map, @RequestParam("questionId") int questionId, @RequestParam("userId") int userId, HttpServletRequest req) {
+    public String processLWGAPS(ModelMap map, @RequestParam("questionId") int questionId, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
+        answer.setUserId(new Users(Integer.parseInt(userId)));
         answer.setQuestionId(new Questions(questionId));
-        answer.setUserId(new Users(userId));
         String answers = "";
         Enumeration<String> parameterNames = req.getParameterNames();
         while (parameterNames.hasMoreElements()) {
@@ -157,10 +158,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LR-HOTS", method = RequestMethod.POST)
-    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
+    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("choice") String choice, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
+        answer.setUserId(new Users(Integer.parseInt(userId)));
         answer.setQuestionId(new Questions(questionId));
-        answer.setUserId(new Users(userId));
         answer.setAnswer(choice);
         answersService.saveAnswers(answer);
         return "redirect:/LR-HOTS";
@@ -205,10 +207,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-MAMC", method = RequestMethod.POST)
-    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choice) {
+    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("choices") String choice, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         return "redirect:/LL-MAMC";
@@ -243,11 +246,12 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-SAMC", method = RequestMethod.POST)
-    public String processSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
+    public String processSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setAnswer(choice);
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         answersService.saveAnswers(ans);
         return "redirect:/LL-SAMC";
     }
@@ -265,10 +269,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("missing") String missing) {
+    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(missing);
         answersService.saveAnswers(ans);
         return "redirect:/LL-GAPS";
@@ -287,10 +292,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LW-SUMM", method = RequestMethod.POST)
-    public String processLWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary) {
+    public String processLWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(summary);
         answersService.saveAnswers(ans);
         return "redirect:/LW-SUMM";
@@ -332,10 +338,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-SAMC", method = RequestMethod.POST)
-    public String processRRSAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choice") String choice) {
+    public String processRRSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         return "redirect:/RR-SAMC";
@@ -386,10 +393,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-MAMC", method = RequestMethod.POST)
-    public String processRRMAMC(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("choices") String choices) {
+    public String processRRMAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choices") String choices) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(choices);
         answersService.saveAnswers(ans);
         return "redirect:/RR-MAMC";
@@ -489,10 +497,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
-    public String processRWSUMM(@RequestParam("questionId") int questionId, @RequestParam("userId") int userId, @RequestParam("summary") String summary) {
+    public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
-        ans.setUserId(new Users(userId));
         ans.setAnswer(summary);
         answersService.saveAnswers(ans);
         return "redirect:/RW-SUMM";
@@ -511,10 +520,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.POST)
-    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, @RequestParam("userId") int userId) {
+    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
+        answer.setUserId(new Users(Integer.parseInt(userId)));
         answer.setQuestionId(new Questions(questionId));
-        answer.setUserId(new Users(userId));
         answer.setAnswer(essay);
         answersService.saveAnswers(answer);
         return "redirect:/WW-ESSA";
