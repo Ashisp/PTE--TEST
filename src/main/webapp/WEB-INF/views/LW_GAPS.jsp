@@ -12,6 +12,7 @@
 
     </head>
     <body>
+        
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Fill in the blanks (Listening)</h1>
