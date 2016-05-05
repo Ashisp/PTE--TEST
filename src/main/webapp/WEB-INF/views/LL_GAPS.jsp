@@ -11,9 +11,16 @@
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-
+        <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
+        <script type="text/javascript">
+            function callTimer(){
+                var timeFromDb = document.getElementById("timeDb").value;
+                startTimer(timeFromDb);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="callTimer();">
+        <div>Time Remaining: <span id="time">00:00</span> minutes!</div>
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Select missing word</h1>
@@ -25,6 +32,7 @@
                 </div>
                 <p class="clear" />
                 <form method="post">
+                    <input type="hidden" id="timeDb" name="timeDb" value="${question.sectionId.time}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
@@ -40,9 +48,9 @@
 
         </c:forEach>
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/LL-GAPS" next="&raquo;" previous="&laquo;" />
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/LL-GAPS" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>
-     
+
 </html>
