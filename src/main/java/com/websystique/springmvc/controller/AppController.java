@@ -410,6 +410,28 @@ public class AppController {
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
+        for(Questions q : questions){
+            int counter = 1;
+            String passage = q.getPassage();
+            if(!passage.isEmpty()){
+                while(passage.contains("%_%")){
+                    String selectTagStart = "<select name=\"blank" + counter + "\" class=\"blanks form-control\">";
+                    String options = "";
+                    for(AnswerOptions aO : q.getAnswerOptionsCollection()){
+                        if(Integer.parseInt(aO.getOrderBlanks()) == counter){
+                            options += "<option value=\"" + aO.getAnsOption() + "\">" + aO.getAnsOption() + "</option>";
+                        }
+                    }
+                    String selectTagEnd = "</select>";
+                    String htmlSelectTag = selectTagStart + options + selectTagEnd;
+                    String replaced = passage.replaceFirst("%_%", htmlSelectTag);
+                    
+                    q.setPassage(replaced);
+                    passage = q.getPassage();
+                    counter++;
+                }
+            }
+        }
         model.addAttribute("listOfQuestions", questions);
         count = questionService.CountALlQuestions(sectionId);
         model.addAttribute("count", count);
@@ -418,8 +440,13 @@ public class AppController {
     }
     
     @RequestMapping(value="/RW-GAPS", method=RequestMethod.POST)
-    public String processRWGAPS(){
-        
+    public String processRWGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers ans = new Answers();
+        ans.setUserId(new Users(Integer.parseInt(userId)));
+        ans.setQuestionId(new Questions(questionId));
+        ans.setAnswer(answerPassage);
+        answersService.saveAnswers(ans);
         return "redirect:/RW-GAPS";
     }
     

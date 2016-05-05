@@ -16,6 +16,11 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <script type="text/javascript">
+            function setAnswerPassage(){
+                document.getElementById("answerPsg").value = document.getElementById("passage").innerHTML;
+            }
+        </script>
     </head>
     <body>
         <c:forEach var="question" items="${listOfQuestions}">
@@ -24,44 +29,13 @@ and open the template in the editor.
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <p class="clear" />
-                <form action="" method="post">
+                <form method="post" onsubmit="setAnswerPassage();">
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
+                    <c:set var="offset" value="${offset}" />
+                    <input type="hidden" id="answerPsg" name="answerPassage" value="" />
                     <div class="userspace">
-                        <p>
-                            One seminal difference in policy remains; the 
-                            <select name="blank1" class="blanks form-control">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                            has not matched what is Labor's most important innovation promise. 
-                            That is to bring together responsibilities for innovation, industry, science and research under one single federal minister. 
-                            Innovation responsibilities 
-                            <select name="blank2" class="blanks form-control">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                            lie within the powerful Department of Education and Science, and while there is a 
-                            <select name="blank3" class="blanks form-control">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                            industry department, it has little influence within Cabinet. This has 
-                            <select name="blank4" class="blanks form-control">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                            policy development and given Australia's innovation policies a distinctly science and research
-                            <select name="blank5" class="blanks form-control">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                            . It is the scientists rather than the engineers who call the tune in innovation policy in Canberra, 
-                            so it's no surprise our policies are all about boosting government funded research and later 
-                            their results.
+                        <p id="passage">
+                            <c:out value="${question.passage}" escapeXml="false" />
                         </p>
                     </div>
                     <div>
@@ -72,7 +46,7 @@ and open the template in the editor.
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/RW-GAPS" next="&raquo;" previous="&laquo;" />
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/RW-GAPS" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>
