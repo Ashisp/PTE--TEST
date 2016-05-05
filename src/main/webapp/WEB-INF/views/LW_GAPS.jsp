@@ -13,8 +13,34 @@
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
 
+        <script type="text/javascript">
+            var time, counter;
+            function init() {
+                time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
+                counter = time / 1000 - 1;
+            }
+
+            function playAudio() {
+                var interval = setInterval(function () {
+                    //alert(counter);
+                    if (counter >= 0) {
+                        document.getElementById("playsIn").innerHTML = counter;
+                    }
+                    counter--;
+                    if (counter < 0) {
+                        clearInterval(interval);
+                        clearInterval();
+                        document.getElementById("playing").innerHTML = "Playing...";
+                    }
+                }, 1000);
+                setTimeout(function () {
+                    document.getElementById('audiotag1').play();
+                }, time);
+            }
+        </script>
+        
     </head>
-    <body>
+    <body  onload="init();playAudio()">
 
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
@@ -22,11 +48,12 @@
                 <p class="instruction">${question.sectionId.instructions}</p>
                 <hr />
                 <div class="col-md-5 audioBox">
-                    <h3 class="audioPlayer">Audio Player</h3>
-                    <audio controls="controls" src="<c:url value='${question.audioPath}' />"></audio>
+                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <form method="post">
+                    <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <c:set var="offset" value="${offset}" />
                     <div class="userspace">
                         <p>

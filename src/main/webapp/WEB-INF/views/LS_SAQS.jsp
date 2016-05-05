@@ -12,8 +12,33 @@
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
 
+        <script type="text/javascript">
+            var time, counter;
+            function init() {
+                time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
+                counter = time / 1000 - 1;
+            }
+
+            function playAudio() {
+                var interval = setInterval(function () {
+                    //alert(counter);
+                    if (counter >= 0) {
+                        document.getElementById("playsIn").innerHTML = counter;
+                    }
+                    counter--;
+                    if (counter < 0) {
+                        clearInterval(interval);
+                        clearInterval();
+                        document.getElementById("playing").innerHTML = "Playing...";
+                    }
+                }, 1000);
+                setTimeout(function () {
+                    document.getElementById('audiotag1').play();
+                }, time);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="init();playAudio()">>
         <c:forEach var="question" items="${listOfQuestions}">
 
 
@@ -22,13 +47,14 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div class="col-md-5 audioBox">
-                    <h3 class="audioPlayer">Audio Player</h3>
-                    <audio controls="controls" src="<c:url value='${question.audioPath}' />" onended="alert(\"ended\")"></audio>
+                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <hr/>
                 <c:set var="offset" value="${offset}" />
                 <div class="recorderSpace" style="float:left;">
+                    <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden">
                     <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden">
                     <button class="btn btn-success" id="turnOn" onclick="turnMicrophoneOn()">Turn Mic On</button>
