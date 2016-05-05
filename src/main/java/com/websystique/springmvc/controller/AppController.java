@@ -415,11 +415,11 @@ public class AppController {
             String passage = q.getPassage();
             if(!passage.isEmpty()){
                 while(passage.contains("%_%")){
-                    String selectTagStart = "<select name=\"blank" + counter + "\" class=\"blanks form-control\">";
+                    String selectTagStart = "<select onchange=\"setSelectedItem(this)\" name=\"blank" + counter + "\" class=\"blanks form-control\">";
                     String options = "";
                     for(AnswerOptions aO : q.getAnswerOptionsCollection()){
                         if(Integer.parseInt(aO.getOrderBlanks()) == counter){
-                            options += "<option value=\"" + aO.getAnsOption() + "\">" + aO.getAnsOption() + "</option>";
+                            options += "<option  value=\"" + aO.getAnsOption() + "\">" + aO.getAnsOption() + "</option>";
                         }
                     }
                     String selectTagEnd = "</select>";

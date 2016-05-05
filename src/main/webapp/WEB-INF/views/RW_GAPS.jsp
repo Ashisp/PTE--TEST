@@ -17,8 +17,12 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
-            function setAnswerPassage(){
+            function setAnswerPassage() {
                 document.getElementById("answerPsg").value = document.getElementById("passage").innerHTML;
+            }
+
+            function setSelectedItem(selectedItem) {
+                selectedItem.options[selectedItem.selectedIndex].setAttribute("selected", "selected");
             }
         </script>
     </head>
