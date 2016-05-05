@@ -540,6 +540,7 @@ public class AppController {
         if (userId == null) {
             return "redirect:/register";
         }
+        
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);

@@ -61,7 +61,7 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
+                            
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
@@ -79,7 +79,7 @@
             </div>
 
         </c:forEach>
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
+        <tag:paginate max="1" offset="${offset}" count="${count}" 
                       uri="/Spring4MVCFileUploadDownloadWithHibernate/LL-GAPS" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

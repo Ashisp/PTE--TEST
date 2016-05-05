@@ -19,7 +19,6 @@ public class PaginationTaglib extends SimpleTagSupport {
 		JspWriter out = getJspContext().getOut();
 		return out;
 	}
-
 	@Override
 	public void doTag() throws JspException {
 		Writer out = getWriter();
@@ -35,7 +34,7 @@ public class PaginationTaglib extends SimpleTagSupport {
 			
 			for(int itr=0;itr<count;itr+=steps) {
 				if(offset==itr)
-					out.write(constructLink((itr+1)-1 *steps, String.valueOf(itr+1), "active", true));
+					out.write(constructLink((itr) *steps, String.valueOf(itr+1), "active", true));
 				else
 					out.write(constructLink(itr*steps, String.valueOf(itr+1), null , false));
 			}
@@ -64,7 +63,7 @@ public class PaginationTaglib extends SimpleTagSupport {
 		if(disabled)
 			link.append(">").append("<a href=\"#\">"+text+"</a></li>");
 		else
-			link.append(">").append("<a href=\""+uri+"?offset="+page + "\">"+text+"</a></li>");
+    			link.append(">").append("<a href=\""+uri+"?offset="+page + "\">"+text+"</a></li>");
 		return link.toString();
 	}
 

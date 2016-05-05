@@ -63,8 +63,9 @@ and open the template in the editor.
                         <input type="hidden" name="answer" id="answer" />
                         <h3>Source</h3>
                         <ul class="source" id="source">
+                            
                             <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                                <c:set var="offset" value="${offset + itr.index +1}" />
+                                
                                 <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">
                                     <c:out value="${option.ansOption}" />
                                 </li>

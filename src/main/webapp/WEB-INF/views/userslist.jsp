@@ -52,7 +52,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${users}" var="user" varStatus="itr">
-                                  <td>${offset + itr.index +1 }</td>
+                                
                                 <tr>
                                   
                                     <td>${user.firstName}</td>

@@ -5,8 +5,7 @@
   <uri>/WEB-INF/taglibs/customTaglib.tld</uri>
  
   <tag>
-    <name>p    <tag-class>com.ekiras.taglib.PaginationTaglib</tag-class>
-aginate</name>
+    <name>p <tag-class>com.websystique.springmvc.controller.PaginationTaglib</tag-class> paginate</name>
     <body-content>empty</body-content>
     
     <attribute>

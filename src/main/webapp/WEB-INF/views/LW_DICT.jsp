@@ -72,6 +72,7 @@ and open the template in the editor.
                 </form>
             </div>
         </c:forEach>
+        
         <tag:paginate max="10" offset="${offset}" count="${count}" 
                       uri="/Spring4MVCFileUploadDownloadWithHibernate/LW-DICT" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
