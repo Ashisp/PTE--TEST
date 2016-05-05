@@ -63,14 +63,12 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
-    
-    
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model,Integer offset, Integer maxResults) {
+    public String listUsers(ModelMap model, Integer offset, Integer maxResults) {
         Long count;
-                count=userService.countUsers();
-        Collection<Users> users = userService.findAllUsers(offset,maxResults);
+        count = userService.countUsers();
+        Collection<Users> users = userService.findAllUsers(offset, maxResults);
         model.addAttribute("users", users);
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
@@ -108,16 +106,16 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
-    public String listAllLWGPAS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
+    public String listAllLWGPAS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
-             
+
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId,offset,maxResults);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         int counter = 0;
         for (Questions q : questions) {
             String passage = q.getPassage();
@@ -132,7 +130,7 @@ public class AppController {
             }
         }
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LW_GAPS";
     }
@@ -157,18 +155,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
-    public String listAllLRHOTS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-       Long count;
-               // count=questionService.CountALlQuestions(sectionId);
+    public String listAllLRHOTS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LR-HOTS");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LR_HOTS";
     }
@@ -185,18 +183,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
-    public String listALLLRHILI(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               // count=questionService.CountALlQuestions(sectionId);
+    public String listALLLRHILI(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LR-HILI");
-           count=questionService.CountALlQuestions(sectionId);
-         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LR_HILI";
     }
@@ -216,18 +214,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
-    public String listALLMAMC(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALLMAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-MAMC");
-           count=questionService.CountALlQuestions(sectionId);
-       Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LL_MAMC";
     }
@@ -260,9 +258,9 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
-    public String listALLSAMC(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              
+    public String listALLSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
@@ -270,8 +268,8 @@ public class AppController {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-SAMC");
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-           count=questionService.CountALlQuestions(sectionId);
-         model.addAttribute("count", count);
+        count = questionService.CountALlQuestions(sectionId);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LL_SAMC";
     }
@@ -288,21 +286,21 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
-    public String listALLLLGAPS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               
+    public String listALLLLGAPS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
-        
-        int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
-           count=questionService.CountALlQuestions(sectionId);
-      //   count=questionService.CountALlQuestions(sectionId);
 
-      Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
+        int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
+        count = questionService.CountALlQuestions(sectionId);
+        //   count=questionService.CountALlQuestions(sectionId);
+
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LL_GAPS";
     }
@@ -319,18 +317,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
-    public String listALLLWSUMM(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               // count=questionService.CountALlQuestions(sectionId);
+    public String listALLLWSUMM(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-SUMM");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LW_SUMM";
     }
@@ -347,18 +345,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
-    public String listALLLWDICT(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-                //count=questionService.CountALlQuestions(sectionId);
+    public String listALLLWDICT(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-DICT");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LW_DICT";
     }
@@ -375,18 +373,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
-    public String listALLRRSAMC(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALLRRSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RR_SAMC";
     }
@@ -403,34 +401,39 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
-    public String listRWGAPS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               // count=questionService.CountALlQuestions(sectionId); 
+    public String listRWGAPS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId); 
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-           count=questionService.CountALlQuestions(sectionId);
-         model.addAttribute("count", count);
+        count = questionService.CountALlQuestions(sectionId);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RW_GAPS";
     }
-
-    // ERROR WHILE DROPING OPTION
+    
+    @RequestMapping(value="/RW-GAPS", method=RequestMethod.POST)
+    public String processRWGAPS(){
+        
+        return "redirect:/RW-GAPS";
+    }
+    
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
-    public String listALLRRGAPS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALLRRGAPS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-GAPS");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         for (Questions q : questions) {
             String passage = q.getPassage();
             if (!passage.isEmpty()) {
@@ -439,13 +442,13 @@ public class AppController {
             }
         }
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RR_GAPS";
     }
-    
-    @RequestMapping(value="/RR-GAPS", method=RequestMethod.POST)
-    public String processRRGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage){
+
+    @RequestMapping(value = "/RR-GAPS", method = RequestMethod.POST)
+    public String processRRGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
@@ -456,26 +459,26 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
-    public String listALLRRMAMC(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              // count=questionService.CountALlQuestions(sectionId);
+    public String listALLRRMAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-MAMC");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RR_MAMC";
     }
 
     @RequestMapping(value = "/RR-MAMC", method = RequestMethod.POST)
     public String processRRMAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choices") String choices) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
@@ -486,23 +489,23 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
-    public String listALLRRDRDR(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-                //count=questionService.CountALlQuestions(sectionId);
+    public String listALLRRDRDR(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RR_DRDR";
     }
-    
-    @RequestMapping(value="/RR-DRDR", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/RR-DRDR", method = RequestMethod.POST)
     public String processRRDRDR(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answer") String answer) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
@@ -514,58 +517,58 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
-    public String listSSDESC(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listSSDESC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("SS-DESC");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "SS_DESC";
     }
 
     @RequestMapping(value = "/SS-DESC", method = RequestMethod.POST)
-    public String processSSDESC(HttpServletRequest req,Integer offset, Integer maxResults) {
+    public String processSSDESC(HttpServletRequest req, Integer offset, Integer maxResults) {
         System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
         return "redirect:/SS-DESC";
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
-    public String listALLSRREAD(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               // count=questionService.CountALlQuestions(sectionId);
+    public String listALLSRREAD(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "SR_READ";
     }
 
     @RequestMapping(value = {"/LS-SAQS"}, method = RequestMethod.GET)
-    public String listALlLSSAQS(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALlLSSAQS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-SAQS");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LS_SAQS";
     }
@@ -574,53 +577,53 @@ public class AppController {
      * **************************BAKI CHA *********************
      */
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
-    public String listALLLSPRES(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALLLSPRES(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-PRES");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LS_PRES";
     }
-    
+
     @RequestMapping(value = {"/LS-REPT"}, method = RequestMethod.GET)
-    public String listALLLSREPT(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-              //  count=questionService.CountALlQuestions(sectionId);
+    public String listALLLSREPT(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-REPT");
-        //count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count=questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-           count=questionService.CountALlQuestions(sectionId);
-         model.addAttribute("count", count);
+        count = questionService.CountALlQuestions(sectionId);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LS_REPT";
     }
 
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.GET)
-    public String listALLRWSUMM(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-             //   count=questionService.CountALlQuestions(sectionId);
+    public String listALLRWSUMM(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        //   count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-SUMM");
-           count=questionService.CountALlQuestions(sectionId);
-        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, sectionId, sectionId);
+        count = questionService.CountALlQuestions(sectionId);
+        Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "RW_SUMM";
     }
@@ -637,18 +640,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
-    public String listALLWWESSA(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
-         Long count;
-               // count=questionService.CountALlQuestions(sectionId);
+    public String listALLWWESSA(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
+        Long count;
+        // count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("WW-ESSA");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-         model.addAttribute("count", count);
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "WW_ESSA";
     }
@@ -665,18 +668,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
-    public String listALLBBBREAK(ModelMap model, HttpServletRequest req,Integer offset, Integer maxResults) {
+    public String listALLBBBREAK(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
-             //   count=questionService.CountALlQuestions(sectionId);
+        //   count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("BB-BREAK");
-           count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
-        
-         model.addAttribute("count", count);
+
+        model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "BB_BREAK";
     }
@@ -715,7 +718,7 @@ public class AppController {
         model.addAttribute("questions", questions);
         model.addAttribute("categories", categoriesService.findAllCategories());
         model.addAttribute("sections", sectionService.findAllSections());
-        
+
         return "addquestion";
     }
 
@@ -820,34 +823,18 @@ public class AppController {
         userService.deleteById(id);
         return "userslist";
     }
-    
+
     ///get for Answers
-    
-    
-     @RequestMapping(value = {"/answers-{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/answers-{id}"}, method = RequestMethod.GET)
     public String ListAllAnswers(@Valid Answers answers, BindingResult result,
             ModelMap model, @PathVariable int id) {
 
-        Collection<Answers> answerss= answersService.findAllAnswersByUserId(id);
- 
-        model.addAttribute("answers",answerss);
-        return "Answers";
-   
-    }
+        Collection<Answers> answerss = answersService.findAllAnswersByUserId(id);
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        model.addAttribute("answers", answerss);
+        return "Answers";
+
+    }
 
 //	@RequestMapping(value = { "/add-document-{id}" }, method = RequestMethod.GET)
 //	public String addDocuments(@PathVariable int id, ModelMap model) {
@@ -858,7 +845,7 @@ public class AppController {
 //		model.addAttribute("fileBucket", fileModel);
 //
 ////		List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
- ///		model.addAttribute("documents", documents);
+    ///		model.addAttribute("documents", documents);
 //		
 //		return "userlist";
 //	}

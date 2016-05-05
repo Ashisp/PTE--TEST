@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +24,7 @@
                     <img src="<c:url value="${question.imagePath}" />" alt="image" />
                 </div>
                 <div class="recorderSpace">
+                    <c:set var="offset" value="${offset}" />
                     <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden"><br/>
                     <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden"><br/>
                     <button class="btn btn-success" id="turnOn" onclick="turnMicrophoneOn()">Turn Mic On</button>
@@ -43,7 +46,9 @@
             </div>
         </c:forEach>
         <div id="recording-list"></div>
-
+        
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/SS-DESC" next="&raquo;" previous="&laquo;" />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

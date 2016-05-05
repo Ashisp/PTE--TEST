@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -30,7 +33,8 @@ and open the template in the editor.
                         <input type="hidden" name="userId" value="1000" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <p><c:out value="${question.question}" /></p>
-                        <c:forEach var="options" items="${question.answerOptionsCollection}">
+                        <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
+                            <c:set var="offset" value="${offset + itr.index +1}" />
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>
@@ -41,7 +45,8 @@ and open the template in the editor.
             </div>
         </c:forEach>
 
-
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/RR-SAMC" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

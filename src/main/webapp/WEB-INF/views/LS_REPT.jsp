@@ -17,13 +17,13 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
     </head>
     <body>
-        <c:forEach var="question" items="${listOfQuestions}" varStatus="itr">
+        <c:forEach var="question" items="${listOfQuestions}">
             <table>
                 <tr>
-                    <td>  ${offset + itr.index +1 }</td>
+                    
                 </tr>
             </table>
-           
+
             <div class="col-md-10 col-md-offset-1">
                 <h1>Repeat sentence</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -34,6 +34,7 @@ and open the template in the editor.
                 </div>
                 <p class="clear" />
                 <hr/>
+                <c:set var="offset" value="${offset}" />
                 <div class="recorderSpace" style="float:left;">
                     <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden"><br/>
                     <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden"><br/>
@@ -55,7 +56,8 @@ and open the template in the editor.
                 </div>
             </div>
         </c:forEach>
-
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/LS-REPT" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>

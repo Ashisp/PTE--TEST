@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,15 +74,15 @@
                 var index = wordExistsInList(word);
                 listOfSelectedWords.splice(index, 1);
             }
-            
-            function updateSelectedValue(){
+
+            function updateSelectedValue() {
                 document.getElementById("selected-hidden").value = document.getElementById('selected').innerHTML;
             }
         </script>
 
     </head>
     <body>
-        <c:forEach items="${listOfQuestions}" var="question">
+        <c:forEach items="${listOfQuestions}" var="question" varStatus="itr">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Highlight incorrect words</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -95,9 +98,10 @@
                             <c:out value="${question.passage}" />
                         </p>
                     </div>
-                        <input type="hidden" name="questionId" value="${question.questionId}" />
-                        <input type="hidden" name="selected" id="selected-hidden" value="" />
+                    <input type="hidden" name="questionId" value="${question.questionId}" />
+                    <input type="hidden" name="selected" id="selected-hidden" value="" />
                     <div>
+                        <c:set var="offset" value="${offset}" />
                         <input type="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
@@ -107,6 +111,9 @@
         </c:forEach>
     </body>
 
+    <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/LR-HILI" next="&raquo;" previous="&laquo;" />
+    
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     <script>

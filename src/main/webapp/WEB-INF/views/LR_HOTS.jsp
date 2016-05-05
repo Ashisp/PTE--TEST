@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +27,8 @@
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <c:forEach items="${question.answerOptionsCollection}" var="answerOption">
+                        <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
+                            <c:set var="offset" value="${offset + itr.index +1}" />
                             <input type="radio" name="choice" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
@@ -35,7 +39,9 @@
             </div>
         </c:forEach>
     </body>
-
+    <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/LR-HOTS" next="&raquo;" previous="&laquo;" />
+    
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
 </html>

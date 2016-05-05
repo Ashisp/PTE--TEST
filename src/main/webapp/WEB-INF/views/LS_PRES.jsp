@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +30,7 @@
                     <button class="btn btn-success" id="turnOn" onclick="turnMicrophoneOn()">Turn Mic On</button>
                     <input id="report-interval" type="range" min="1" max="5" value="1" class="hidden"><br/>
                     <input id="buffer-size" type="range" min="0" max="6" class="hidden"><br/>
-
+                    <c:set var="offset" value="${offset}" />
                     <div class="form-group">
                         <p class="clear" />
                         <div class="col-sm-3 control-label">
@@ -43,6 +46,8 @@
             </div>
         </c:forEach>
 
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/LS-PRES" next="&raquo;" previous="&laquo;" />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

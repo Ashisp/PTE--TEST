@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +24,7 @@
                 </div>
                 <p class="clear" />
                 <form method="post">
+                    <c:set var="offset" value="${offset}" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/300 Word Limit</h5>
                         <input type="hidden" name="userId" value="1000" />
@@ -33,7 +37,9 @@
                 </form>
             </div>
         </c:forEach>
-
+        <p class="clear" />
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/WW-ESSA" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">

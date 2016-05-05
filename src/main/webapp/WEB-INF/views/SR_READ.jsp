@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +20,7 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div class="recorderSpace" style="float:left;">
+                    <c:set var="offset" value="${offset}" />
                     <input id="time-limit" type="range" min="1" max="10" value="10" class="hidden">
                     <input id="encoding-option" type="range" min="0" max="11" value="6" class="hidden">
                     <button class="btn btn-success" id="turnOn" onclick="turnMicrophoneOn()">Turn Mic On</button>
@@ -43,6 +47,9 @@
             </div>
         </c:forEach>
 
+        <tag:paginate max="10" offset="${offset}" count="${count}" 
+			uri="/Spring4MVCFileUploadDownloadWithHibernate/SR-READ" next="&raquo;" previous="&laquo;" />
+        
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>
