@@ -18,5 +18,6 @@ public interface QuestionsService {
     void saveQuestions(Questions questions);
     void updateQuestions(Questions questions);
     Collection<Questions> findAllQuestions();
-    Collection<Questions>findALquestionsBySectionId(int section_id);
+    Collection<Questions>findAllQuestionsBySectionId(Integer section_id,Integer offset,Integer maxResults);
+    Long CountALlQuestions(Integer sectionId);
 }

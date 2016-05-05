@@ -20,7 +20,9 @@ public interface QuestionsDao {
     void save(Questions questions);
 
   
-
+Long CountQuestions(Integer sectionId);
     Collection<Questions> findAllQuestions();
-    Collection<Questions>findAllQuestionsBySectionId(int sectionId);
+    Collection<Questions>findAllQuestionsBySectionId(Integer sectionId,Integer offset,Integer maxResults);
+    
+    
 }

@@ -1,4 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -14,7 +17,13 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
     </head>
     <body>
-        <c:forEach var="question" items="${listOfQuestions}">
+        <c:forEach var="question" items="${listOfQuestions}" varStatus="itr">
+            <table>
+                <tr>
+                    <td>  ${offset + itr.index +1 }</td>
+                </tr>
+            </table>
+           
             <div class="col-md-10 col-md-offset-1">
                 <h1>Repeat sentence</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>

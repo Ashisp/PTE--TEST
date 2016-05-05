@@ -6,7 +6,7 @@
  
   <tag>
     <name>paginate</name>
-    <tag-class>com.ekiras.taglib.PaginationTaglib</tag-class>
+    <tag-class>com.websystique.springmvc.controller.PaginationTaglib</tag-class>
     <body-content>empty</body-content>
     
     <attribute>

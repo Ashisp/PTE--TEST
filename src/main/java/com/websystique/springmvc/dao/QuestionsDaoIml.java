@@ -14,6 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -57,16 +58,39 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Collection<Questions> findAllQuestionsBySectionId(int sectionId) {
+//    
+//
+//    public Collection<Questions> findAllQuestionsBySectionId(int sectionId) {
+//        Collection<Questions> data = null;
+//        try {
+//            
+//            Session session = sessionFactory.openSession();
+//
+//            data = sessionFactory.getCurrentSession().
+//                    createQuery("SELECT q FROM Questions q WHERE q.sectionId = :sectionId").
+//                    setString("sectionId", String.valueOf(sectionId)).
+//                    list();
+//            System.out.println("" + data);
+//            System.out.println("" + data);
+//        } catch (Exception exe) {
+//        }
+//
+//        return data;
+//
+////throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+    @SuppressWarnings("unchecked")
+    public Collection<Questions> findAllQuestionsBySectionId(Integer sectionId, Integer offset, Integer maxResults) {
+
         Collection<Questions> data = null;
         try {
-            
+
             Session session = sessionFactory.openSession();
 
-            data = sessionFactory.getCurrentSession().
+            data = (sessionFactory.getCurrentSession().
                     createQuery("SELECT q FROM Questions q WHERE q.sectionId = :sectionId").
-                    setString("sectionId", String.valueOf(sectionId)).
-                    list();
+                    setString("sectionId", String.valueOf(sectionId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).setFirstResult(offset != null ? offset : 0)
+                    .setMaxResults(maxResults != null ? maxResults : 1)).list();
             System.out.println("" + data);
             System.out.println("" + data);
         } catch (Exception exe) {
@@ -76,5 +100,12 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+ @SuppressWarnings("unchecked")
+    public Long CountQuestions(Integer sectionId) {
+       
+        
+        return ((Long)getSession().  createQuery("select count(*) from Questions  WHERE sectionId = :sectionId").
+                    setString("sectionId", String.valueOf(sectionId)).uniqueResult());
+    
+    }
 }

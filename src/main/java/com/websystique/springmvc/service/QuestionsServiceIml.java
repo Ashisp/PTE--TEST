@@ -56,12 +56,22 @@ public class QuestionsServiceIml implements QuestionsService {
     }
 
    
-    public Collection<Questions> findALquestionsBySectionId(int sectionId) {
-return dao.findAllQuestionsBySectionId(sectionId);      
+    public Collection<Questions> findAllQuestionsBySectionId(Integer sectionId,Integer offset,Integer maxResults) {
+return dao.findAllQuestionsBySectionId(sectionId,offset,maxResults);      
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Long CountALlQuestions(Integer sectionId)
+    {
+    
+    return dao.CountQuestions(sectionId);
+    }
+
+  
+    
+    
+   
    
 
 }
