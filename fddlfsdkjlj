@@ -1,0 +1,289 @@
+[33mcommit b1179fdf05a365483ed98d8b7b03b08e866e71fe[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Thu May 5 15:17:03 2016 +0545
+
+    RW-GAPS problem (post and get) solved
+
+[33mcommit e0efb8f17e29286db9aa7103d202e67f4ff4876f[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Thu May 5 14:37:59 2016 +0545
+
+    Pagination in all page working and solving RW-GAPS problem
+
+[33mcommit cee461291c9d2b298e7e39ffb535536170a8dd69[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Thu May 5 13:41:49 2016 +0545
+
+    Pagination up and running
+
+[33mcommit 00d259ebcfbc6a73dcbf937119e2c011c71a481b[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 21:32:44 2016 -0700
+
+    pagination for LL-GAPS for others just put the jsp code as in the userlist page .. all controllers and models are ready
+
+[33mcommit e4c7ea25229ac76d8bbd679b950f00b861229c8f[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 14:47:57 2016 -0700
+
+    pagination completed on a list usersers page
+
+[33mcommit 9f59fcc838af9205c756a6a0858893f4227fc8c0[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 13:54:55 2016 -0700
+
+    http://localhost:8081/Spring4MVCFileUploadDownloadWithHibernate/list/?offset=2&maxResults=1
+
+[33mcommit 2e345bec0d89ce9c7a1f1c6f55bc105ab9e2321e[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:55:33 2016 -0700
+
+    answers aftercc
+
+[33mcommit 04360c8f0ac4d979a12cd34f9c3034fa80f1ca6e[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:27:48 2016 -0700
+
+    answers after
+
+[33mcommit 9c5675243fcb8bb2f993b9cf93f474e46632f498[m
+Merge: 4456515 c71ba3c
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:16:09 2016 -0700
+
+    Merge origin/master
+
+[33mcommit 4456515a2a1ad9545cdb803ac52d8f89e11a67cc[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:15:57 2016 -0700
+
+    answers changes latest
+
+[33mcommit 7c2fef642a86973db0ca7fff13fc3ff39c24ab5c[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:14:35 2016 -0700
+
+    answers
+
+[33mcommit a30ce667419d4191410df67a79a406544ba17c1b[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Wed May 4 11:01:33 2016 -0700
+
+    answers changes
+
+[33mcommit c71ba3cf45ab7d131d122889af4c3849f64fd988[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 23:24:29 2016 +0545
+
+    RR-DRDR POST up and running
+
+[33mcommit 609f7c001879a3dc17f3b4de08296e924ac6ac40[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 23:03:24 2016 +0545
+
+    RR-GAPS POST up and running
+
+[33mcommit 2513fe39aa1aeba1c222e26d93897a79a51c7dcb[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 20:02:33 2016 +0545
+
+    Session (UserId) handled properly for every anser post request
+
+[33mcommit 8206e41dbc89ab64bd4f2e4fc366526839712ddc[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 19:49:08 2016 +0545
+
+    LW-DICT up and running
+
+[33mcommit 2521d66f1c0c8a655b7d243a7525f06aaa70dfec[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 19:43:57 2016 +0545
+
+    LR-HILI up and running with new way to userId retrival
+
+[33mcommit 4256bde4ed3f2fb7384fc6fa833cd7c449a1876f[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 19:21:05 2016 +0545
+
+    Login up and running
+
+[33mcommit 14c34dd030463ef2b698db30c4d60e24873dd3d8[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 03:49:44 2016 +0545
+
+    Login page
+
+[33mcommit 4fedb4f60eee66c49f9ff1c7e5634da1f96c2a07[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 03:44:25 2016 +0545
+
+    Interface to navigate and session too
+
+[33mcommit 37103a0bc30e45bb598d11ccbaa0f905b5ba0a43[m
+Merge: 42ccc45 d1f3133
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 14:07:03 2016 -0700
+
+    Merge origin/master
+
+[33mcommit 42ccc456c70c68b03d19ccf0a916050bef182d86[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 14:06:10 2016 -0700
+
+    login and session completed
+
+[33mcommit d1f3133e7ea6571bcedb9de7a182b918b0352903[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 02:51:02 2016 +0545
+
+    Last Changes
+
+[33mcommit 8869c543eeb7507dc65b1a105dd4a02803e7b2e0[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 00:53:57 2016 +0545
+
+    Almost done with post
+
+[33mcommit 6bb29c0bf3d496f70a94906415de0c097e2763e5[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Wed May 4 00:23:49 2016 +0545
+
+    Done upto RR-MAMC
+
+[33mcommit 6914bbc7e5cc98b6de8499d9f0faff1444be86b2[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 10:53:20 2016 -0700
+
+    login succes
+
+[33mcommit 6ca25fcea27a3819ab8c9c00cd6841038371828b[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 10:50:45 2016 -0700
+
+    login succes
+
+[33mcommit 9abbe84ac0a8a3ca05dde1315686156070dd9449[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 23:29:38 2016 +0545
+
+    LL-GAPS DONE
+
+[33mcommit d4b7dd431b2af9f99540836e7f70c174ff93f104[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 23:19:07 2016 +0545
+
+    LL-SAMC DOne
+
+[33mcommit c206a0f1cf476cb99ac6cae8ab4515db3b758b7f[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 23:06:40 2016 +0545
+
+    LR-HOTS Working
+
+[33mcommit 4e9b544111b71d7e8abc00793aceb489be5ef453[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 22:48:55 2016 +0545
+
+    LR-HOTS post tets
+
+[33mcommit 16ebd87f6f24ae2fe1600f6a2f42ce247c1acbe6[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 22:21:36 2016 +0545
+
+    TESTING LS-SAQS
+
+[33mcommit 9cc3f0596340db474e4aabe6e37119dd84f51964[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 21:51:53 2016 +0545
+
+    Views fixed for LW, RR and RR
+
+[33mcommit 7f33d49793c435743110242eded9e365ae0debc5[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 21:43:08 2016 +0545
+
+    Solving together
+
+[33mcommit 09894ace892a49ceae24ea8424cf7f503ac39a66[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 21:27:59 2016 +0545
+
+    LW-GAPS
+
+[33mcommit 3efde1db3ab40de1455661698c1fb52dd122b5bb[m
+Merge: 093cdb5 fe1e86c
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 21:21:40 2016 +0545
+
+    EVEN WITH ASHIS
+
+[33mcommit 093cdb5972d69cd359ff560f9556958e2ce0e18d[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 21:18:03 2016 +0545
+
+    SS-DES
+
+[33mcommit fe1e86c51e9068519cba81c165f6c603568eda6e[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 08:30:01 2016 -0700
+
+    RW-summ
+
+[33mcommit c24cef6f58c018144669b0a79cb803e866cf188a[m
+Merge: 5f4397d 5e2bfd3
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 08:04:18 2016 -0700
+
+    Solved conflit while merging
+
+[33mcommit 5f4397dd6a8cca9ee15b033f327abf004267208a[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 07:59:36 2016 -0700
+
+    pul req
+
+[33mcommit 5e2bfd39604655e9119dd8b4a0005ec38c706055[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 20:42:49 2016 +0545
+
+    Just to even out the controller
+
+[33mcommit cb4e336f1a750cdbdf3af3c054e022cb238dcaf0[m
+Merge: 6eaddc9 7d0ef27
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 07:38:06 2016 -0700
+
+    Merge branch 'master' of https://github.com/Ashisp/PteTestFinal
+
+[33mcommit 6eaddc95bffde3d47eaafb237075838096fc428e[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 07:37:51 2016 -0700
+
+    Pull for REPT test
+
+[33mcommit 7d0ef27325b9eabf8a698927f1729b907aec59e9[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 20:20:02 2016 +0545
+
+    Push for LS-REPT test
+
+[33mcommit 26756bbb9ef911fc0b7466548ff1d6a3539692dc[m
+Author: Ashis <Ashis@DESKTOP-IQ72C7J>
+Date:   Tue May 3 07:34:29 2016 -0700
+
+    one view
+
+[33mcommit dbebb95585f3dbd2e6e9801d5154d416b8741ad3[m
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 16:57:45 2016 +0545
+
+    Commit with new database and 3 guys
+
+[33mcommit c5b822f12a714e23f266cb6f2aa9a28648af6171[m
+Merge: 6fc31da c71ff21
+Author: Nikesh Maharjan <nikeshmhr@gmail.com>
+Date:   Tue May 3 13:58:19 2016 +0545
+
+    Merge branch 'master' of github.com:Ashisp/PteTestFinal
+
+[33mcommit 6fc31daff725e8fa8829d8b0

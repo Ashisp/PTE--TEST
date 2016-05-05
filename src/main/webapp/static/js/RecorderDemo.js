@@ -19,7 +19,7 @@ if (audioContext.createScriptProcessor == null)
 // elements (jQuery objects)
 var $timeLimit = $('#time-limit'),
         $encodingOption = $('#encoding-option'),
-        $reportInterval = $('#report-interval'),
+        $reportInterval = 1, //$('#report-interval'),
         $bufferSize = $('#buffer-size'),
         $recording = $('#recording'),
         $timeDisplay = $('#time-display'),
@@ -34,8 +34,8 @@ var $timeLimit = $('#time-limit'),
 // initialize input element states (required for reloading page on Firefox)
 $timeLimit.attr('disabled', false);
 $timeLimit.attr('value', 10);
-$reportInterval.attr('disabled', false);
-$reportInterval[0].valueAsNumber = 1;
+//$reportInterval.attr('disabled', false);
+//$reportInterval[0].valueAsNumber = 1;
 $bufferSize.attr('disabled', false);
 $record.attr('disabled', true);
 
@@ -221,10 +221,10 @@ var encodingProcess = 'seperate';
  $('#report-interval-text').toggleClass('hidden', hidden);
  });*/
 
-$reportInterval.on('input', function () {
+/*$reportInterval.on('input', function () {
     var sec = $reportInterval[0].valueAsNumber;
     $('#report-interval-text').html("" + sec + " second" + (plural(sec)));
-});
+});*/
 
 // processor buffer size
 var BUFFER_SIZE = [256, 512, 1024, 2048, 4096, 8192, 16384];
@@ -236,7 +236,8 @@ var defaultBufSz = (function () {
 
 var iDefBufSz = BUFFER_SIZE.indexOf(defaultBufSz);
 
-$bufferSize[0].valueAsNumber = iDefBufSz;   // initialize with browser default
+//$bufferSize[0].valueAsNumber = iDefBufSz;   // initialize with browser default
+$bufferSize[0] = iDefBufSz;   // initialize with browser default
 
 function updateBufferSizeText() {
     var iBufSz = $bufferSize[0].valueAsNumber,
@@ -253,6 +254,7 @@ $bufferSize.on('input', function () {
 });
 // save/delete recording
 function saveRecording(blob, encoding) {
+    alert("saved");
     var time = new Date(),
             url = URL.createObjectURL(blob),
             html = "<p recording='" + url + "'>" +
@@ -267,9 +269,6 @@ function saveRecording(blob, encoding) {
             url +
             "'>Delete</button>" +
             "</p>";
-
-
-    alert("saved");
     /*$.ajax({
      url: 'handleUpload.php',
      type: 'POST',
@@ -281,7 +280,7 @@ function saveRecording(blob, encoding) {
      error: function(){alert('error');}
      });*/
 
-    /*var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
      xhr.onload = function(e){
      if(this.readyState === 4){
      console.log("Server returned: ", e.target.responseText);
@@ -290,7 +289,7 @@ function saveRecording(blob, encoding) {
      var fd = new FormData();
      fd.append("recording", url);
      xhr.open("POST", "/Spring4MVCFileUploadDownloadWithHibernate/SS-DESC", true);
-     xhr.send(fd);*/
+     xhr.send(fd);
 
     $recordingList.append($(html));
 }
@@ -405,6 +404,7 @@ audioRecorder.onEncodingProgress = function (recorder, progress) {
 };
 
 audioRecorder.onComplete = function (recorder, blob) {
+    alert('Complete');
     if (recorder.options.encodeAfterRecord)
         $modalProgress.modal('hide');
     saveRecording(blob, recorder.encoding);

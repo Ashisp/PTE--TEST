@@ -768,11 +768,12 @@ public class AppController {
         return "redirect:/questions";
     }
 
-    @RequestMapping(value = {"/answers"}, method = RequestMethod.GET)
-    public String listAnswers(ModelMap model) {
-        Collection<Answers> answers = answersService.findAllAnswers();
+    @RequestMapping(value = {"/answers-{userId}"}, method = RequestMethod.GET)
+    public String listAnswers(ModelMap model, @PathVariable int userId) {
+        Collection<Answers> answers = answersService.findAllAnswersByUserId(userId);
+        System.out.println("User ID: " + userId);
         model.addAttribute("answers", answers);
-        return "newjsp";
+        return "results";
     }
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
@@ -849,18 +850,6 @@ public class AppController {
     public String deleteUser(@PathVariable int id) {
         userService.deleteById(id);
         return "userslist";
-    }
-
-    ///get for Answers
-    @RequestMapping(value = {"/answers-{id}"}, method = RequestMethod.GET)
-    public String ListAllAnswers(@Valid Answers answers, BindingResult result,
-            ModelMap model, @PathVariable int id) {
-
-        Collection<Answers> answerss = answersService.findAllAnswersByUserId(id);
-
-        model.addAttribute("answers", answerss);
-        return "Answers";
-
     }
 
 //	@RequestMapping(value = { "/add-document-{id}" }, method = RequestMethod.GET)
