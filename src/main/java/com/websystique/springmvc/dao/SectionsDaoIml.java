@@ -33,10 +33,10 @@ public class SectionsDaoIml extends AbstractDao<Integer, Sections> implements Se
     private SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory){
+    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     public Sections findById(int id) {
 
         Sections sections = getByKey(id);
@@ -64,15 +64,32 @@ public class SectionsDaoIml extends AbstractDao<Integer, Sections> implements Se
 
     public int findSectionIdByUrlPattern(String url_pattern) {
         List<Sections> data = null;
-        try{
+        try {
             Session session = sessionFactory.openSession();
-            
+
             data = sessionFactory.getCurrentSession().
                     createQuery("SELECT s FROM Sections s WHERE s.urlPattern = :urlPattern").
                     setString("urlPattern", url_pattern).
                     list();
-        }catch(Exception exe){}
+        } catch (Exception exe) {
+        }
         return data.get(0).getSectionId();
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public String findUrlPatternByOrderSequence(int order) {
+          String data = "";// NULL is bad programming :D what to write empty string (i.e "")ok 
+        try {
+            Session session = sessionFactory.openSession();
+
+            List<Sections> sec = sessionFactory.getCurrentSession().
+                    createQuery("SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence").
+                    setInteger("orderSequence", order).
+                    list();
+            data = sec.get(0).getUrlPattern();
+        } catch (Exception exe) {
+        }
+        return data;
+    }
+
 }

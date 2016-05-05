@@ -15,6 +15,7 @@
     </head>
     <body>
         <c:forEach items="${listOfQuestions}" var="question">
+
             <div class="col-md-10 col-md-offset-1">
                 <h1>Read aloud</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -44,12 +45,19 @@
                         <c:out value="${question.passage}" />
                     </p>
                 </div>
+                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
+
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/SR-READ" next="&raquo;" previous="&laquo;" />
-        
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/SR-READ" next="&raquo;" previous="&laquo;" />
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>

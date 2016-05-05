@@ -107,22 +107,28 @@
                 </form>
                 <p class="clear" />
                 <div><b>You've selected (Might be userfriendly):</b>[<span id='selected'></span>]</div>
+                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
     </body>
 
     <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/LR-HILI" next="&raquo;" previous="&laquo;" />
-    
+                  uri="/Spring4MVCFileUploadDownloadWithHibernate/LR-HILI" next="&raquo;" previous="&laquo;" />
+
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     <script>
-            $(document).bind("mouseup", Kolich.Selector.mouseup);
+                    $(document).bind("mouseup", Kolich.Selector.mouseup);
 
-            var words = formatPassage();
-            for (var i = 0; i < words.length; i++) {
-                addAttributeToWord(words[i]);
-            }
-            document.getElementById("passage").innerHTML = formattedPassage;
+                    var words = formatPassage();
+                    for (var i = 0; i < words.length; i++) {
+                        addAttributeToWord(words[i]);
+                    }
+                    document.getElementById("passage").innerHTML = formattedPassage;
     </script>
 </html>

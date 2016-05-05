@@ -20,7 +20,7 @@ and open the template in the editor.
         <c:forEach var="question" items="${listOfQuestions}">
             <table>
                 <tr>
-                    
+
                 </tr>
             </table>
 
@@ -54,6 +54,12 @@ and open the template in the editor.
                         <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                     </div>
                 </div>
+                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
         <tag:paginate max="10" offset="${offset}" count="${count}" 

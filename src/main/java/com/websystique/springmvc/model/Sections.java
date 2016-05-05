@@ -27,6 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Ashis
  */
+
+//SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence    we need this YA 
+
 @Entity
 @Table(catalog = "rendron_db", schema = "")
 @XmlRootElement

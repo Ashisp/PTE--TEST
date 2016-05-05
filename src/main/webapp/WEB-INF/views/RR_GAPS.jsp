@@ -30,8 +30,8 @@ and open the template in the editor.
                 ev.target.appendChild(document.getElementById(data));
                 setAnswer();
             }
-            
-            function setAnswer(){
+
+            function setAnswer() {
                 document.getElementById("answerPassage").value = document.getElementById("paragraph").innerHTML;
             }
         </script>
@@ -54,7 +54,7 @@ and open the template in the editor.
 
                         <div style="height:50px">
                             <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
+                                <c:set var="offset" value="${offset + itr.index +1}" />
                                 <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
                                     <div id="<c:out value="${option.optId}" />" class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
                                 </span>
@@ -66,11 +66,17 @@ and open the template in the editor.
                         <input type="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
+                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/RR-GAPS" next="&raquo;" previous="&laquo;" />
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/RR-GAPS" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

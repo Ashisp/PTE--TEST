@@ -20,7 +20,7 @@ public interface SectionsDao {
     
     Collection<Sections> findAllSections();
             int findSectionIdByUrlPattern(String url_pattern);
-            
+            String findUrlPatternByOrderSequence(int order);
    
     
     

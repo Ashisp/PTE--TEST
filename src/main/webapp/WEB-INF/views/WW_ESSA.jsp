@@ -35,25 +35,31 @@
                         <input id="submit" type="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
+                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
         <p class="clear" />
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/WW-ESSA" next="&raquo;" previous="&laquo;" />
+                      uri="/Spring4MVCFileUploadDownloadWithHibernate/WW-ESSA" next="&raquo;" previous="&laquo;" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">
-            var MAX_WORD_COUNT = 300;
-            function countWord() {
-                var essay = document.getElementById("essay").value;
-                var words = essay.split(" ");
-                document.getElementById("wordCount").innerHTML = (words.length);
-                if(words.length > MAX_WORD_COUNT){
-                    $("#submit").attr('disabled','true');
-                }else if(words.length <= MAX_WORD_COUNT){
-                    $("#submit").removeAttr('disabled');
-                }
-            }
+                            var MAX_WORD_COUNT = 300;
+                            function countWord() {
+                                var essay = document.getElementById("essay").value;
+                                var words = essay.split(" ");
+                                document.getElementById("wordCount").innerHTML = (words.length);
+                                if (words.length > MAX_WORD_COUNT) {
+                                    $("#submit").attr('disabled', 'true');
+                                } else if (words.length <= MAX_WORD_COUNT) {
+                                    $("#submit").removeAttr('disabled');
+                                }
+                            }
         </script>
     </body>
 </html>

@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
-            function callTimer(){
+            function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
                 startTimer(timeFromDb);
             }
@@ -42,6 +42,13 @@
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
+                    </div>
+                    <hr/>
+                </form>
+                <form method="post" action="<c:url value="/loadSection" />">
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>

@@ -24,5 +24,6 @@ public interface SectionsService {
 
     Collection<Sections> findAllSections();
     int findSectionIdByUrlPattern(String url_pattern);
-    
+    String findUrlPatternByOrderSequence(int order);
+  
 }

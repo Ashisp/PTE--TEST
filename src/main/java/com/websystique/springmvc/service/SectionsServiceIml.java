@@ -62,6 +62,9 @@ return dao.findSectionIdByUrlPattern(url_pattern);
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
+    public String findUrlPatternByOrderSequence(int order) {
+       return dao.findUrlPatternByOrderSequence(order);
+    }
+
     
 }

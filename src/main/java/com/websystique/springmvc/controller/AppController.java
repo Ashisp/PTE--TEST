@@ -38,6 +38,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/")
@@ -64,6 +65,22 @@ public class AppController {
     @Autowired
     SectionsService sectionService;
 
+    @RequestMapping(value="/start", method=RequestMethod.GET)
+    public String loadStartPage(ModelMap map){
+        
+        return "start";
+    }
+    
+    @RequestMapping(value="/loadSection", method=RequestMethod.POST)
+    public String loadSection(@RequestParam("currentSection") int currentSection){
+        int nextSectionToLoad = currentSection + 1;
+        System.out.println("Next: " + nextSectionToLoad);
+        String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
+        if(sectionNext.isEmpty())
+            return "redirect:/end";
+        return "redirect:/" + sectionNext;
+    }
+    
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model, Integer offset, Integer maxResults) {
         Long count;
@@ -876,7 +893,7 @@ public class AppController {
 
                 // Creating the directory to store file
                 //C:\xampp\tomcat\tmpFiles
-                String rootPath = System.getProperty("user.home");
+                String rootPath = System.getProperty("catalina.home");
                 File dir = new File(rootPath + File.separator + "AudioFiles");
                 if (!dir.exists()) {
                     dir.mkdirs();
