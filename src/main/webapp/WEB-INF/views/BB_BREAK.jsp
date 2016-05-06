@@ -15,21 +15,23 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
     </head>
     <body>
-        
-        
-        <form><div class="col-md-10 col-md-offset-1">
-                <h1>Break</h1>
-                <p class="instruction">You can take a break and relax. Press done button when you're ready again.</p>
-                <hr />
-                <div class="col-md-5 imageView">
-                    <img src="../raw_res/image.jpg" alt="image" />
-                </div>
-                <p class="clear" />
-                <div>
-                    <input type="submit" name="done" value="Done" class="form-control done" />
-                </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <h1>Break</h1>
+            <p class="instruction">You can take a break and relax. Press done button when you're ready again.</p>
+            <hr />
+            <div class="col-md-5 imageView">
+                <img src="../raw_res/image.jpg" alt="image" />
             </div>
-        </form>
+            <p class="clear" />
+            <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
+                <input type="hidden" value="${sectionId}" name="currentSection" />
+                <div>
+                    <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                </div>
+            </form>
+        </div>
+
 
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>

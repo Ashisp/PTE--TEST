@@ -731,6 +731,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
 
+        model.addAttribute("sectionId", sectionId);
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "BB_BREAK";
