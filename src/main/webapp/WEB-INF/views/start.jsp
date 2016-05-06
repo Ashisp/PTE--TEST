@@ -23,10 +23,14 @@
         <form method="post" action="<c:url value="/loadSection" />">
             <div style="margin: 0 200px;">
                 <input type="hidden" name="currentSection" value="0" />
-                <input type="submit" class="btn btn-success done form-control" value="Start" />
+                <input type="submit" class="btn btn-success" value="Start Test" />
+                <a href="<c:url value='/sections-list' />" class="btn btn-success">Sample Questions</a>
             </div>
         </form>
 
+            
+            
+            
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

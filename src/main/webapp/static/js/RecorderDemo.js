@@ -288,7 +288,7 @@ function saveRecording(blob, encoding) {
      };
      var fd = new FormData();
      fd.append("recording", url);
-     xhr.open("POST", "/Spring4MVCFileUploadDownloadWithHibernate/SS-DESC", true);
+     xhr.open("POST", "/SS-DESC", true);
      xhr.send(fd);
 
     $recordingList.append($(html));

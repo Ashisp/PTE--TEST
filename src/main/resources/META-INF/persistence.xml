@@ -13,10 +13,10 @@
     <class>com.websystique.springmvc.model.Categories</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rendron_db?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value=" jdbc:mysql://mysql55.metawerx.net:3509/expresse?autoReconnect=true"/>
+      <property name="javax.persistence.jdbc.user" value="expresse"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="J83c.Rwqa"/>
     </properties>
   </persistence-unit>
 </persistence>

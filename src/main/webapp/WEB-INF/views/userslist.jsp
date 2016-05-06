@@ -12,8 +12,8 @@
     </head>
 
     <body>
-        <div class="generic-container">
-            <div class="panel panel-default">
+       
+            <div>
 
 
 
@@ -88,7 +88,7 @@
 
                                     <td><a href="<c:url value='/edit-user-${user.userId}' />" class="btn btn-success custom-width">edit</a></td>
                                     <td><a href="<c:url value='/delete-user-${user.userId}' />" class="btn btn-danger custom-width">delete</a></td>
-                                    <td><a href="<c:url value='/answers-${user.userId}' />" class="btn btn-success custom-width">SeeAnswersSheet</a></td>
+                                    <td><a href="<c:url value='/answers-${user.userId}' />" class="btn btn-success custom-width">Result</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -102,7 +102,7 @@
             </div>
               
             
-        </div>
+    
                 
                 
                 <tag:paginate max="10" offset="${offset}" count="${count}" 

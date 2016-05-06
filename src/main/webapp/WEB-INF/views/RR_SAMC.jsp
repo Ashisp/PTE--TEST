@@ -34,7 +34,7 @@ and open the template in the editor.
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <p><c:out value="${question.question}" /></p>
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
+                          
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>

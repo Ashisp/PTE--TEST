@@ -81,7 +81,7 @@ public class AppController {
         return "redirect:/" + sectionNext;
     }
     
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model, Integer offset, Integer maxResults) {
         Long count;
         count = userService.countUsers();
@@ -91,6 +91,13 @@ public class AppController {
         model.addAttribute("offset", offset);
         System.out.println("users");
         return "userslist";
+    }
+    
+      @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
+    
+        System.out.println("users");
+        return "Mainpage";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -266,7 +273,7 @@ public class AppController {
             //request.setAttribute();
             String message = "invalid";
 
-            return "redirect:/list";
+            return "redirect:/start";
             // message="valid";
 
         } else {

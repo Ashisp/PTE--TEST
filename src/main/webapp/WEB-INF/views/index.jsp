@@ -63,6 +63,8 @@ and open the template in the editor.
                 </ol>
             </li>
         </ul>
+                
+<a href="<c:url value='/logout' />" class="btn btn-success custom-width">Logout</a>
     </body>
     
     <script src="/js/jquery-2.2.3.min.js"></script>

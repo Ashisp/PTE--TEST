@@ -15,6 +15,8 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
     </head>
     <body>
+        
+        
         <form><div class="col-md-10 col-md-offset-1">
                 <h1>Break</h1>
                 <p class="instruction">You can take a break and relax. Press done button when you're ready again.</p>

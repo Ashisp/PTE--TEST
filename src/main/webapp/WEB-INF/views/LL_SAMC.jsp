@@ -60,7 +60,7 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
+                            
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>

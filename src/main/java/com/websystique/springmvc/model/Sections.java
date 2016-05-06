@@ -27,11 +27,8 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Ashis
  */
-
-//SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence    we need this YA 
-
 @Entity
-@Table(catalog = "rendron_db", schema = "")
+@Table(catalog = "expresse", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sections.findAll", query = "SELECT s FROM Sections s"),
