@@ -440,7 +440,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
             if(!passage.isEmpty()){
                 while(passage.contains("%_%")){
                     String selectTagStart = "<select onchange=\"setSelectedItem(this)\" name=\"blank" + counter + "\" class=\"blanks form-control\">";
-                    String options = "";
+                    String options = "<option value=\"\"></option>";
                     for(AnswerOptions aO : q.getAnswerOptionsCollection()){
                         if(Integer.parseInt(aO.getOrderBlanks()) == counter){
                             options += "<option  value=\"" + aO.getAnsOption() + "\">" + aO.getAnsOption() + "</option>";
