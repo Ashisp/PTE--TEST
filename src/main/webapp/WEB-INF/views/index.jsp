@@ -59,7 +59,7 @@ and open the template in the editor.
             <li>
                 <h1>Break</h1>
                 <ol>
-                    <li><!--<a href="BB_BREAK.html" target="blank">Break</a>--></li>
+                    <li><a href="<c:url value='/BB-BREAK' />" target="blank">Break</a></li>
                 </ol>
             </li>
         </ul>
