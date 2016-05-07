@@ -49,17 +49,17 @@
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">
-                            var MAX_WORD_COUNT = 300;
-                            function countWord() {
-                                var essay = document.getElementById("essay").value;
-                                var words = essay.split(" ");
-                                document.getElementById("wordCount").innerHTML = (words.length);
-                                if (words.length > MAX_WORD_COUNT) {
-                                    $("#submit").attr('disabled', 'true');
-                                } else if (words.length <= MAX_WORD_COUNT) {
-                                    $("#submit").removeAttr('disabled');
-                                }
-                            }
+                    var MAX_WORD_COUNT = 300;
+                    function countWord() {
+                        var essay = document.getElementById("essay").value;
+                        var words = essay.split(" ");
+                        document.getElementById("wordCount").innerHTML = (words.length);
+                        if (words.length > MAX_WORD_COUNT) {
+                            $("#submit").attr('disabled', 'true');
+                        } else if (words.length <= MAX_WORD_COUNT) {
+                            $("#submit").removeAttr('disabled');
+                        }
+                    }
         </script>
     </body>
 </html>

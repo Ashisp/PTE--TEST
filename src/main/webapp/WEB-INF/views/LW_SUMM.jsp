@@ -58,10 +58,10 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/70 Word Limit</h5>
-                        <textarea name="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10"></textarea>
+                        <textarea name="summary" id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
                     </div>
                     <div>
-                        <input type="submit" name="done" value="Done" class="form-control done" />
+                        <input type="submit" id="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
@@ -78,5 +78,18 @@
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+        <script type="text/javascript">
+                    var MAX_WORD_COUNT = 70;
+                    function countWord() {
+                        var essay = document.getElementById("summary").value;
+                        var words = essay.split(" ");
+                        document.getElementById("wordCount").innerHTML = (words.length);
+                        if (words.length > MAX_WORD_COUNT) {
+                            $("#submit").attr('disabled', 'true');
+                        } else if (words.length <= MAX_WORD_COUNT) {
+                            $("#submit").removeAttr('disabled');
+                        }
+                    }
+        </script>
     </body>
 </html>
