@@ -12,17 +12,17 @@
     </head>
 
     <body>
-       <div class="panel-heading"><span class="lead">
-        <div class="center-block">
+        <div class="panel-heading"><span class="lead">
+                <div class="center-block">
 
-<a href="<c:url value='/login' />" class="btn btn-success custom-width">Login</a>
-<a href="<c:url value='/register' />" class="btn btn-success custom-width">Sign up</a>
-               
-</div>
+                    <a href="<c:url value='/login' />" class="btn btn-success custom-width">Login</a>
+                    <a href="<c:url value='/register' />" class="btn btn-success custom-width">Sign up</a>
 
-</span>
-            </div>
-                 
+                </div>
+
+            </span>
+        </div>
+
 
     </body>
 </html>

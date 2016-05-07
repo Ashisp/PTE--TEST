@@ -16,6 +16,20 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <script type="text/javascript">
+            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'You sure?';
+                }
+
+                // For others
+                return 'You sure?';
+            };
+        </script>
     </head>
     <body>
         <c:forEach var="question" items="${listOfQuestions}">
@@ -34,7 +48,7 @@ and open the template in the editor.
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <p><c:out value="${question.question}" /></p>
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-                          
+
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>

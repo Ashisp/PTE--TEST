@@ -15,6 +15,20 @@
         <script src="<c:url value='/static/js/myjs.js' />"></script>
 
         <script type="text/javascript">
+            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'You sure?';
+                }
+
+                // For others
+                return 'You sure?';
+            };
+            
+            
             var listOfSelectedWords = [];
 
             if (!window.Kolich) {

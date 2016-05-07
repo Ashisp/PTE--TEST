@@ -13,6 +13,20 @@
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>
         <script src="<c:url value='/static/js/RecorderDemo.js' />"></script>
+        <script type="text/javascript">
+            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'You sure?';
+                }
+
+                // For others
+                return 'You sure?';
+            };
+        </script>
     </head>
     <body>
         <c:forEach items="${listOfQuestions}" var="question">

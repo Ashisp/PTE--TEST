@@ -13,6 +13,19 @@
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
+            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'You sure?';
+                }
+
+                // For others
+                return 'You sure?';
+            };
+            
             function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
                 startTimer(timeFromDb);

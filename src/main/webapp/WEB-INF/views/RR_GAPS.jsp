@@ -15,7 +15,21 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-        <script>
+        <script type="text/javascript">
+            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    e.returnValue = 'You sure?';
+                }
+
+                // For others
+                return 'You sure?';
+            };
+            
+            
             function allowDrop(ev) {
                 ev.preventDefault();
             }
