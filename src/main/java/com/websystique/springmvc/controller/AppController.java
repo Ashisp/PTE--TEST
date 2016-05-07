@@ -396,6 +396,12 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         return "redirect:/LW-DICT";
     }
 
+    @RequestMapping(value = {"/end"},method = RequestMethod.GET)
+    public String endpage(ModelMap modelMa,HttpServletRequest request)
+    {
+    
+    return "end";
+    }
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
     public String listALLRRSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;

@@ -254,7 +254,7 @@ $bufferSize.on('input', function () {
 });
 // save/delete recording
 function saveRecording(blob, encoding) {
-    alert("saved");
+   
     var time = new Date(),
             url = URL.createObjectURL(blob),
             html = "<p recording='" + url + "'>" +
@@ -360,7 +360,7 @@ function startRecording() {
         ogg: {quality: OGG_QUALITY[optionValue.ogg]},
         mp3: {bitRate: MP3_BIT_RATE[optionValue.mp3]}
     });
-    audioRecorder.startRecording();
+    
     setProgress(0);
 }
 ;
@@ -377,6 +377,7 @@ function stopRecording(finish) {
                     .find('.modal-title')
                     .html("Encoding " + audioRecorder.encoding.toUpperCase());
             $modalProgress.modal('show');
+             audioRecorder.saverecording();
         }
     } else
         audioRecorder.cancelRecording();
@@ -404,7 +405,7 @@ audioRecorder.onEncodingProgress = function (recorder, progress) {
 };
 
 audioRecorder.onComplete = function (recorder, blob) {
-    alert('Complete');
+   
     if (recorder.options.encodeAfterRecord)
         $modalProgress.modal('hide');
     saveRecording(blob, recorder.encoding);
