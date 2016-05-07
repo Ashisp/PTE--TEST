@@ -32,8 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
     @NamedQuery(name = "Categories.findByCatId", query = "SELECT c FROM Categories c WHERE c.catId = :catId"),
     @NamedQuery(name = "Categories.findByCatName", query = "SELECT c FROM Categories c WHERE c.catName = :catName"),
-    @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime")})
+    @NamedQuery(name = "Categories.findByCatTime", query = "SELECT c FROM Categories c WHERE c.catTime = :catTime")})
 public class Categories implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,8 +48,8 @@ public class Categories implements Serializable {
     private String catName;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "total_time", nullable = false)
-    private int totalTime;
+    @Column(name = "cat_time", nullable = false)
+    private int catTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
     private Collection<Questions> questionsCollection;
 
@@ -59,10 +60,10 @@ public class Categories implements Serializable {
         this.catId = catId;
     }
 
-    public Categories(Integer catId, String catName, int totalTime) {
+    public Categories(Integer catId, String catName, int catTime) {
         this.catId = catId;
         this.catName = catName;
-        this.totalTime = totalTime;
+        this.catTime = catTime;
     }
 
     public Integer getCatId() {
@@ -81,12 +82,12 @@ public class Categories implements Serializable {
         this.catName = catName;
     }
 
-    public int getTotalTime() {
-        return totalTime;
+    public int getCatTime() {
+        return catTime;
     }
 
-    public void setTotalTime(int totalTime) {
-        this.totalTime = totalTime;
+    public void setCatTime(int catTime) {
+        this.catTime = catTime;
     }
 
     @XmlTransient
