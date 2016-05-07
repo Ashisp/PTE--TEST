@@ -78,7 +78,7 @@ and open the template in the editor.
                         <input type="hidden" name="answer" id="answer" />
                         <h3>Source</h3>
                         <ul class="source" id="source">
-                            
+                            <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
                             <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
                                 
                                 <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">
