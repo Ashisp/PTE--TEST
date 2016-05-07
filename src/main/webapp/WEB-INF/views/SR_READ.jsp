@@ -70,7 +70,7 @@
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/SR-READ" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/SR-READ" />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

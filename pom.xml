@@ -5,7 +5,7 @@
   <artifactId>Spring4MVCFileUploadDownloadWithHibernate</artifactId>
   <packaging>war</packaging>
   <version>1.0.0</version>
-  <name>Spring4MVCFileUploadDownloadWithHibernate Maven Webapp</name>
+  <name>ptetest</name>
   <url>http://maven.apache.org</url>
   
   

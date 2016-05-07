@@ -67,8 +67,8 @@ and open the template in the editor.
                         <br>
 
                         <div style="height:50px">
-                            <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                                <c:set var="offset" value="${offset + itr.index +1}" />
+                            <c:forEach items="${question.answerOptionsCollection}" var="option" >
+                              
                                 <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
                                     <div id="<c:out value="${option.optId}" />" class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
                                 </span>
@@ -90,7 +90,7 @@ and open the template in the editor.
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/RR-GAPS" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/RR-GAPS"  />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

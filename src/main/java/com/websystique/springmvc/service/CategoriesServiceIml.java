@@ -57,5 +57,11 @@ public class CategoriesServiceIml implements CategoriesService{
           return dao.findAllCategories();
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void updateTimeRemainingCategory() {
+      
+
+//  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

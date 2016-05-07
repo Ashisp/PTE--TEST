@@ -98,7 +98,7 @@ and open the template in the editor.
 
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/LL-MAMC" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/LL-MAMC" />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

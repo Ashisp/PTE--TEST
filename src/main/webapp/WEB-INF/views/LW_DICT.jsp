@@ -87,7 +87,7 @@ and open the template in the editor.
         </c:forEach>
         
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/LW-DICT" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/LW-DICT"  />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

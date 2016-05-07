@@ -65,7 +65,7 @@ and open the template in the editor.
         </c:forEach>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/RW-SUMM" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/RW-SUMM" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">

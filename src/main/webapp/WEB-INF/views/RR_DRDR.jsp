@@ -108,7 +108,7 @@ and open the template in the editor.
             </div>
         </c:forEach>
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/RR-DRDR" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/RR-DRDR" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

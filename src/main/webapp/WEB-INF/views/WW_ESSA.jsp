@@ -58,7 +58,7 @@
         </c:forEach>
         <p class="clear" />
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/WW-ESSA" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/WW-ESSA" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">

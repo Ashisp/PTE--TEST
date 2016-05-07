@@ -7,120 +7,111 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class PaginationTaglib extends SimpleTagSupport {
-	private String uri;
-	private int offset;
-	private int count;
-	private int max = 1;
-	private int steps = 1;
-	private String previous = "Previous";
-	private String next = "Next";
 
-	private Writer getWriter() {
-		JspWriter out = getJspContext().getOut();
-		return out;
-	}
-	@Override
-	public void doTag() throws JspException {
-		Writer out = getWriter();
+    private String uri;
+    private int offset;
+    private int count;
+    private int max = 1;
+    private int steps = 1;
+    private String previous = "";
+    private String next = "Next";
 
-		try {
-			out.write("<nav>");
-			out.write("<ul class=\"pagination\">");
-			
-			if(offset<steps)
-				out.write(constructLink(1, previous, "disabled", true));
-			else
-				out.write(constructLink(offset-steps, previous, null, false));
-			
-			for(int itr=0;itr<count;itr+=steps) {
-				if(offset==itr)
-					out.write(constructLink((itr) *steps, String.valueOf(itr+1), "active", true));
-				else
-					out.write(constructLink(itr*steps, String.valueOf(itr+1), null , false));
-			}
+    private Writer getWriter() {
+        JspWriter out = getJspContext().getOut();
+        return out;
+    }
 
-			if(offset+steps>=count)
-				out.write(constructLink(offset+steps, next, "disabled", true));
-			else
-				out.write(constructLink(offset+steps, next, null , false));
-			
-			
-			out.write("</ul>");
-			out.write("</nav>");
-		} catch (java.io.IOException ex) {
-			throw new JspException("Error in Paginator tag", ex);
-		}
-	}
+    @Override
+    public void doTag() throws JspException {
+        Writer out = getWriter();
 
+        try {
 
-	private String constructLink(int page, String text, String className, boolean disabled) {
-		StringBuilder link = new StringBuilder("<li");
-		if (className != null) {
-			link.append(" class=\"");
-			link.append(className);
-			link.append("\"");
-		}
-		if(disabled)
-			link.append(">").append("<a href=\"#\">"+text+"</a></li>");
-		else
-    			link.append(">").append("<a href=\""+uri+"?offset="+page + "\">"+text+"</a></li>");
-		return link.toString();
-	}
+            out.write("<ul class=\"pagination\">");
 
-	public String getUri() {
-		return uri;
-	}
+            if (offset + 1 >= count) {
+                out.write(constructLink(offset + steps, next, "hide", true));
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+            } else {
+                out.write(constructLink(offset + steps, next, null, false));
+            }
 
-	public int getOffset() {
-		return offset;
-	}
+            out.write("</ul>");
 
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
+        } catch (java.io.IOException ex) {
+            throw new JspException("Error in Paginator tag", ex);
+        }
+    }
 
-	public int getCount() {
-		return count;
-	}
+    private String constructLink(int page, String text, String className, boolean disabled) {
+        StringBuilder link = new StringBuilder("<li");
+        if (className != null) {
+            link.append(" class=\"");
+            link.append(className);
+            link.append("\"");
+        }
+        if (disabled) {
+            link.append(">").append("<a href=\"#\">" + text + "</a></li>");
+        } else {
+            link.append(">").append("<a href=\"" + uri + "?offset=" + page + "\">" + text + "</a></li>");
+        }
+        return link.toString();
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public String getUri() {
+        return uri;
+    }
 
-	public int getMax() {
-		return max;
-	}
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-	public void setMax(int max) {
-		this.max = max;
-	}
+    public int getOffset() {
+        return offset;
+    }
 
-	public String getPrevious() {
-		return previous;
-	}
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
 
-	public void setPrevious(String previous) {
-		this.previous = previous;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public String getNext() {
-		return next;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public void setNext(String next) {
-		this.next = next;
-	}
+    public int getMax() {
+        return max;
+    }
 
-	public int getSteps() {
-		return steps;
-	}
+    public void setMax(int max) {
+        this.max = max;
+    }
 
-	public void setSteps(int steps) {
-		this.steps = steps;
-	}
+    public String getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(String previous) {
+        this.previous = previous;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
+    }
+
+    public int getSteps() {
+        return steps;
+    }
+
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
 
 }

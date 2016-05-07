@@ -22,4 +22,5 @@ public interface CategoriesService {
     void updateCategories(Categories categories);
 
     Collection<Categories> findAllCategories();
+    void updateTimeRemainingCategory();
 }

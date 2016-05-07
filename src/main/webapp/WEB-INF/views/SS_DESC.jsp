@@ -68,7 +68,7 @@
         <div id="recording-list"></div>
 
         <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/SS-DESC" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/SS-DESC"  />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

@@ -93,7 +93,7 @@
 
         </c:forEach>
         <tag:paginate max="1" offset="${offset}" count="${count}" 
-                      uri="/Spring4MVCFileUploadDownloadWithHibernate/LL-GAPS" next="&raquo;" previous="&laquo;" />
+                      uri="/ptetest/LL-GAPS" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

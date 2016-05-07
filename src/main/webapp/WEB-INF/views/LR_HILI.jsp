@@ -158,7 +158,7 @@
     </body>
 
     <tag:paginate max="10" offset="${offset}" count="${count}" 
-                  uri="/Spring4MVCFileUploadDownloadWithHibernate/LR-HILI" next="&raquo;" previous="&laquo;" />
+                  uri="/ptetest/LR-HILI"  />
 
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

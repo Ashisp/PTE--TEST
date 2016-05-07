@@ -106,6 +106,6 @@
                 
                 
                 <tag:paginate max="10" offset="${offset}" count="${count}" 
-			uri="/Spring4MVCFileUploadDownloadWithHibernate/list" next="&raquo;" previous="&laquo;" />
+			uri="/ptetest/list" next="&raquo;" previous="&laquo;" />
     </body>
 </html>
