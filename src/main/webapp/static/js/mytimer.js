@@ -5,8 +5,8 @@
  */
 
 
-function startTimer(duration) {
-    var timer = duration, minutes, seconds;
+function startTimer(duration, start) {
+    var timer = start, minutes, seconds;
     var display = document.querySelector('#time');
     setInterval(function () {
         minutes = parseInt(timer / 60, 10)
@@ -17,7 +17,7 @@ function startTimer(duration) {
 
         display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
+        if (++timer > duration) {
             timer = duration;
         }
     }, 1000);
