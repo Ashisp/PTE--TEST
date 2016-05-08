@@ -29,9 +29,34 @@ and open the template in the editor.
                 // For others
                 return 'You sure?';
             };
+
+            function startTimer(duration, start) {
+                var timer = start, minutes, seconds;
+                var display = document.querySelector('#time');
+                var elapsedTime = document.getElementById("elapsedTime");
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+                    elapsedTime.value = timer;
+                    if (++timer > duration) {
+                        timer = duration;
+                        document.getElementById("summary").disabled = "true";
+                    }
+                    //alert("Timer: " + timer);
+                }, 1000);
+            }
+            
+            function extractHiddenSummary(){
+                document.getElementById("hiddenSummary").value = document.getElementById("summary").value;
+            }
         </script>
     </head>
-    <body>
+    <body onload="startTimer(4, 1)">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize written text</h1>
@@ -43,16 +68,21 @@ and open the template in the editor.
                     </p>
                 </div>
                 <p class="clear" />
-                <form action="" method="post">
+                <form onsubmit="extractHiddenSummary()" method="post">
                     <c:set var="offset" value="${offset}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <input type="hidden" name="userId" value="1000" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/75 Word Limit</h5>
-                        <textarea name="summary" id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
+                        <input type="hidden" name="summary" id="hiddenSummary" value="" />
+                        <textarea id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
                         <input type="hidden" name="offset" value="${offset}" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    </div>
+                    <div>
+                        <span id="time">00:00</span>/10:00
+                        <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
                     <div>
                         <input type="submit"  id="submit" name="done" value="Done" class="form-control done" />

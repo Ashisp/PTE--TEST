@@ -25,8 +25,34 @@
                 return 'You sure?';
             };
         </script>
+        <script type="text/javascript">
+            function startTimer(duration, start) {
+                var timer = start, minutes, seconds;
+                var display = document.querySelector('#time');
+                var elapsedTime = document.getElementById("elapsedTime");
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+                    elapsedTime.value = timer;
+                    if (++timer > duration) {
+                        timer = duration;
+                        document.getElementById("essay").disabled = "true";
+                    }
+                    //alert("Timer: " + timer);
+                }, 1000);
+            }
+
+            function extractHiddenEssay() {
+                document.getElementById("hiddenEssay").value = document.getElementById("essay").value;
+            }
+        </script>
     </head>
-    <body>
+    <body onload="startTimer(2400, 1);">
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Write Essay</h1>
@@ -36,7 +62,7 @@
                     <c:out value="${question.question}" />
                 </div>
                 <p class="clear" />
-                <form method="post">
+                <form method="post" onsubmit="extractHiddenEssay()">
                     <c:set var="offset" value="${offset}" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/300 Word Limit</h5>
@@ -45,7 +71,12 @@
                         <input type="hidden" name="offset" value="${offset}" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                        <textarea name="essay" id="essay" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
+                        <input type="hidden" value="" name="essay" id="hiddenEssay" />
+                        <textarea id="essay" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
+                    </div>
+                    <div>
+                        <span id="time">00:00</span>/20:00
+                        <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
                     <div>
                         <input id="submit" type="submit" name="done" value="Done" class="form-control done" />
@@ -69,7 +100,7 @@
                         var words = essay.split(" ");
                         document.getElementById("wordCount").innerHTML = (words.length);
                         if (words.length > MAX_WORD_COUNT) {
-                            $("#submit").attr('disabled', 'true');
+                            //$("#submit").attr('disabled', 'true');
                         } else if (words.length <= MAX_WORD_COUNT) {
                             $("#submit").removeAttr('disabled');
                         }
