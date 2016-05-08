@@ -26,9 +26,29 @@ and open the template in the editor.
                 // For others
                 return 'You sure?';
             };
+            function startTimer(duration, start) {
+                var timer = start, minutes, seconds;
+                var display = document.querySelector('#time');
+                var elapsedTime = document.getElementById("elapsedTime");
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+                    elapsedTime.value = timer;
+                    if (++timer > duration) {
+                        timer = duration;
+                        document.getElementById("essay").disabled = "true";
+                    }
+                    //alert("Timer: " + timer);
+                }, 1000);
+            }
         </script>
     </head>
-    <body>
+    <body onload="startTimer(1200, 1)">
 
         <div class="col-md-10 col-md-offset-1">
             <h1>Break</h1>
@@ -44,7 +64,10 @@ and open the template in the editor.
                     <div>
 
                         <input type="hidden" value="${sectionId}" name="currentSection" />
-
+                        <div>
+                            <span id="time">00:00</span>/10:00
+                            <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                        </div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
