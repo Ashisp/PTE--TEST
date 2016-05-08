@@ -69,6 +69,7 @@
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
+                        <input type="radio" name="choice" value="_" checked="" class="hide"  />
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
 
                             <input type="radio" name="choice" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
