@@ -47,8 +47,8 @@ and open the template in the editor.
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace col-md-5">
                         <p><c:out value="${question.question}" /></p>
+                        <input type="checkbox" name="choices" value="_" checked="" class="hide"  />
                         <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
                             <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"><c:out value="${option.ansOption}" /><br/>
                         </c:forEach>
 
