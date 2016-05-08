@@ -40,10 +40,10 @@ and open the template in the editor.
             <p class="clear" />
             
             
-            <form method="POST" action=<c:url value="/loadSection"/>>
+            <form method="POST">
                 <div>
                                                 
-                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                            <input type="hidden" value="${sectionId}" name="currentSection" />
 
                     <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                 </div>

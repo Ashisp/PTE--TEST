@@ -779,11 +779,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/BB-BREAK", method = RequestMethod.POST)
-    public String processBB_BREAK(@RequestParam("currentSection") int currentSection) {
-     
-      
-       
-       
+    public String processBB_BREAK(@RequestParam("currentSection") int currentSection) {       
         return loadSection(currentSection);
     }
 
