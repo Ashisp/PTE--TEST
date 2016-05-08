@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Nikesh
+ * @author Ashis
  */
 @Entity
 @Table(catalog = "expresse", schema = "")
@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Answers.findByAnswerId", query = "SELECT a FROM Answers a WHERE a.answerId = :answerId"),
     @NamedQuery(name = "Answers.findByAudioPath", query = "SELECT a FROM Answers a WHERE a.audioPath = :audioPath")})
 public class Answers implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

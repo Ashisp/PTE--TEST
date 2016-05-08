@@ -85,6 +85,9 @@
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
 
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
+                            
+                            <input type="radio" name="offset" value="<c:out value='${offset}' />"><c:out value="${answerOption.ansOption}" /><br/>
+                            
                         </c:forEach>
                     </div>
                     <div>
@@ -101,8 +104,7 @@
             </div>
 
         </c:forEach>
-        <tag:paginate max="1" offset="${offset}" count="${count}" 
-                      uri="/ptetest/LL-GAPS" />
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

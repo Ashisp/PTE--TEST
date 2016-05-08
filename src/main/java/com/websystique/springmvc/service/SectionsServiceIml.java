@@ -66,5 +66,11 @@ return dao.findSectionIdByUrlPattern(url_pattern);
        return dao.findUrlPatternByOrderSequence(order);
     }
 
+    public Integer findCatIdBySectionId(Integer sec_id) {
+        
+return dao.findCatIdBySectionId(sec_id);
+//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

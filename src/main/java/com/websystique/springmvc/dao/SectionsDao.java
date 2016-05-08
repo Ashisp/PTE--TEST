@@ -17,10 +17,11 @@ public interface SectionsDao {
     
       Sections findById(int id);
     void save(Sections sections);
-    
+
     Collection<Sections> findAllSections();
             int findSectionIdByUrlPattern(String url_pattern);
             String findUrlPatternByOrderSequence(int order);
+            Integer findCatIdBySectionId(Integer sec_id);
    
     
     

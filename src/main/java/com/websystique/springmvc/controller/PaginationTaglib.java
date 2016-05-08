@@ -30,9 +30,11 @@ public class PaginationTaglib extends SimpleTagSupport {
             out.write("<ul class=\"pagination\">");
 
             if (offset + 1 >= count) {
+                
                 out.write(constructLink(offset + steps, next, "hide", true));
 
             } else {
+                
                 out.write(constructLink(offset + steps, next, null, false));
             }
 

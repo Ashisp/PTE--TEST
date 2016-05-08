@@ -26,8 +26,8 @@
                 // For others
                 return 'You sure?';
             };
-            
-            
+
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -52,9 +52,10 @@
                 }, time);
             }
         </script>
-        
+
     </head>
-    <body  onload="init();playAudio()">
+    <body  onload="init();
+            playAudio()">
 
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
@@ -66,14 +67,19 @@
                     <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
+                <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
+
                 <form method="post">
-                    <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <c:set var="offset" value="${offset}" />
                     <div class="userspace">
                         <p>
                             <c:out value="${question.passage}" escapeXml="false" />
                             <input type="hidden" name="questionId" value="${question.questionId}" />
-                            <input type="hidden" name="userId" value="1000" />
+                            <input type="hidden" name="catId" value="<c:out value="${question.catId.catId}" />" />
+                            <input type="hidden" name="offset" value="<c:out value="${offset}" />" />
+                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                            <input type="hidden" value="0" name="endId" />
+
                         </p>
                     </div>
                     <div>
@@ -81,7 +87,7 @@
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <!--<input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />-->
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>

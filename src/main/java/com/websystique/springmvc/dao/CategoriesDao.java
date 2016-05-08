@@ -20,6 +20,6 @@ public interface CategoriesDao {
 
 
     Collection<Categories> findAllCategories();
-
+Integer findCatIdByOrderSquence(Integer seq_id);
     
 }

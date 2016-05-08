@@ -20,4 +20,5 @@ public interface QuestionsService {
     Collection<Questions> findAllQuestions();
     Collection<Questions>findAllQuestionsBySectionId(Integer section_id,Integer offset,Integer maxResults);
     Long CountALlQuestions(Integer sectionId);
+    Long CountALlQuestionsByCatId(Integer sectionId);
 }

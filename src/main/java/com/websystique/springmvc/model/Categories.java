@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nikesh
+ * @author Ashis
  */
 @Entity
 @Table(catalog = "expresse", schema = "")
@@ -85,14 +85,6 @@ public class Categories implements Serializable {
 
     public void setCatName(String catName) {
         this.catName = catName;
-    }
-
-    public int getTotalTime() {
-        return totalTime;
-    }
-
-    public void setTotalTime(int totalTime) {
-        this.totalTime = totalTime;
     }
 
     public int getOrderSequence() {

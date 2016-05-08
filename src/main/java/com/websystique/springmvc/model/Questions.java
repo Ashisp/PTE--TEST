@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nikesh
+ * @author Ashis
  */
 @Entity
 @Table(catalog = "expresse", schema = "")
@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Questions.findByAudioPath", query = "SELECT q FROM Questions q WHERE q.audioPath = :audioPath"),
     @NamedQuery(name = "Questions.findByImagePath", query = "SELECT q FROM Questions q WHERE q.imagePath = :imagePath")})
 public class Questions implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

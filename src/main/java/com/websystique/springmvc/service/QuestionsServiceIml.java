@@ -68,6 +68,12 @@ return dao.findAllQuestionsBySectionId(sectionId,offset,maxResults);
     return dao.CountQuestions(sectionId);
     }
 
+    public Long CountALlQuestionsByCatId(Integer cat_id) {
+     
+return dao.CountQuestionsByCatId(cat_id);
+//  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
   
     
     
