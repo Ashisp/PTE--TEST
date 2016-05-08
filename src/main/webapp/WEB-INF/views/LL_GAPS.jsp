@@ -25,12 +25,13 @@
                 // For others
                 return 'You sure?';
             };
-            
+
             function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
-                startTimer(timeFromDb, 0);
+                var startTime = document.getElementById("startTime").value;
+                startTimer(timeFromDb, startTime);
             }
-            
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -56,7 +57,9 @@
             }
         </script>
     </head>
-    <body onload="callTimer();init();playAudio()">
+    <body onload="callTimer();
+            init();
+            playAudio()">
         <div>Time Remaining: <span id="time">00:00</span> minutes!</div>
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
@@ -69,12 +72,18 @@
                 </div>
                 <p class="clear" />
                 <form method="post">
+                    <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="catTime" name="catTime" value="${question.catId.totalTime}" />
+                    <input type="hidden" id="catId" name="catId" value="${question.catId.catId}" />
+                    <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" id="timeDb" name="timeDb" value="${question.sectionId.time}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
+                    <input type="hidden" name="offset" value="${offset}" />
+                    <input type="hidden" name="count" value="${count}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
-                            
+
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>

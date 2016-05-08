@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
     @NamedQuery(name = "Categories.findByCatId", query = "SELECT c FROM Categories c WHERE c.catId = :catId"),
     @NamedQuery(name = "Categories.findByCatName", query = "SELECT c FROM Categories c WHERE c.catName = :catName"),
-    @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime")})
+    @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime"),
+    @NamedQuery(name = "Categories.findByOrderSequence", query = "SELECT c FROM Categories c WHERE c.orderSequence = :orderSequence")})
 public class Categories implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,6 +50,10 @@ public class Categories implements Serializable {
     @NotNull
     @Column(name = "total_time", nullable = false)
     private int totalTime;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "order_sequence", nullable = false)
+    private int orderSequence;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
     private Collection<Questions> questionsCollection;
 
@@ -59,10 +64,11 @@ public class Categories implements Serializable {
         this.catId = catId;
     }
 
-    public Categories(Integer catId, String catName, int totalTime) {
+    public Categories(Integer catId, String catName, int totalTime, int orderSequence) {
         this.catId = catId;
         this.catName = catName;
         this.totalTime = totalTime;
+        this.orderSequence = orderSequence;
     }
 
     public Integer getCatId() {
@@ -87,6 +93,14 @@ public class Categories implements Serializable {
 
     public void setTotalTime(int totalTime) {
         this.totalTime = totalTime;
+    }
+
+    public int getOrderSequence() {
+        return orderSequence;
+    }
+
+    public void setOrderSequence(int orderSequence) {
+        this.orderSequence = orderSequence;
     }
 
     @XmlTransient

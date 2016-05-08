@@ -35,7 +35,7 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div class="imageView">
-                    <img src="<c:url value="${question.imagePath}" />" alt="image" />
+                    <img src="<c:url value='/static/files/${question.imagePath}'/>" alt="image" />
                 </div>
                 <div class="recorderSpace">
                     <c:set var="offset" value="${offset}" />

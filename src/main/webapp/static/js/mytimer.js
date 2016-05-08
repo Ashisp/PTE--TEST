@@ -8,6 +8,7 @@
 function startTimer(duration, start) {
     var timer = start, minutes, seconds;
     var display = document.querySelector('#time');
+    var elapsedTime = document.getElementById("elapsedTime");
     setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
@@ -16,10 +17,11 @@ function startTimer(duration, start) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         display.textContent = minutes + ":" + seconds;
-
+        elapsedTime.value = timer;
         if (++timer > duration) {
             timer = duration;
         }
+        //alert("Timer: " + timer);
     }, 1000);
 }
 
