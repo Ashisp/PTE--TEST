@@ -51,6 +51,7 @@ and open the template in the editor.
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
 
                         <p><c:out value="${question.question}" /></p>
+                        <input type="radio" name="choice" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
 
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
