@@ -28,7 +28,7 @@
             
             function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
-                startTimer(timeFromDb);
+                startTimer(timeFromDb, 0);
             }
             
             var time, counter;
