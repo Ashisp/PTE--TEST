@@ -26,12 +26,18 @@ import com.websystique.springmvc.service.UsersService;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -42,6 +48,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/")
+@MultipartConfig
 public class AppController {
 
     //Nikesh you can write the controller class with refrence to below code
@@ -989,6 +996,33 @@ public class AppController {
             return "You failed to upload " + name
                     + " because the file was empty.";
         }
+    }
+
+    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
+    public String uploadRecordedFile(HttpServletRequest request) {
+        OutputStream outputStream = null;
+        try {
+            String appPath = request.getServletContext().getRealPath("");
+            
+            String name = request.getParameter("fname");
+            String encodedData = request.getParameter("audio");
+            outputStream = new FileOutputStream(new File(appPath + File.separator + name));
+            outputStream.write(Base64.getDecoder().decode(encodedData));
+        } catch (IOException ex) {
+
+        } finally {
+            try {
+                outputStream.close();
+            } catch (IOException ex) {
+
+            }
+        }
+        return "Uploaded";
+    }
+    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
+    public void uploadRecordGET(){
+        System.out.println("GET: RECORDING");
+        
     }
 }
 
