@@ -51,13 +51,17 @@ and open the template in the editor.
                             <c:set var="offset" value="${offset + itr.index +1}" />
                             <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"><c:out value="${option.ansOption}" /><br/>
                         </c:forEach>
+
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -65,8 +69,6 @@ and open the template in the editor.
             </div>
         </c:forEach>
 
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/RR-MAMC"  />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

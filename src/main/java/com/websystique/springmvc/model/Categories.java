@@ -32,9 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
     @NamedQuery(name = "Categories.findByCatId", query = "SELECT c FROM Categories c WHERE c.catId = :catId"),
     @NamedQuery(name = "Categories.findByCatName", query = "SELECT c FROM Categories c WHERE c.catName = :catName"),
-    @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime"),
+    @NamedQuery(name = "Categories.findByCatTime", query = "SELECT c FROM Categories c WHERE c.catTime = :catTime"),
     @NamedQuery(name = "Categories.findByOrderSequence", query = "SELECT c FROM Categories c WHERE c.orderSequence = :orderSequence")})
 public class Categories implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -48,8 +49,8 @@ public class Categories implements Serializable {
     private String catName;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "total_time", nullable = false)
-    private int totalTime;
+    @Column(name = "cat_time", nullable = false)
+    private int catTime;
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_sequence", nullable = false)
@@ -64,10 +65,10 @@ public class Categories implements Serializable {
         this.catId = catId;
     }
 
-    public Categories(Integer catId, String catName, int totalTime, int orderSequence) {
+    public Categories(Integer catId, String catName, int catTime, int orderSequence) {
         this.catId = catId;
         this.catName = catName;
-        this.totalTime = totalTime;
+        this.catTime = catTime;
         this.orderSequence = orderSequence;
     }
 
@@ -85,6 +86,14 @@ public class Categories implements Serializable {
 
     public void setCatName(String catName) {
         this.catName = catName;
+    }
+
+    public int getCatTime() {
+        return catTime;
+    }
+
+    public void setCatTime(int catTime) {
+        this.catTime = catTime;
     }
 
     public int getOrderSequence() {

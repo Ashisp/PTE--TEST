@@ -25,8 +25,8 @@
                 // For others
                 return 'You sure?';
             };
-            
-            
+
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -52,7 +52,8 @@
             }
         </script>
     </head>
-    <body onload="init();playAudio()">
+    <body onload="init();
+            playAudio()">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Highlight correct summary</h1>
@@ -69,16 +70,18 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
-                           
+
                             <input type="radio" name="choice" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                         </c:forEach>
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -86,8 +89,6 @@
             </div>
         </c:forEach>
     </body>
-    <tag:paginate max="10" offset="${offset}" count="${count}" 
-                  uri="/ptetest/LR-HOTS"  />
 
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

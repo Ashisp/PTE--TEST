@@ -54,7 +54,6 @@
                     </div>
                 </div>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -63,8 +62,7 @@
         </c:forEach>
         <div id="recording-list"></div>
 
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/SS-DESC"  />
+
 
         <script>
             function __log(e, data) {

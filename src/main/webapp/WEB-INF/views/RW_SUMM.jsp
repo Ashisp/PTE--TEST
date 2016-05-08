@@ -50,13 +50,15 @@ and open the template in the editor.
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/75 Word Limit</h5>
                         <textarea name="summary" id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                     <div>
                         <input type="submit"  id="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -64,8 +66,6 @@ and open the template in the editor.
             </div>
         </c:forEach>
 
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/RW-SUMM" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">

@@ -75,7 +75,6 @@ public class Questions implements Serializable {
     @JoinColumn(name = "cat_id", referencedColumnName = "cat_id", nullable = false)
     @ManyToOne(optional = false)
     private Categories catId;
-
     public Questions() {
     }
 

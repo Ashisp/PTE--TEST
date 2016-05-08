@@ -76,10 +76,11 @@
                             <c:out value="${question.passage}" escapeXml="false" />
                             <input type="hidden" name="questionId" value="${question.questionId}" />
                             <input type="hidden" name="catId" value="<c:out value="${question.catId.catId}" />" />
+
                             <input type="hidden" name="offset" value="<c:out value="${offset}" />" />
                             <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                            <input type="hidden" value="0" name="endId" />
 
+                            <input type="hidden" name="count" value="${count}" />
                         </p>
                     </div>
                     <div>
@@ -87,15 +88,13 @@
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <!--<input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />-->
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/LW-GAPS"  />
+
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>

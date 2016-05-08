@@ -36,11 +36,15 @@ and open the template in the editor.
             <hr />
             <div class="col-md-5 imageView">
                 <img src="../raw_res/image.jpg" alt="image" />
-            </div>
+            </sdiv>
             <p class="clear" />
-            <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                <input type="hidden" value="${sectionId}" name="currentSection" />
+            
+            
+            <form method="POST" action=<c:url value="/loadSection"/>>
                 <div>
+                                                
+                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
                     <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                 </div>
             </form>

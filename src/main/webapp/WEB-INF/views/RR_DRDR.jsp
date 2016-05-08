@@ -76,6 +76,11 @@ and open the template in the editor.
                     <div class="col-md-6" style="float: left;">
                         <input type="hidden" value="${question.questionId}" name="questionId" />
                         <input type="hidden" name="answer" id="answer" />
+                        
+                        
+                            <input type="hidden" name="offset" value="<c:out value="${offset}" />" />
+                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                        
                         <h3>Source</h3>
                         <ul class="source" id="source">
                             <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
@@ -100,15 +105,13 @@ and open the template in the editor.
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/RR-DRDR" />
+        
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

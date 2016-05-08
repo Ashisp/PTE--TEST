@@ -156,7 +156,6 @@ public class AppController {
         }
         return "index";
     }
-
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.GET)
     public String listAllLWGPAS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
@@ -165,6 +164,7 @@ public class AppController {
         if (userId == null) {
             return "redirect:/register";
         }
+       
         int sectionId = sectionService.findSectionIdByUrlPattern("LW-GAPS");
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
@@ -189,7 +189,7 @@ public class AppController {
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
     public String listAllLWGAPS(ModelMap map, @RequestParam("currentSection") int currentSection, @RequestParam("catId") int catId,
-            @RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("endId") int endId, RedirectAttributes redir) {
+            @RequestParam("questionId") int questionId, HttpServletRequest req,RedirectAttributes redir) {
 
         ///sesstion id for type of test;
 //        if (endId == 1) {
@@ -249,14 +249,29 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LR-HOTS", method = RequestMethod.POST)
-    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("choice") String choice, HttpServletRequest req) {
+    public String processLRHOTS(@RequestParam("questionId") int questionId, @RequestParam("choice") String choice, HttpServletRequest req,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
         answer.setUserId(new Users(Integer.parseInt(userId)));
         answer.setQuestionId(new Questions(questionId));
         answer.setAnswer(choice);
         answersService.saveAnswers(answer);
-        return "redirect:/LR-HOTS";
+        
+            String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LR-HOTS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+        
+       
     }
 
     @RequestMapping(value = {"/LR-HILI"}, method = RequestMethod.GET)
@@ -278,14 +293,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LR-HILI", method = RequestMethod.POST)
-    public String processLRHILI(@RequestParam("questionId") int questionId, @RequestParam("selected") String selected, HttpServletRequest req) {
+    public String processLRHILI(@RequestParam("questionId") int questionId, @RequestParam("selected") String selected, HttpServletRequest req,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setAnswer(selected);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
-        return "redirect:/LR-HILI";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LR-HILI?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
@@ -307,14 +334,27 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-MAMC", method = RequestMethod.POST)
-    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("choices") String choice, HttpServletRequest req) {
+    public String processMAMC(@RequestParam("questionId") int questionId, @RequestParam("choices") String choice, HttpServletRequest req,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
+        
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
-        return "redirect:/LL-MAMC";
+         String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LL-MAMC?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
@@ -351,14 +391,27 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-SAMC", method = RequestMethod.POST)
-    public String processSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice) {
+    public String processSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setAnswer(choice);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
-        return "redirect:/LL-SAMC";
+                 String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LL-SAMC?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+       
     }
 
     @RequestMapping(value = {"/LL-GAPS"}, method = RequestMethod.GET)
@@ -383,7 +436,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing, @RequestParam("offset") int offset) {
+    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing, @RequestParam("offset") int offset,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         long count;
         int offset_new = 0;
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -424,14 +477,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LW-SUMM", method = RequestMethod.POST)
-    public String processLWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary) {
+    public String processLWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(summary);
         answersService.saveAnswers(ans);
-        return "redirect:/LW-SUMM";
+         String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LW-SUMM?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
@@ -452,14 +517,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LW-DICT", method = RequestMethod.POST)
-    public String processLWDICT(@RequestParam("questionId") int questionId, @RequestParam("answer") String answer, HttpServletRequest req) {
+    public String processLWDICT(@RequestParam("questionId") int questionId, @RequestParam("answer") String answer, HttpServletRequest req,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setAnswer(answer);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
-        return "redirect:/LW-DICT";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LW-DICT?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/end"}, method = RequestMethod.GET)
@@ -486,14 +563,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-SAMC", method = RequestMethod.POST)
-    public String processRRSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice) {
+    public String processRRSAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choice") String choice,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
-        return "redirect:/RR-SAMC";
+     String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RR-SAMC?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -536,14 +625,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RW-GAPS", method = RequestMethod.POST)
-    public String processRWGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage) {
+    public String processRWGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(answerPassage);
         answersService.saveAnswers(ans);
-        return "redirect:/RW-GAPS";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RW-GAPS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
@@ -571,14 +672,26 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-GAPS", method = RequestMethod.POST)
-    public String processRRGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage) {
+    public String processRRGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(answerPassage);
         answersService.saveAnswers(ans);
-        return "redirect:/RR-GAPS";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RR-GAPS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
@@ -599,7 +712,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-MAMC", method = RequestMethod.POST)
-    public String processRRMAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choices") String choices) {
+    public String processRRMAMC(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("choices") String choices,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         Long count;
         //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -608,7 +721,20 @@ public class AppController {
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(choices);
         answersService.saveAnswers(ans);
-        return "redirect:/RR-MAMC";
+        int offset;
+          String s = req.getParameter("offset");
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RR-MAMC?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+    
     }
 
     @RequestMapping(value = {"/RR-DRDR"}, method = RequestMethod.GET)
@@ -630,14 +756,35 @@ public class AppController {
     }
 
     @RequestMapping(value = "/RR-DRDR", method = RequestMethod.POST)
-    public String processRRDRDR(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answer") String answer) {
+    public String processRRDRDR(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answer") String answer,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(answer);
         answersService.saveAnswers(ans);
-        return "redirect:/RR-DRDR";
+         String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RR-DRDR?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+    }
+
+    @RequestMapping(value = "/BB-BREAK", method = RequestMethod.POST)
+    public String processBB_BREAK(@RequestParam("currentSection") int currentSection) {
+     
+      
+       
+       
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
@@ -658,9 +805,21 @@ public class AppController {
     }
 
     @RequestMapping(value = "/SS-DESC", method = RequestMethod.POST)
-    public String processSSDESC(HttpServletRequest req, Integer offset, Integer maxResults) {
+    public String processSSDESC(HttpServletRequest req, Integer maxResults,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
-        return "redirect:/SS-DESC";
+         String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/SS-DESC?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
@@ -754,14 +913,26 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
-    public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary) {
+    public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(summary);
         answersService.saveAnswers(ans);
-        return "redirect:/RW-SUMM";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/RW-SUMM?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
@@ -782,14 +953,26 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.POST)
-    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, HttpServletRequest req) {
+    public String processWWESSA(@RequestParam("questionId") int questionId, @RequestParam("essay") String essay, HttpServletRequest req,RedirectAttributes redir,@RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
         answer.setUserId(new Users(Integer.parseInt(userId)));
         answer.setQuestionId(new Questions(questionId));
         answer.setAnswer(essay);
         answersService.saveAnswers(answer);
-        return "redirect:/WW-ESSA";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LW-GAPS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)

@@ -87,15 +87,13 @@
                     </div>
                 </div>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
 
-            <tag:paginate max="10" offset="${offset}" count="${count}" 
-                          uri="/ptetest/LS-SAQS" />
+            
             <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
             <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
             <script src="<c:url value='/static/js/WebAudioRecorder.min.js' />"></script>

@@ -44,10 +44,14 @@ and open the template in the editor.
 
                 <form action="" method="post">
                     <div class="userspace col-md-6">
-                        <input type="hidden" name="userId" value="1000" />
+                      
                         <input type="hidden" name="questionId" value="${question.questionId}" />
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
                         <p><c:out value="${question.question}" /></p>
-                        <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
+                        <c:forEach var="options" items="${question.answerOptionsCollection}">
 
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
@@ -57,22 +61,14 @@ and open the template in the editor.
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                    <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                </form>
+                
             </div>
         </c:forEach>
 
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/RR-SAMC" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

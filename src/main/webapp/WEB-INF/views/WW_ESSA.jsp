@@ -42,6 +42,9 @@
                         <h5><span id="wordCount">0</span>/300 Word Limit</h5>
                         <input type="hidden" name="userId" value="1000" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         <textarea name="essay" id="essay" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
                     </div>
                     <div>
@@ -49,7 +52,6 @@
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -57,8 +59,7 @@
             </div>
         </c:forEach>
         <p class="clear" />
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/WW-ESSA" />
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">

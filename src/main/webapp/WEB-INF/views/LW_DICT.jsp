@@ -29,7 +29,7 @@ and open the template in the editor.
                 // For others
                 return 'You sure?';
             };
-            
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -55,7 +55,8 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload="init();playAudio()">
+    <body onload="init();
+            playAudio()">
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Write from dictation</h1>
@@ -72,22 +73,23 @@ and open the template in the editor.
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <input type="text" name="answer" spellcheck="false" maxLength="250" class="form-control" />
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
+
         
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/LW-DICT"  />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

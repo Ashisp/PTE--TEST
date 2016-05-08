@@ -73,7 +73,7 @@
                 <p class="clear" />
                 <form method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
-                    <input type="hidden" id="catTime" name="catTime" value="${question.catId.totalTime}" />
+                    <input type="hidden" id="catTime" name="catTime" value="${question.catId.catTime}" />
                     <input type="hidden" id="catId" name="catId" value="${question.catId.catId}" />
                     <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
@@ -81,6 +81,9 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <input type="hidden" name="offset" value="${offset}" />
                     <input type="hidden" name="count" value="${count}" />
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    
+                    
                     <div class="userspace">
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
 
@@ -96,7 +99,7 @@
                     <hr/>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>

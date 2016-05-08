@@ -25,7 +25,7 @@
                 // For others
                 return 'You sure?';
             };
-            
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -51,7 +51,8 @@
             }
         </script>
     </head>
-    <body onload="init();playAudio()">
+    <body onload="init();
+            playAudio()">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose single answers (Listening)</h1>
@@ -73,9 +74,12 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-                            
+
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                     <div>
                         <input type="submit" name="done" value="Done" class="form-control done" />
@@ -83,15 +87,13 @@
                 </form>
 
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/LL-SAMC" />
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

@@ -28,8 +28,8 @@ and open the template in the editor.
                 // For others
                 return 'You sure?';
             };
-            
-            
+
+
             function allowDrop(ev) {
                 ev.preventDefault();
             }
@@ -61,6 +61,9 @@ and open the template in the editor.
                     <div class="userspace">
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <input type="hidden" id="answerPassage" name="answerPassage" value="" />
+                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="count" value="${count}" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         <p id="paragraph">
                             <c:out value="${question.passage}" escapeXml="false" />
                         </p>
@@ -68,7 +71,7 @@ and open the template in the editor.
 
                         <div style="height:50px">
                             <c:forEach items="${question.answerOptionsCollection}" var="option" >
-                              
+
                                 <span class="blank-box" ondrop="drop(event)" ondragover="allowDrop(event)">
                                     <div id="<c:out value="${option.optId}" />" class="answer-box" draggable="true" ondragstart="drag(event)"><c:out value="${option.ansOption}" /></div>
                                 </span>
@@ -81,16 +84,12 @@ and open the template in the editor.
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
-
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/RR-GAPS"  />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>

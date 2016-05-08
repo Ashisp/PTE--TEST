@@ -30,7 +30,7 @@ and open the template in the editor.
                 // For others
                 return 'You sure?';
             };
-            
+
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -56,7 +56,8 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload="init();playAudio()">
+    <body onload="init();
+            playAudio()">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose multiple answers (Listening)</h1>
@@ -78,9 +79,13 @@ and open the template in the editor.
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-                            <c:set var="offset" value="${offset + itr.index +1}" />
+                        <c:forEach var="options" items="${question.answerOptionsCollection}">
+
                             <input type="checkbox" name="choices" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
+
+                            <input type="hidden" name="offset" value="${offset}" />
+                            <input type="hidden" name="count" value="${count}" />
+                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         </c:forEach>
                     </div>
                     <div>
@@ -88,7 +93,7 @@ and open the template in the editor.
                     </div>
                 </form>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
@@ -97,8 +102,6 @@ and open the template in the editor.
         </c:forEach>        
 
 
-        <tag:paginate max="10" offset="${offset}" count="${count}" 
-                      uri="/ptetest/LL-MAMC" />
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
