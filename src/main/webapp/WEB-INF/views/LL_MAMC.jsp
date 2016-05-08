@@ -79,6 +79,7 @@ and open the template in the editor.
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
+                        <input type="checkbox" name="choices" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
 
                             <input type="checkbox" name="choices" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>

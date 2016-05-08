@@ -36,23 +36,23 @@ and open the template in the editor.
             <hr />
             <div class="col-md-5 imageView">
                 <img src="../raw_res/image.jpg" alt="image" />
-            </sdiv>
-            <p class="clear" />
-            
-            
-            <form method="POST">
-                <div>
-                                                
-                            <input type="hidden" value="${sectionId}" name="currentSection" />
-
-                    <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                </div>
-            </form>
-        </div>
+                </sdiv>
+                <p class="clear" />
 
 
+                <form method="POST">
+                    <div>
 
-        <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
-        <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+                        <input type="hidden" value="${sectionId}" name="currentSection" />
+
+                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
+            </div>
+
+
+
+            <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
+            <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>
 </html>
