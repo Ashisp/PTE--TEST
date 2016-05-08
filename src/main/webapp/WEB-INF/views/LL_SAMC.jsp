@@ -73,6 +73,7 @@
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
+                        <input type="radio" name="choice" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
 
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
