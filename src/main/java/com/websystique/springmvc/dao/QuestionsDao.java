@@ -21,6 +21,7 @@ public interface QuestionsDao {
 
   
 Long CountQuestions(Integer sectionId);
+Long CountQuestionsByCatId(Integer sectionId);
     Collection<Questions> findAllQuestions();
     Collection<Questions>findAllQuestionsBySectionId(Integer sectionId,Integer offset,Integer maxResults);
     

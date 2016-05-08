@@ -21,19 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("CategoriesService")
 @Transactional
 
-public class CategoriesServiceIml implements CategoriesService{
+public class CategoriesServiceIml implements CategoriesService {
 
-    
-      @Autowired
-	private CategoriesDao dao;
+    @Autowired
+    private CategoriesDao dao;
+
     public Categories findById(int id) {
-       return dao.findById(id);     
+        return dao.findById(id);
 
 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void saveCategories(Categories categories) {
-
 
         dao.save(categories);
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -41,27 +40,29 @@ public class CategoriesServiceIml implements CategoriesService{
 
     public void updateCategories(Categories categories) {
 
-        Categories entity =dao.findById(categories.getCatId());
-        if(entity!=null){
-			entity.setCatName(categories.getCatName());
-			//entity.setQuestions(categories.getQuestions());
-                        
-		}
+        Categories entity = dao.findById(categories.getCatId());
+        if (entity != null) {
+            entity.setCatName(categories.getCatName());
+            //entity.setQuestions(categories.getQuestions());
+
+        }
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Collection<Categories> findAllCategories() {
 
-        
-        
-          return dao.findAllCategories();
+        return dao.findAllCategories();
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void updateTimeRemainingCategory() {
-      
 
 //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public Integer findCatIdByOrderSquence(Integer seq_id) {
+        return dao.findCatIdByOrderSquence(seq_id);
+// throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

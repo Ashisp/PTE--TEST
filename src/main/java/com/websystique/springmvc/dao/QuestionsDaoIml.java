@@ -108,4 +108,13 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
                     setString("sectionId", String.valueOf(sectionId)).uniqueResult());
     
     }
+    
+     @SuppressWarnings("unchecked")
+    public Long CountQuestionsByCatId(Integer cat_id) {
+       
+        
+        return ((Long)getSession().  createQuery("select count(*) from Questions  WHERE catId = :catId").
+                    setString("catId", String.valueOf(cat_id)).uniqueResult());
+    
+    }
 }

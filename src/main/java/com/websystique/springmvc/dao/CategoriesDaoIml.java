@@ -6,11 +6,16 @@
 package com.websystique.springmvc.dao;
 
 import com.websystique.springmvc.model.Categories;
+import com.websystique.springmvc.model.Sections;
 import com.websystique.springmvc.model.Users;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Resource;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,6 +25,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository("CategoriesDao")
 public class CategoriesDaoIml extends AbstractDao<Integer, Categories> implements CategoriesDao{
+
+        @Resource(name = "sessionFactory")
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public Categories findById(int id) {
       Categories categories= getByKey(id);
@@ -41,6 +54,20 @@ return categories;
 		
 		return categories;
         
+//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Integer findCatIdByOrderSquence(Integer seq_id) {
+        Integer cat_id;
+           Session session = sessionFactory.openSession();
+
+              List<Sections> categories = sessionFactory.getCurrentSession().
+                    createQuery("SELECT c FROM Categories s WHERE s.order_sequence= :seq_id").
+                    setInteger("seq_id", seq_id).
+                    list();
+              
+            cat_id = categories.get(0).getCatId();
+            return cat_id;
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

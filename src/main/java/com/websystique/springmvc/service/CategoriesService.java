@@ -23,4 +23,5 @@ public interface CategoriesService {
 
     Collection<Categories> findAllCategories();
     void updateTimeRemainingCategory();
+    Integer findCatIdByOrderSquence(Integer seq_id);
 }

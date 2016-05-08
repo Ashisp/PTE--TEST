@@ -92,4 +92,22 @@ public class SectionsDaoIml extends AbstractDao<Integer, Sections> implements Se
         return data;
     }
 
+    public Integer findCatIdBySectionId(Integer sec_id) {
+        Integer cat_id =0;
+        try {
+            Session session = sessionFactory.openSession();
+
+              List<Sections> sec = sessionFactory.getCurrentSession().
+                    createQuery("SELECT s FROM Sections s WHERE s.orderSequence = :orderSequence").
+                    setInteger("orderSequence", sec_id).
+                    list();
+            cat_id = sec.get(0).getCatId();
+            
+                   
+        } catch (Exception exe) {
+        }
+return cat_id;
+// throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

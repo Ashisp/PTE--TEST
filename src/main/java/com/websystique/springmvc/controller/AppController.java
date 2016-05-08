@@ -65,22 +65,43 @@ public class AppController {
     @Autowired
     SectionsService sectionService;
 
-    @RequestMapping(value="/start", method=RequestMethod.GET)
-    public String loadStartPage(ModelMap map){
-        
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    public String loadStartPage(ModelMap map) {
+
         return "start";
     }
-    
-    @RequestMapping(value="/loadSection", method=RequestMethod.POST)
-    public String loadSection(@RequestParam("currentSection") int currentSection){
+
+    @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
+    public String loadSection(@RequestParam("currentSection") int currentSection) {
         int nextSectionToLoad = currentSection + 1;
         System.out.println("Next: " + nextSectionToLoad);
+
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
-        if(sectionNext.isEmpty())
+        Integer catId = sectionService.findCatIdBySectionId(currentSection);
+        Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
+        Long count = questionService.CountALlQuestionsByCatId(catId);
+
+        if (sectionNext.isEmpty()) {
             return "redirect:/end";
+        }
         return "redirect:/" + sectionNext;
     }
-    
+
+    @RequestMapping(value = "/loadcategories", method = RequestMethod.POST)
+    public String loadCategories(@RequestParam("currentSection") int currentCat) {
+        int nextCattoLoad = currentCat + 1;
+        //System.out.println("Next: " + nextCattoLoad);
+        Integer cat_next = categoriesService.findCatIdByOrderSquence(nextCattoLoad);
+
+        Long count = questionService.CountALlQuestionsByCatId(cat_next);
+
+//    
+//        if(cat_next==0())
+//            return "redirect:/end";
+//where to ride 
+        return "redirect:/";
+    }
+
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model, Integer offset, Integer maxResults) {
         Long count;
@@ -92,10 +113,10 @@ public class AppController {
         System.out.println("users");
         return "userslist";
     }
-    
-      @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
-    
+
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
+
         System.out.println("users");
         return "Mainpage";
     }
@@ -145,7 +166,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
             String passage = q.getPassage();
             if (!passage.isEmpty()) {
                 while (passage.contains("%_%")) {
-                    String replaced = passage.replaceFirst("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter + "\" />");
+                    String replaced = passage.replaceFirst("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"ans" + counter + "\" />");
                     //String replaced = question.replaceAll("%_%", "<input type=\"text\" spellcheck=\"false\" class=\"blanks form-control\" name=\"" + counter +"\"/>");
                     q.setPassage(replaced);
                     passage = q.getPassage();
@@ -155,12 +176,22 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         }
         model.addAttribute("listOfQuestions", questions);
         model.addAttribute("count", count);
-        model.addAttribute("offset", offset);
+        model.addAttribute("offset", req.getAttribute("offset"));
         return "LW_GAPS";
     }
 
     @RequestMapping(value = {"/LW-GAPS"}, method = RequestMethod.POST)
-    public String processLWGAPS(ModelMap map, @RequestParam("questionId") int questionId, HttpServletRequest req) {
+    public String listAllLWGAPS(ModelMap map, @RequestParam("currentSection") int currentSection, @RequestParam("catId") int catId,
+            @RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("endId") int endId, RedirectAttributes redir) {
+
+        ///sesstion id for type of test;
+//        if (endId == 1) {
+//            loadSection(currentSection);
+//        } else if (endId == 2) {
+//            loadCategories(catId);
+//        } else {
+//
+//        }
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers answer = new Answers();
         answer.setUserId(new Users(Integer.parseInt(userId)));
@@ -169,13 +200,28 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         Enumeration<String> parameterNames = req.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameter = parameterNames.nextElement();
-            if (!parameter.equals("questionId") && !parameter.equals("userId") && !parameter.equals("done")) {
+            if (!parameter.equals("questionId") && !parameter.equals("userId")
+                    && !parameter.equals("done") && !parameter.equals("catId")
+                    && !parameter.equals("currentSection") && !parameter.equals("endId")) {
                 answers = answers + req.getParameter(parameter) + ",";
             }
         }
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
-        return "redirect:/LW-GAPS";
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LW-GAPS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+        //redir.addAttribute("offset", offset);
     }
 
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
@@ -221,11 +267,9 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LR_HILI";
+
     }
 
-    /**
-     * SHOULD RETRIEVE ALL USER ID THIS WAY *
-     */
     @RequestMapping(value = "/LR-HILI", method = RequestMethod.POST)
     public String processLRHILI(@RequestParam("questionId") int questionId, @RequestParam("selected") String selected, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -251,6 +295,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         model.addAttribute("listOfQuestions", questions);
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
+
         return "LL_MAMC";
     }
 
@@ -326,18 +371,32 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         model.addAttribute("listOfQuestions", questions);
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
+
         return "LL_GAPS";
     }
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing) {
+    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing, @RequestParam("offset") int offset) {
+        long count;
+        int offset_new = 0;
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
         ans.setQuestionId(new Questions(questionId));
         ans.setAnswer(missing);
+
         answersService.saveAnswers(ans);
-        return "redirect:/LL-GAPS";
+        int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
+        count = questionService.CountALlQuestions(sectionId);
+
+        if (offset + 1 >= count) {
+            offset_new = offset + 1;
+
+        } else {
+            offset_new = offset + 1;
+        }
+
+        return "redirect:/LL-GAPS?offset=" + offset_new;
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
@@ -396,12 +455,12 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         return "redirect:/LW-DICT";
     }
 
-    @RequestMapping(value = {"/end"},method = RequestMethod.GET)
-    public String endpage(ModelMap modelMa,HttpServletRequest request)
-    {
-    
-    return "end";
+    @RequestMapping(value = {"/end"}, method = RequestMethod.GET)
+    public String endpage(ModelMap modelMa, HttpServletRequest request) {
+
+        return "end";
     }
+
     @RequestMapping(value = {"/RR-SAMC"}, method = RequestMethod.GET)
     public String listALLRRSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
@@ -440,22 +499,22 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RW-GAPS");
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
-        for(Questions q : questions){
+        for (Questions q : questions) {
             int counter = 1;
             String passage = q.getPassage();
-            if(!passage.isEmpty()){
-                while(passage.contains("%_%")){
+            if (!passage.isEmpty()) {
+                while (passage.contains("%_%")) {
                     String selectTagStart = "<select onchange=\"setSelectedItem(this)\" name=\"blank" + counter + "\" class=\"blanks form-control\">";
                     String options = "<option value=\"\"></option>";
-                    for(AnswerOptions aO : q.getAnswerOptionsCollection()){
-                        if(Integer.parseInt(aO.getOrderBlanks()) == counter){
+                    for (AnswerOptions aO : q.getAnswerOptionsCollection()) {
+                        if (Integer.parseInt(aO.getOrderBlanks()) == counter) {
                             options += "<option  value=\"" + aO.getAnsOption() + "\">" + aO.getAnsOption() + "</option>";
                         }
                     }
                     String selectTagEnd = "</select>";
                     String htmlSelectTag = selectTagStart + options + selectTagEnd;
                     String replaced = passage.replaceFirst("%_%", htmlSelectTag);
-                    
+
                     q.setPassage(replaced);
                     passage = q.getPassage();
                     counter++;
@@ -468,8 +527,8 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         model.addAttribute("offset", offset);
         return "RW_GAPS";
     }
-    
-    @RequestMapping(value="/RW-GAPS", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/RW-GAPS", method = RequestMethod.POST)
     public String processRWGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("answerPassage") String answerPassage) {
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
@@ -479,7 +538,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         answersService.saveAnswers(ans);
         return "redirect:/RW-GAPS";
     }
-    
+
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
     public String listALLRRGAPS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
@@ -553,7 +612,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         if (userId == null) {
             return "redirect:/register";
         }
-        
+
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-DRDR");
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
@@ -609,6 +668,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
+
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "SR_READ";
@@ -660,7 +720,7 @@ public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("LS-REPT");
-        count=questionService.CountALlQuestions(sectionId);
+        count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
         count = questionService.CountALlQuestions(sectionId);
