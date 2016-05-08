@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
     @NamedQuery(name = "Categories.findByCatId", query = "SELECT c FROM Categories c WHERE c.catId = :catId"),
     @NamedQuery(name = "Categories.findByCatName", query = "SELECT c FROM Categories c WHERE c.catName = :catName"),
-    @NamedQuery(name = "Categories.findByCatTime", query = "SELECT c FROM Categories c WHERE c.catTime = :catTime"),
+    @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime"),
     @NamedQuery(name = "Categories.findByOrderSequence", query = "SELECT c FROM Categories c WHERE c.orderSequence = :orderSequence")})
 public class Categories implements Serializable {
 
@@ -49,8 +49,8 @@ public class Categories implements Serializable {
     private String catName;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cat_time", nullable = false)
-    private int catTime;
+    @Column(name = "total_time", nullable = false)
+    private int totalTime;
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_sequence", nullable = false)
@@ -65,10 +65,10 @@ public class Categories implements Serializable {
         this.catId = catId;
     }
 
-    public Categories(Integer catId, String catName, int catTime, int orderSequence) {
+    public Categories(Integer catId, String catName, int totalTime, int orderSequence) {
         this.catId = catId;
         this.catName = catName;
-        this.catTime = catTime;
+        this.totalTime = totalTime;
         this.orderSequence = orderSequence;
     }
 
@@ -88,12 +88,12 @@ public class Categories implements Serializable {
         this.catName = catName;
     }
 
-    public int getCatTime() {
-        return catTime;
+    public int getTotalTime() {
+        return totalTime;
     }
 
-    public void setCatTime(int catTime) {
-        this.catTime = catTime;
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
     }
 
     public int getOrderSequence() {

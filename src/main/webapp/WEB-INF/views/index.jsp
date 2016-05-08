@@ -1,72 +1,99 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/main.css" />
+        <title>Express Education Solutions</title>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <style type="text/css">
+            #logo {
+                height: 350px;
+                width: 360px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                font-family: Calibri;
+            }
+
+            .clear {
+                clear: both;
+            }
+
+            #container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -300px;
+                margin-left: -170px;
+                background-color: white;                
+            }
+
+            #login {
+                margin-top: 30px;
+                margin-left: 90px;
+                padding: 10px;
+                float: left;
+                border: none;
+                border-radius: 10px 0px 10px 0px;
+            }
+            
+            #register {
+                margin-top: 30px;
+                margin-right: 90px;
+                padding: 10px;
+                float: right;
+                border: none;
+                border-radius: 10px 0px 10px 0px;
+            }
+            
+            #normal_text {
+                font-size:25px;
+                margin-top: 90px;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            p a {
+                text-decoration: none;
+                font-size: 18px;
+                color: black;
+                font-weight: normal;
+            }
+
+            p a:hover {
+                color: blue;
+            }
+
+            
+        </style>
+
+        <!-- Linking the favicon icon-image -->
+        <link rel="icon" type="image/png" href="assets/images/favicon.png">
     </head>
+
     <body>
-        <ul style="list-style: none;">
-            <li>
-                <h1>Listening</h1>
-                <ol>
-                    <li><a href="<c:url value='/LW-GAPS' />" target="blank">Fill in the blanks (Listening)</a></li>
-                    <li><a href="<c:url value='/LR-HOTS' />" target="blank">Highlight correct summary</a></li>
-                    <li><a href="<c:url value='/LR-HILI' />" target="blank">Highlight incorrect words</a></li>
-                    <li><a href="<c:url value='/LL-MAMC' />" target="blank">Multiple-choice, choose multiple answers (Listening)</a></li>
-                    <li><a href="<c:url value='/LL-SAMC' />" target="blank">Multiple-choice, choose single answer (Listening)</a></li>
-                    <li><a href="<c:url value='/LL-GAPS' />" target="blank">Select missing word</a></li>
-                    <li><a href="<c:url value='/LW-SUMM' />" target="blank">Summarize spoken text</a></li>
-                    <li><a href="<c:url value='/LW-DICT' />" target="blank">Write from dictation</a></li>
-                </ol>
-            </li>
-            <li>
-                <h1>Reading</h1>
-                <ol>
-                    <li><a href="<c:url value='/RR-SAMC' />" target="blank">Multiple-choice, choose single answer (Reading)</a></li>
-                    <li><a href="<c:url value='/RW-GAPS' />" target="blank">Fill in the blanks (Reading & Writing)</a></li>
-                    <li><a href="<c:url value='/RR-GAPS' />" target="blank">Fill in the blanks (Reading)</a></li>
-                    <li><a href="<c:url value='/RR-SAMC' />" target="blank">Multiple-choice, choose multiple answers (Reading)</a></li>
-                    <li><a href="<c:url value='/RR-DRDR' />" target="blank">Re-order paragraphs</a></li>
-                </ol>
-            </li>
-            <li>
-                <h1>Speaking</h1>
-                <ol>
-                    <li><a href="<c:url value='/SS-DESC' />" target="blank">Describe image</a></li>
-                    <li><a href="<c:url value='/SR-READ' />" target="blank">Read aloud</a></li>
-                    <li><a href="<c:url value='/LS-SAQS' />" target="blank">Answer short question</a></li>
-                    <li><a href="<c:url value='/LS-PRES' />" target="blank">Re-tell lecture</a></li>
-                    <li><a href="<c:url value='/LS-REPT' />" target="blank">Repeat sentence</a></li>
-                </ol>
-            </li>
-            <li>
-                <h1>Writing</h1>
-                <ol>
-                    <li><a href="<c:url value='/RW-SUMM' />" target="blank">Summarize written text</a></li>
-                    <li><a href="<c:url value='/WW-ESSA' />" target="blank">Write essay</a></li>
-                </ol>
-            </li>
-            <li>
-                <h1>Break</h1>
-                <ol>
-                    <li><a href="<c:url value='/BB-BREAK' />" target="blank">Break</a></li>
-                </ol>
-            </li>
-        </ul>
-                
-<a href="<c:url value='/logout' />" class="btn btn-success custom-width">Logout</a>
+
+        <div id = "container">
+            <div id = "logo">
+                <img src="assets/images/pte_logo.jpg" height = "360" width = "350"  alt="Logo">
+            </div>
+            <div id = "normal_text">
+                <p>PTE Practice Hub</p>
+            </div>
+            <div id = "login">
+                <p><b><a href="<c:url value="/login"/>">Log In</a></b></p>
+            </div>
+            <div id = "register">
+                <p><b><a href="<c:url value="/register"/>">Sign Up</a></b></p>
+            </div>
+        </div>
     </body>
-    
-    <script src="/js/jquery-2.2.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
 </html>

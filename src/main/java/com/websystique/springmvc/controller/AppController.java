@@ -231,6 +231,49 @@ public class AppController {
         //redir.addAttribute("offset", offset);
     }
 
+    @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.POST)
+    public String listAllSREAD(ModelMap map, @RequestParam("currentSection") int currentSection, @RequestParam("catId") int catId,
+            @RequestParam("questionId") int questionId, HttpServletRequest req,RedirectAttributes redir) {
+
+        ///sesstion id for type of test;
+//        if (endId == 1) {
+//            loadSection(currentSection);
+//        } else if (endId == 2) {
+//            loadCategories(catId);
+//        } else {
+//
+//        }
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers answer = new Answers();
+        answer.setUserId(new Users(Integer.parseInt(userId)));
+        answer.setQuestionId(new Questions(questionId));
+        String answers = "";
+        Enumeration<String> parameterNames = req.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String parameter = parameterNames.nextElement();
+            if (!parameter.equals("questionId") && !parameter.equals("userId")
+                    && !parameter.equals("done") && !parameter.equals("catId")
+                    && !parameter.equals("currentSection") && !parameter.equals("endId")) {
+                answers = answers + req.getParameter(parameter) + ",";
+            }
+        }
+        answer.setAnswer(answers);
+        answersService.saveAnswers(answer);
+        String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LW-GAPS?offset=" + offset;
+
+        }
+        return loadSection(currentSection);
+        //redir.addAttribute("offset", offset);
+    }
     @RequestMapping(value = {"/LR-HOTS"}, method = RequestMethod.GET)
     public String listAllLRHOTS(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
@@ -782,6 +825,42 @@ public class AppController {
     public String processBB_BREAK(@RequestParam("currentSection") int currentSection) {       
         return loadSection(currentSection);
     }
+    
+    
+     @RequestMapping(value = "/SS-DESC", method = RequestMethod.POST)
+    public String processSS_DESC(@RequestParam("currentSection") int currentSection) {       
+        return loadSection(currentSection);
+    }
+    
+    
+    
+    
+     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
+    public String processSR_READ(@RequestParam("currentSection") int currentSection) {       
+        return loadSection(currentSection);
+    }
+    
+    
+    
+    
+     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
+    public String processLS_SAQS(@RequestParam("currentSection") int currentSection) {       
+        return loadSection(currentSection);
+    }
+    
+    
+    
+     @RequestMapping(value = "/LS-PRES", method = RequestMethod.POST)
+    public String processLS_PRES(@RequestParam("currentSection") int currentSection) {       
+        return loadSection(currentSection);
+    }
+    
+     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
+    public String processLS_REPT(@RequestParam("currentSection") int currentSection) {       
+        return loadSection(currentSection);
+    }
+    
+    
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
     public String listSSDESC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
@@ -826,6 +905,8 @@ public class AppController {
         if (userId == null) {
             return "redirect:/register";
         }
+        
+        
         int sectionId = sectionService.findSectionIdByUrlPattern("SR-READ");
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
@@ -1185,7 +1266,7 @@ public class AppController {
             
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
-            outputStream = new FileOutputStream(new File(appPath + File.separator + name));
+            outputStream = new FileOutputStream(new File(appPath + File.separator+"static"+ File.separator+"Recordings"+ File.separator + name));
             outputStream.write(Base64.getDecoder().decode(encodedData));
         } catch (IOException ex) {
 

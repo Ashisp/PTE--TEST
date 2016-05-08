@@ -73,7 +73,7 @@
                 <p class="clear" />
                 <form method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
-                    <input type="hidden" id="catTime" name="catTime" value="${question.catId.catTime}" />
+                    <input type="hidden" id="catTime" name="catTime" value="${question.catId.totalTime}" />
                     <input type="hidden" id="catId" name="catId" value="${question.catId.catId}" />
                     <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
@@ -85,25 +85,19 @@
                     
                     
                     <div class="userspace">
-                        <c:forEach items="${question.answerOptionsCollection}" var="answerOption" varStatus="itr">
+                        <c:forEach items="${question.answerOptionsCollection}" var="answerOption" >
 
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
                             
-                            <input type="radio" name="offset" value="<c:out value='${offset}' />"><c:out value="${answerOption.ansOption}" /><br/>
-                            
+                           
                         </c:forEach>
                     </div>
                     <div>
-                        <input type="submit" name="done" value="Done" class="form-control done" />
+                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
                     </div>
                     <hr/>
                 </form>
-                <form method="post" action="<c:url value="/loadSection" />">
-                    
-                    <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                </form>
+             
             </div>
 
         </c:forEach>
