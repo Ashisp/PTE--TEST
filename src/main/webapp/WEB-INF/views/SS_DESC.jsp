@@ -39,7 +39,7 @@
                 <div class="recorderSpace">
                     <c:set var="offset" value="${offset}" />
                     <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
-                    <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />" />
+                    <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
                     <div class="form-group">
                         <p class="clear" />
                         <div class="col-sm-6 control-label">
@@ -61,9 +61,9 @@
             </div>
         </c:forEach>
         <div id="recording-list"></div>
-
-
-
+        
+        
+        
         <script>
             function __log(e, data) {
                 log.innerHTML += "\n" + e + " " + (data || '');
