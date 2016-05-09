@@ -102,16 +102,20 @@
         
         <div id = "container">
             <div id = "logo">
-                <img src="assets/images/pte_logo.jpg" height="150" width="160" alt="Logo">
+                <img src="static/lrg.jpg" height="150" width="160" alt="Logo">
             </div>
             <div id = "username">
                 <p><b>Log In!</b></p>
+                
                 <form action="login" method="post">
                     <input type="text" name="email" placeholder="Username" required />
                     <input type="password" name="password" placeholder="Password" required />
 
                     <input type="submit" name="submit" value="Login" />
+                
                 </form>
+                
+                
                 <span class="text-danger">${errorMessage}</span>
             </div>
         </div>

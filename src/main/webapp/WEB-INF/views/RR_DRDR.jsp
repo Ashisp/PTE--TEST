@@ -19,17 +19,7 @@ and open the template in the editor.
         <script type="text/javascript">
 
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+     
             
             
 
@@ -100,16 +90,11 @@ and open the template in the editor.
                         </ul>
                     </div>
                     <p class="clear" />
-                    <div>
-                        <input type="submit" name="done" value="Done" class="form-control done" />
+                     <div>
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                </form>
+                
             </div>
         </c:forEach>
         

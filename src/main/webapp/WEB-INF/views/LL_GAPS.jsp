@@ -14,17 +14,7 @@
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+       
 
             function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
@@ -60,7 +50,7 @@
     <body onload="callTimer();
             init();
             playAudio()">
-        <div>Time Remaining: <span id="time">00:00</span> minutes!</div>
+        
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Select missing word...</h1>

@@ -14,17 +14,7 @@
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+            
 
 
             var time, counter;
@@ -76,18 +66,15 @@
                         </c:forEach>
                     </div>
                     <div>
-                        <input type="submit" name="done" value="Done" class="form-control done" />
+                          
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                    
                         <input type="hidden" name="offset" value="<c:out value="${offset}" default="0" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                 </form>
-                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                </form>
+             
             </div>
         </c:forEach>
     </body>

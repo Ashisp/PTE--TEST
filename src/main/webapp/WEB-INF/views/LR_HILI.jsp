@@ -16,17 +16,17 @@
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+//            window.onbeforeunload = function (e) {
+//                e = e || window.event;
+//
+//                // For IE and Firefox prior to version 4
+//                if (e) {
+//                    e.returnValue = 'You sure?';
+//                }
+//
+//                // For others
+//                return 'You sure?';
+//            };
 
 
             var listOfSelectedWords = [];
@@ -146,17 +146,12 @@
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <input type="hidden" name="selected" id="selected-hidden" value="" />
                     <div>
-                        <input type="submit" name="done" value="Done" class="form-control done" />
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
                 <p class="clear" />
                 <div><b>You've selected (Might be userfriendly):</b>[<span id='selected'></span>]</div>
-                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <div>
-                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                </form>
+             
             </div>
         </c:forEach>
     </body>

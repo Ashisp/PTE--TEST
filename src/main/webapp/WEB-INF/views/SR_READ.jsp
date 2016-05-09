@@ -40,7 +40,7 @@
     <body>
         <%
             int startTime = 0;
-            if (session.getAttribute("startTime") != null) {
+            if ((session.getAttribute("startTime") != "") &&(session.getAttribute("startTime") != null)){
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
             }
         %>
@@ -51,6 +51,7 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div>
+                   
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <form method="post" onsubmit="return imDone();">
@@ -86,7 +87,7 @@
                     </div>
 
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-
+                   
                     <div>           
                         <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
                     </div>

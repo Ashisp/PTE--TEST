@@ -18,17 +18,17 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+//            window.onbeforeunload = function (e) {
+//                e = e || window.event;
+//
+//                // For IE and Firefox prior to version 4
+//                if (e) {
+//                    e.returnValue = 'You sure?';
+//                }
+//
+//                // For others
+//                return 'You sure?';
+//            };
 
             function startTimer(duration, start) {
                 var timer = start, minutes, seconds;
@@ -85,7 +85,7 @@ and open the template in the editor.
                         <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
                       <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
              

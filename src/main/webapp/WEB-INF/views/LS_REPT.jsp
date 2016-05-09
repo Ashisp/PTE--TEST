@@ -17,6 +17,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+         <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
@@ -57,11 +58,21 @@ and open the template in the editor.
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+            
+  
         </script>
     </head>
     <body onload="loadLibrary();
             init();
             playAudio();">
+        
+        
+         <%
+            int startTime = 0;
+            if (session.getAttribute("startTime") != "") {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+            }
+        %>
         <c:forEach var="question" items="${listOfQuestions}">
             <table>
                 <tr>
@@ -73,6 +84,9 @@ and open the template in the editor.
                 <h1>Repeat sentence</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                 <div>
+<!--                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>-->
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -81,6 +95,8 @@ and open the template in the editor.
                 <hr/>
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
+                         <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                        <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
                         <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />

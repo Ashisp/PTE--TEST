@@ -110,10 +110,7 @@ public class AppController {
 
         Long count = questionService.CountALlQuestionsByCatId(cat_next);
 
-//    
-//        if(cat_next==0())
-//            return "redirect:/end";
-//where to ride 
+
         return "redirect:/";
     }
 
@@ -133,9 +130,17 @@ public class AppController {
     public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
 
         System.out.println("users");
+        return "Role";
+    }
+ @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
+    public String firstPage(ModelMap model,HttpServletRequest req) {
+   String userId = (String) req.getSession(false).getAttribute("uid");
+        if (userId == null) {
+            return "redirect:/register";
+        }
+      
         return "Mainpage";
     }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loadLogin(HttpServletRequest req) {
         /*String userId = "";

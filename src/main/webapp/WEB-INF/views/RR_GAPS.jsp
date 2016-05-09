@@ -17,17 +17,17 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+//            window.onbeforeunload = function (e) {
+//                e = e || window.event;
+//
+//                // For IE and Firefox prior to version 4
+//                if (e) {
+//                    e.returnValue = 'You sure?';
+//                }
+//
+//                // For others
+//                return 'You sure?';
+//            };
 
 
             function allowDrop(ev) {
@@ -79,16 +79,9 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div>
-                        <!-- SHOULD SENED AJAX REQUEST ON CLICK -->
-                        <input type="submit" name="done" value="Done" class="form-control done" />
-                    </div>
-                </form>
-                <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                    <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
-                    </div>
-                </form>
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                    </div>    </form>
+
             </div>
         </c:forEach>
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>

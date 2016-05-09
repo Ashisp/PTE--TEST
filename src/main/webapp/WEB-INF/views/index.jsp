@@ -27,7 +27,7 @@ and open the template in the editor.
                     <li><a href="<c:url value='/LL-GAPS' />" target="blank">Select missing word</a></li>
                     <li><a href="<c:url value='/LW-SUMM' />" target="blank">Summarize spoken text</a></li>
                     <li><a href="<c:url value='/LW-DICT' />" target="blank">Write from dictation</a></li>
-                </ol>
+                </ols
             </li>
             <li>
                 <h1>Reading</h1>
