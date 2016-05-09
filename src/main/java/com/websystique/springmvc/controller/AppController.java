@@ -208,11 +208,14 @@ public class AppController {
         Enumeration<String> parameterNames = req.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameter = parameterNames.nextElement();
-            if (!parameter.equals("questionId") && !parameter.equals("userId")
-                    && !parameter.equals("done") && !parameter.equals("catId")
-                    && !parameter.equals("currentSection") && !parameter.equals("endId")) {
+            if(parameter.contains("ans")){
                 answers = answers + req.getParameter(parameter) + ",";
             }
+            /*if (!parameter.equals("questionId") && !parameter.equals("userId")
+                    && !parameter.equals("done") && !parameter.equals("catId")
+                    && !parameter.equals("currentSection") && !parameter.equals("endId")
+                    && !parameter.equals("offset") && !parameter.equals("count")) {
+            }*/
         }
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
