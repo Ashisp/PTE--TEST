@@ -132,14 +132,14 @@
                     <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
-                <form action="" method="post">
+                <form method="post">
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <div class="userspace">
                         <p id="passage">
                             <c:out value="${question.passage}" />
                         </p>
                     </div>
-                    <input type="hidden" name="offset" value="${offset}" />
+                            <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                     <input type="hidden" name="count" value="${count}" />
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     
@@ -153,6 +153,7 @@
                 <div><b>You've selected (Might be userfriendly):</b>[<span id='selected'></span>]</div>
                 <form method="post" action="<c:url value="/loadSection" />" onsubmit="return confirm('Are you sure?');">
                     <div>
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
