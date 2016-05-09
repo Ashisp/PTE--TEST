@@ -91,6 +91,7 @@
                     <div>
                         <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
                     </div>
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                 </form>
             </div>
         </c:forEach>

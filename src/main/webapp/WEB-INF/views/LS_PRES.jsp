@@ -72,7 +72,7 @@
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                     <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
-                    <c:set var="offset" value="<c:out default="0" value="${offset}" />" />
+                    <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                     
                     <div class="form-group">
                         <p class="clear" />
