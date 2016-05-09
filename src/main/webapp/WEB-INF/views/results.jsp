@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>Section</th>
+                    <th>Question ID</th>
                     <th>Question</th>
                     <th>Answer by Student</th>
                 </tr>
@@ -25,12 +26,19 @@
                 <c:forEach var="answer" items="${answers}">
                     <tr>
                         <td><c:out value="${answer.questionId.sectionId.sectionName}"/></td>
-                        <td><c:out value="${answer.questionId.audioPath}"/>
+                        <th><c:out value="${answer.questionId.questionId}" /></th>
+                        <td>
+                            <c:if test="${answer.questionId.audioPath != null}">
+                                <audio controls="" src="../media/files/<c:out value="${answer.questionId.audioPath}"/>" />
+                            </c:if>
                             <c:out value="${answer.questionId.imagePath}"/>
                             <c:out value="${answer.questionId.passage}" escapeXml="false"/>
                         </td>
-                        <td><c:out value="${answer.answer}" escapeXml="false"/>
-                            <c:out value="${answer.audioPath}"/>
+                        <td>
+                            <c:out value="${answer.answer}" escapeXml="false"/>
+                            <c:if test="${answer.audioPath ne null}">
+                                <audio controls="" src="../media/files/<c:out value="${answer.audioPath}"/>" />
+                            </c:if>                            
                         </td>
                     </tr>
                 </c:forEach>
