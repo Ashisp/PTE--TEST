@@ -64,7 +64,7 @@
                 <hr />
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
-                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
+                    <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <hr/>
@@ -72,7 +72,7 @@
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                     <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
-                    <c:set var="offset" value="${offset}" />
+                    <c:set var="offset" value="<c:out default="0" value="${offset}" />" />
                     
                     <div class="form-group">
                         <p class="clear" />

@@ -86,7 +86,7 @@
                 <hr />
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
-                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
+                    <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <form onsubmit="extractHiddenSummary()" method="post">
@@ -98,7 +98,7 @@
                         <h5><span id="wordCount">0</span>/70 Word Limit</h5>
                         <textarea id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
                         <input type="hidden" name="summary" id="hiddenSummary" />
-                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>

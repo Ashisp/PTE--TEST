@@ -63,12 +63,12 @@
                 </div>
                 <p class="clear" />
                 <form method="post" onsubmit="extractHiddenEssay()">
-                    <c:set var="offset" value="${offset}" />
+                    
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/300 Word Limit</h5>
                         <input type="hidden" name="userId" value="1000" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
-                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         <input type="hidden" value="" name="essay" id="hiddenEssay" />

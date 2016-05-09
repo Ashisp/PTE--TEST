@@ -48,13 +48,13 @@ and open the template in the editor.
                 <p class="clear" />
                 <form method="post" onsubmit="setAnswerPassage();">
                     <input type="hidden" name="questionId" value="${question.questionId}" />
-                    <c:set var="offset" value="${offset}" />
+                    
                     <input type="hidden" id="answerPsg" name="answerPassage" value="" />
                     <div class="userspace">
                         <p id="passage">
                             <c:out value="${question.passage}" escapeXml="false" />
                         </p>
-                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>

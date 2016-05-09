@@ -52,7 +52,7 @@ and open the template in the editor.
                             <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"><c:out value="${option.ansOption}" /><br/>
                         </c:forEach>
 
-                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
 

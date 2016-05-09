@@ -70,7 +70,7 @@ and open the template in the editor.
 
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
-                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
+                    <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
 
@@ -84,7 +84,7 @@ and open the template in the editor.
 
                             <input type="checkbox" name="choices" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
 
-                            <input type="hidden" name="offset" value="${offset}" />
+                            <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                             <input type="hidden" name="count" value="${count}" />
                             <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         </c:forEach>

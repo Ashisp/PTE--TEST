@@ -68,7 +68,7 @@
                 <hr />
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
-                    <audio id="audiotag1" src="<c:url value='/static/files/${question.audioPath}' />"></audio>
+                    <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <form method="post">

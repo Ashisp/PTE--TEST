@@ -34,12 +34,13 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div class="imageView">
-                    <img src="<c:url value='/static/files/${question.imagePath}'/>" alt="image" />
+                    <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
                 </div>
                 <div class="recorderSpace">
-                    <c:set var="offset" value="${offset}" />
+                    
                     <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                     <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
+                    <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
                     <div class="form-group">
                         <p class="clear" />
                         <div class="col-sm-6 control-label">

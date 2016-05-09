@@ -61,7 +61,7 @@ and open the template in the editor.
                     <div class="userspace">
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <input type="hidden" id="answerPassage" name="answerPassage" value="" />
-                        <input type="hidden" name="offset" value="${offset}" />
+                        <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         <p id="paragraph">
