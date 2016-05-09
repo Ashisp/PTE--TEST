@@ -225,6 +225,7 @@ public class AppController {
         }
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
+            
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }

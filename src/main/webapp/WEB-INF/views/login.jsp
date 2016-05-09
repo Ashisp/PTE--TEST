@@ -106,8 +106,8 @@
             </div>
             <div id = "username">
                 <p><b>Log In!</b></p>
-                <form action="dashboard" method="post">
-                    <input type="text" name="username" placeholder="Username" required />
+                <form action="login" method="post">
+                    <input type="text" name="email" placeholder="Username" required />
                     <input type="password" name="password" placeholder="Password" required />
 
                     <input type="submit" name="submit" value="Login" />
