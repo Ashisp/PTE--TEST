@@ -436,7 +436,9 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("missing") String missing, @RequestParam("offset") int offset, RedirectAttributes redir, @RequestParam("currentSection") int currentSection) {
+    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, 
+            @RequestParam("missing") String missing, @RequestParam("offset") int offset, 
+            @RequestParam("currentSection") int currentSection) {
         long count;
         int offset_new = 0;
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -450,8 +452,8 @@ public class AppController {
         count = questionService.CountALlQuestions(sectionId);
 
         if (offset + 1 >= count) {
-            offset_new = offset + 1;
-
+            //offset_new = offset + 1;
+            return loadSection(currentSection);
         } else {
             offset_new = offset + 1;
         }

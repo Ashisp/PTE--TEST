@@ -79,12 +79,13 @@
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" id="timeDb" name="timeDb" value="${question.sectionId.time}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
-                    <input type="hidden" name="offset" value="${offset}" />
+                    <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                     <input type="hidden" name="count" value="${count}" />
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     
                     
                     <div class="userspace">
+                        <input type="radio" name="missing" value="_" checked class="hide" />
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" >
 
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
