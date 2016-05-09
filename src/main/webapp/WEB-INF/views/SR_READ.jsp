@@ -191,6 +191,7 @@
                         clearInterval(endInterval);
                     }
                     if (initialStopCount >= stops) {
+                        IS_STOPPED = true;
                         stopRecording();
                         clearInterval(endInterval);
                     }
