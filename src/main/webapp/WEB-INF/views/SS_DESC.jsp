@@ -117,14 +117,7 @@
 
             function imDone() {
                 stopRecording();
-                if (GLOBAL_IS_AUDIO_SAVED) {
-                    return true;
-                } else {
-                    return false;
-                }
-                var interval = setInterval(function () {
-
-                }, 500);
+                return GLOBAL_IS_AUDIO_SAVED;
             }
             function createDownloadLink() {
                 recorder && recorder.exportWAV(function (blob) {
