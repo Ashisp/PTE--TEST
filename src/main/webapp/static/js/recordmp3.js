@@ -111,14 +111,14 @@
                         //console.log ("The Mp3 data " + e.data.buf);
 
                         var mp3Blob = new Blob([new Uint8Array(e.data.buf)], {type: 'audio/mp3'});
-                        
+
 
                         url = url + encode64(e.data.buf);//var url = 'data:audio/mp3;base64,' + encode64(e.data.buf);
                         uploadAudioWithString(mp3Blob);
                         var li = document.createElement('li');
                         var au = document.createElement('audio');
                         var hf = document.createElement('a');
-                        
+
                         au.controls = true;
                         au.src = url;
                         hf.href = url;
@@ -185,33 +185,34 @@
         }
 
         /*function uploadAudio(mp3Data) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var fd = new FormData();
-                var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
-                console.log("mp3name = " + mp3Name);
-                fd.append('fname', mp3Name);
-                fd.append('data', event.target.result);
-                //alert(fd.get('fname'));
-                $.ajax({
-                    type: 'POST',
-                    url: '/RecorderTest/FileHandle',
-                    data: fd,
-                    processData: false,
-                    contentType: false
-                }).done(function (data) {
-                    //console.log(data);
-                    log.innerHTML += "\n" + data;
-                });
-            };
-            reader.readAsDataURL(mp3Data);
-        }*/
-        
+         var reader = new FileReader();
+         reader.onload = function (event) {
+         var fd = new FormData();
+         var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
+         console.log("mp3name = " + mp3Name);
+         fd.append('fname', mp3Name);
+         fd.append('data', event.target.result);
+         //alert(fd.get('fname'));
+         $.ajax({
+         type: 'POST',
+         url: '/RecorderTest/FileHandle',
+         data: fd,
+         processData: false,
+         contentType: false
+         }).done(function (data) {
+         //console.log(data);
+         log.innerHTML += "\n" + data;
+         });
+         };
+         reader.readAsDataURL(mp3Data);
+         }*/
+
         function uploadAudioWithString(mp3Blob) {
             var reader = new FileReader();
             reader.onload = function (event) {
                 var fd = new FormData();
                 var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
+                document.getElementById("filename").value = mp3Name;
                 //console.log("mp3name = " + mp3Name);
                 fd.append('fname', mp3Name);
                 fd.append('data', mp3Blob);
@@ -222,9 +223,13 @@
                     url: '/ptetest/RecordingHandle',
                     data: fd,
                     processData: false,
-                    contentType: false
-                }).done(function (audio) {
-                    console.log(audio);
+                    contentType: false/*,
+                    success: function (data, textStatus, jqXHR) {
+                        alert("Success");
+                    }*/
+                }).done(function (data) {
+                    alert('uploaded');
+                    console.log(data);
                     log.innerHTML += "\n" + "Done uploading.";
                 });
             };

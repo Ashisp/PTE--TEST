@@ -14,7 +14,7 @@
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
+            /*window.onbeforeunload = function (e) {
                 e = e || window.event;
 
                 // For IE and Firefox prior to version 4
@@ -24,7 +24,7 @@
 
                 // For others
                 return 'You sure?';
-            };
+            };*/
         </script>
     </head>
     <body>
@@ -36,37 +36,40 @@
                 <div class="imageView">
                     <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
                 </div>
-                <div class="recorderSpace">
-                    
-                    <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
-                    <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
-                    <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
-                    <div class="form-group">
-                        <p class="clear" />
-                        <div class="col-sm-6 control-label">
-                            Starts in <span id="recordsIn"></span><br/>
-                            Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
-                        </div>
-                        <div class="col-sm-9">
-                            <h2>Log</h2>
-                            <pre id="log"></pre>
-                        </div>
-                        <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
-                    </div>
-                </div>
                 <form method="post">
-                     <input type="hidden" value="${sectionId}" name="currentSection" />
+                    <div class="recorderSpace">
+
+                        <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
+                        <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />" />
+                        <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
+                        <input type="hidden" value="<c:out value="${question.questionId}" />" />
+                        <input type="hidden" name="filename" id="filename" value="" />
+                        <div class="form-group">
+                            <p class="clear" />
+                            <div class="col-sm-6 control-label">
+                                Starts in <span id="recordsIn"></span><br/>
+                                Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                            </div>
+                            <div class="col-sm-9">
+                                <h2>Log</h2>
+                                <pre id="log"></pre>
+                            </div>
+                            <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
+                        </div>
+                    </div>
+                    <p class="clear" />
+
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
-                        
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
         </c:forEach>
         <div id="recording-list"></div>
-        
-        
-        
+
+
+
         <script>
             function __log(e, data) {
                 log.innerHTML += "\n" + e + " " + (data || '');
@@ -108,8 +111,13 @@
                 createDownloadLink();
 
                 recorder.clear();
+                return true;
             }
 
+            function imDone(){
+                stopRecording();
+                
+            }
             function createDownloadLink() {
                 recorder && recorder.exportWAV(function (blob) {
                     //alert("Created DownloadLink");
@@ -117,7 +125,7 @@
                      var li = document.createElement('li');
                      var au = document.createElement('audio');
                      var hf = document.createElement('a');
-                     
+                 
                      au.controls = true;
                      au.src = url;
                      hf.href = url;
@@ -189,21 +197,21 @@
         <script src="<c:url value="/static/js/recordmp3.js" />"></script>
         <script>
             /*var fd = new FormData();
-            //console.log("mp3name = " + mp3Name);
-            fd.append('fname', 'nikesh');
-            fd.append('audio', 'yynikesh');
-            fd.append('data', 'dd');
-            //alert("Form DATA: " + fd.get('data'));
-            $.ajax({
-                type: 'POST',
-                url: '/ptetest/RecordingHandle',
-                data: fd,
-                processData: false,
-                contentType: false
-            }).done(function (data) {
-                //console.log(data);
-                log.innerHTML += "\n" + "Done uploading.";
-            });*/
+             //console.log("mp3name = " + mp3Name);
+             fd.append('fname', 'nikesh');
+             fd.append('audio', 'yynikesh');
+             fd.append('data', 'dd');
+             //alert("Form DATA: " + fd.get('data'));
+             $.ajax({
+             type: 'POST',
+             url: '/ptetest/RecordingHandle',
+             data: fd,
+             processData: false,
+             contentType: false
+             }).done(function (data) {
+             //console.log(data);
+             log.innerHTML += "\n" + "Done uploading.";
+             });*/
         </script>
     </body>
 </html>

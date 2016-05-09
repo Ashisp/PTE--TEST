@@ -36,37 +36,39 @@
                 <h1>Read aloud</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                <div class="recorderSpace" style="float:left;">
-                    <c:set var="offset" value="${offset}" />
-                    <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
-                    <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
+                <form method="post" onsubmit="return stopRecording();">
+                    <div class="recorderSpace" style="float:left;">
+                        
+                        <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
+                        <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
+                        <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
+                        <input type="hidden" value="<c:out value="${question.questionId}" />" />
+                        <input type="hidden" name="filename" id="filename" value="" />
 
-                    <div class="form-group">
-                        <p class="clear" />
-                        <div class="col-sm-6 control-label">
-                            Starts in <span id="recordsIn"></span><br/>
-                            Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                        <div class="form-group">
+                            <p class="clear" />
+                            <div class="col-sm-6 control-label">
+                                Starts in <span id="recordsIn"></span><br/>
+                                Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                            </div>
+                            <div class="col-sm-9">
+                                <h2>Log</h2>
+                                <pre id="log"></pre>
+                            </div>
+                            <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                         </div>
-                        <div class="col-sm-9">
-                            <h2>Log</h2>
-                            <pre id="log"></pre>
-                        </div>
-                        <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                     </div>
-                </div>
-                <p class="clear"/>
-                <div class="question">
-                    <p>
-                        <c:out value="${question.passage}" />
-                    </p>
-                </div>
-                <form method="post">
-                     <input type="hidden" value="${sectionId}" name="currentSection" />
-                    
-                    <div>
-                        
-                        
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                    <p class="clear"/>
+                    <div class="question">
+                        <p>
+                            <c:out value="${question.passage}" />
+                        </p>
+                    </div>
+
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
+                    <div>           
+                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
@@ -117,6 +119,7 @@
                 createDownloadLink();
 
                 recorder.clear();
+                return true;
             }
 
             function createDownloadLink() {

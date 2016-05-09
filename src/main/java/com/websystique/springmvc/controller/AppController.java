@@ -436,8 +436,8 @@ public class AppController {
     }
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
-    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req, 
-            @RequestParam("missing") String missing, @RequestParam("offset") int offset, 
+    public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req,
+            @RequestParam("missing") String missing, @RequestParam("offset") int offset,
             @RequestParam("currentSection") int currentSection) {
         long count;
         int offset_new = 0;
@@ -785,25 +785,71 @@ public class AppController {
         return loadSection(currentSection);
     }
 
-   
-
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
-    public String processSR_READ(@RequestParam("currentSection") int currentSection) {
+    public String processSR_READ(HttpServletRequest req, Integer maxResults,
+            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        String s = req.getParameter("offset");
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/SR-READ?offset=" + offset;
+
+        }
         return loadSection(currentSection);
     }
 
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
-    public String processLS_SAQS(@RequestParam("currentSection") int currentSection) {
+    public String processLS_SAQS(HttpServletRequest req, Integer maxResults,
+            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        String s = req.getParameter("offset");
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LS-SAQS?offset=" + offset;
+
+        }
         return loadSection(currentSection);
     }
 
     @RequestMapping(value = "/LS-PRES", method = RequestMethod.POST)
-    public String processLS_PRES(@RequestParam("currentSection") int currentSection) {
+    public String processLS_PRES(HttpServletRequest req, Integer maxResults,
+            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        String s = req.getParameter("offset");
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LS-PRES?offset=" + offset;
+
+        }
         return loadSection(currentSection);
     }
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
-    public String processLS_REPT(@RequestParam("currentSection") int currentSection) {
+    public String processLS_REPT(HttpServletRequest req, Integer maxResults,
+            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        String s = req.getParameter("offset");
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
+        } else {
+            offset = Integer.parseInt(s) + 1;
+        }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LS-REPT?offset=" + offset;
+
+        }
         return loadSection(currentSection);
     }
 
@@ -825,10 +871,10 @@ public class AppController {
     }
 
     @RequestMapping(value = "/SS-DESC", method = RequestMethod.POST)
-    public String processSSDESC(HttpServletRequest req, Integer maxResults, RedirectAttributes redir, @RequestParam("currentSection") int currentSection) {
-        System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
+    public String processSSDESC(HttpServletRequest req, Integer maxResults,
+            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        //System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
         String s = req.getParameter("offset");
-        int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1210,7 +1256,7 @@ public class AppController {
 
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
-            outputStream = new FileOutputStream(new File(appPath + File.separator + "static" + File.separator + "Recordings" + File.separator + name));
+            outputStream = new FileOutputStream(new File(appPath + File.separator + name));//File.separator + "static" + File.separator + "Recordings" + 
             outputStream.write(Base64.getDecoder().decode(encodedData));
         } catch (IOException ex) {
 
@@ -1221,7 +1267,7 @@ public class AppController {
 
             }
         }
-        return "Uploaded";
+        return "Success";
     }
 
     @RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
