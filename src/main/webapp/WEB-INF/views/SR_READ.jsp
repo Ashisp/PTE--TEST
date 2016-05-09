@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
@@ -28,18 +29,35 @@
              // For others
              return 'You sure?';
              };*/
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
         </script>
 
     </head>
     <body>
+        <%
+            int startTime = 0;
+            if (session.getAttribute("startTime") != null) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+            }
+        %>
         <c:forEach items="${listOfQuestions}" var="question">
 
             <div class="col-md-10 col-md-offset-1">
                 <h1>Read aloud</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"></span>
+                </div>
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
+                        <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                        <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                        <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
 
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
@@ -169,7 +187,7 @@
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
-                    if(IS_STOPPED){
+                    if (IS_STOPPED) {
                         clearInterval(endInterval);
                     }
                     if (initialStopCount >= stops) {
@@ -206,6 +224,7 @@
                 document.getElementById("totalRecordTime").innerHTML = document.getElementById("stopsIn").value;
                 document.getElementById("recordsIn").innerHTML = document.getElementById("startsIn").value;
                 readyRecording();
+                startExamTimer();
             };
         </script>
         <script src="<c:url value='/static/js/jquery.js' />"></script>

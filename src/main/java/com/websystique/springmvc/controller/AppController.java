@@ -803,6 +803,8 @@ String s = req.getParameter("offset");
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
