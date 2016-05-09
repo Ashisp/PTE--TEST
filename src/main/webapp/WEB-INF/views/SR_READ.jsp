@@ -44,7 +44,7 @@
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
                         <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
-                        <input type="hidden" value="<c:out value="${question.questionId}" />" />
+                        <input type="hidden" value="<c:out value="${question.questionId}" />" name="questionId" />
                         <input type="hidden" name="filename" id="filename" value="" />
 
                         <div class="form-group">

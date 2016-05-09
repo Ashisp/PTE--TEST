@@ -788,6 +788,7 @@ public class AppController {
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
     public String processSR_READ(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -805,6 +806,7 @@ public class AppController {
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
     public String processLS_SAQS(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -822,6 +824,7 @@ public class AppController {
     @RequestMapping(value = "/LS-PRES", method = RequestMethod.POST)
     public String processLS_PRES(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -839,6 +842,7 @@ public class AppController {
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -874,6 +878,7 @@ public class AppController {
     public String processSSDESC(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         //System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1274,6 +1279,17 @@ public class AppController {
     public void uploadRecordGET() {
         System.out.println("GET: RECORDING");
 
+    }
+
+    private void saveFileNameToDatabase(HttpServletRequest req) {
+        int questionId = Integer.parseInt(req.getParameter("questionId"));
+        String fileName = req.getParameter("filename");
+        String userId = (String) req.getSession(false).getAttribute("uid");
+        Answers ans = new Answers();
+        ans.setAudioPath(fileName);
+        ans.setQuestionId(new Questions(questionId));
+        ans.setUserId(new Users(Integer.parseInt(userId)));
+        answersService.saveAnswers(ans);        
     }
 }
 
