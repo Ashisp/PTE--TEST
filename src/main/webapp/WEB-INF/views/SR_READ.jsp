@@ -51,7 +51,7 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 <div>
-                    Time: <span id="time">00:00</span>/<span id="duration"></span>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
