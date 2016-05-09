@@ -14,6 +14,7 @@
 
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
+            var IS_STOPPED = false;
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
             /*window.onbeforeunload = function (e) {
              e = e || window.event;
@@ -43,7 +44,7 @@
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />" />
                         <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
-                        <input type="hidden" value="<c:out value="${question.questionId}" />" />
+                        <input type="hidden" value="<c:out value="${question.questionId}" />" name="questionId" />
                         <input type="hidden" name="filename" id="filename" value="" />
                         <div class="form-group">
                             <p class="clear" />
@@ -116,7 +117,10 @@
             }
 
             function imDone() {
-                stopRecording();
+                if(!IS_STOPPED){
+                    IS_STOPPED = true;
+                    stopRecording();                    
+                }
                 return GLOBAL_IS_AUDIO_SAVED;
             }
             function createDownloadLink() {
@@ -156,6 +160,9 @@
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
+                    if(IS_STOPPED){
+                        clearInterval(endInterval);
+                    }
                     if (initialStopCount >= stops) {
                         stopRecording();
                         clearInterval(endInterval);
