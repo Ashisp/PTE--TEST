@@ -19,16 +19,16 @@
             var IS_STOPPED = false;
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
             /*window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };*/
+             e = e || window.event;
+             
+             // For IE and Firefox prior to version 4
+             if (e) {
+             e.returnValue = 'You sure?';
+             }
+             
+             // For others
+             return 'You sure?';
+             };*/
 
 
             var time, counter;
@@ -56,7 +56,8 @@
             }
         </script>
     </head>
-    <body onload="loadLibrary();init();
+    <body onload="loadLibrary();
+            init();
             playAudio();">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
@@ -67,6 +68,11 @@
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
+                <c:if test="${question.imagePath != null}">
+                    <div class="imageView col-md-5">
+                        <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
+                    </div>
+                </c:if>
                 <p class="clear" />
                 <hr/>
                 <form method="post" onsubmit="return imDone();">
@@ -91,11 +97,11 @@
                             <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                         </div>
                     </div>
-                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                        <div>
-                            <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
-                        </div>
-                    </form>
+                    <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <div>
+                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
+                    </div>
+                </form>
             </div>
         </c:forEach>
         <div id="recording-list"></div>
@@ -131,7 +137,7 @@
                  button.nextElementSibling.disabled = false;*/
                 __log('Recording...');
             }
-            
+
             function imDone() {
                 if (!IS_STOPPED) {
                     IS_STOPPED = true;
@@ -191,10 +197,11 @@
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
-                    if(IS_STOPPED){
+                    if (IS_STOPPED) {
                         clearInterval(endInterval);
                     }
                     if (initialStopCount >= stops) {
+                        IS_STOPPED = true;
                         stopRecording();
                         clearInterval(endInterval);
                     }
