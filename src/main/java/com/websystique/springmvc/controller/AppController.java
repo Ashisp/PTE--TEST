@@ -81,11 +81,19 @@ public class AppController {
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection) {
         int nextSectionToLoad = currentSection + 1;
+        
         System.out.println("Next: " + nextSectionToLoad);
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
+        
+//        if(cat!=cat)
+//        {
+//        
+//        }
+        
+        
         Long count = questionService.CountALlQuestionsByCatId(catId);
 
         if (sectionNext.isEmpty()) {
@@ -438,10 +446,10 @@ public class AppController {
 
     @RequestMapping(value = "/LL-GAPS", method = RequestMethod.POST)
     public String processLLGAPS(@RequestParam("questionId") int questionId, HttpServletRequest req,
-            @RequestParam("missing") String missing, @RequestParam("offset") int offset,
+            @RequestParam("missing") String missing,
             @RequestParam("currentSection") int currentSection) {
         long count;
-        int offset_new = 0;
+        
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
@@ -451,15 +459,19 @@ public class AppController {
         answersService.saveAnswers(ans);
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         count = questionService.CountALlQuestions(sectionId);
-
-        if (offset + 1 >= count) {
-            //offset_new = offset + 1;
-            return loadSection(currentSection);
+String s = req.getParameter("offset");
+        int offset;
+        if (s.isEmpty() || s.equals("")) {
+            offset = 1;
         } else {
-            offset_new = offset + 1;
+            offset = Integer.parseInt(s) + 1;
         }
+        if (offset != questionService.CountALlQuestions(currentSection)) {
+            // load section
+            return "redirect:/LL-GAPS?offset=" + offset;
 
-        return "redirect:/LL-GAPS?offset=" + offset_new;
+        }
+        return loadSection(currentSection);
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
