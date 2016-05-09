@@ -115,6 +115,7 @@
 
                         url = url + encode64(e.data.buf);//var url = 'data:audio/mp3;base64,' + encode64(e.data.buf);
                         uploadAudioWithString(mp3Blob);
+                        GLOBAL_IS_AUDIO_SAVED = true;
                         var li = document.createElement('li');
                         var au = document.createElement('audio');
                         var hf = document.createElement('a');

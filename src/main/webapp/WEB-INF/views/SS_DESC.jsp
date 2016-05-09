@@ -13,18 +13,19 @@
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
 
         <script type="text/javascript">
+            var GLOBAL_IS_AUDIO_SAVED = false;
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
             /*window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };*/
+             e = e || window.event;
+             
+             // For IE and Firefox prior to version 4
+             if (e) {
+             e.returnValue = 'You sure?';
+             }
+             
+             // For others
+             return 'You sure?';
+             };*/
         </script>
     </head>
     <body>
@@ -36,7 +37,7 @@
                 <div class="imageView">
                     <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
                 </div>
-                <form method="post">
+                <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace">
 
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
@@ -114,9 +115,16 @@
                 return true;
             }
 
-            function imDone(){
+            function imDone() {
                 stopRecording();
-                
+                if (GLOBAL_IS_AUDIO_SAVED) {
+                    return true;
+                } else {
+                    return false;
+                }
+                var interval = setInterval(function () {
+
+                }, 500);
             }
             function createDownloadLink() {
                 recorder && recorder.exportWAV(function (blob) {
@@ -125,7 +133,7 @@
                      var li = document.createElement('li');
                      var au = document.createElement('audio');
                      var hf = document.createElement('a');
-                 
+                     
                      au.controls = true;
                      au.src = url;
                      hf.href = url;
