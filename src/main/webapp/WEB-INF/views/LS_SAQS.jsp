@@ -15,18 +15,20 @@
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
 
         <script type="text/javascript">
+            var GLOBAL_IS_AUDIO_SAVED = false;
+            var IS_STOPPED = false;
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+            /*window.onbeforeunload = function (e) {
+             e = e || window.event;
+             
+             // For IE and Firefox prior to version 4
+             if (e) {
+             e.returnValue = 'You sure?';
+             }
+             
+             // For others
+             return 'You sure?';
+             };*/
 
 
             var time, counter;
@@ -54,9 +56,8 @@
             }
         </script>
     </head>
-    <body onload="init();
-            playAudio();
-            loadLibrary()">
+    <body onload="loadLibrary();init();
+            playAudio();">
         <c:forEach var="question" items="${listOfQuestions}">
 
 
@@ -70,7 +71,7 @@
                 </div>
                 <p class="clear" />
                 <hr/>
-                <form method="post" onsubmit="return stopRecording();">
+                <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
                         <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
@@ -147,6 +148,14 @@
                 return true;
             }
 
+            function imDone() {
+                if (!IS_STOPPED) {
+                    IS_STOPPED = true;
+                    stopRecording();
+                }
+                return GLOBAL_IS_AUDIO_SAVED;
+            }
+
             function createDownloadLink() {
                 recorder && recorder.exportWAV(function (blob) {
                     //alert("Created DownloadLink");
@@ -184,6 +193,9 @@
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
+                    if(IS_STOPPED){
+                        clearInterval(endInterval);
+                    }
                     if (initialStopCount >= stops) {
                         stopRecording();
                         clearInterval(endInterval);

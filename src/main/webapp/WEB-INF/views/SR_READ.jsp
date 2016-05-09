@@ -14,18 +14,20 @@
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">
+            var GLOBAL_IS_AUDIO_SAVED = false;
+            var IS_STOPPED = false;
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-
-                // For others
-                return 'You sure?';
-            };
+            /*window.onbeforeunload = function (e) {
+             e = e || window.event;
+             
+             // For IE and Firefox prior to version 4
+             if (e) {
+             e.returnValue = 'You sure?';
+             }
+             
+             // For others
+             return 'You sure?';
+             };*/
         </script>
 
     </head>
@@ -36,9 +38,9 @@
                 <h1>Read aloud</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                <form method="post" onsubmit="return stopRecording();">
+                <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
-                        
+
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
                         <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
@@ -108,6 +110,14 @@
                 __log('Recording...');
             }
 
+            function imDone() {
+                if (!IS_STOPPED) {
+                    IS_STOPPED = true;
+                    stopRecording();
+                }
+                return GLOBAL_IS_AUDIO_SAVED;
+            }
+
             function stopRecording() {
                 recorder && recorder.stop();
                 //button.disabled = true;
@@ -159,6 +169,9 @@
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
+                    if(IS_STOPPED){
+                        clearInterval(endInterval);
+                    }
                     if (initialStopCount >= stops) {
                         stopRecording();
                         clearInterval(endInterval);

@@ -49,7 +49,9 @@
         }
 
         this.stop = function () {
-            recording = false;
+            if(recording === true){
+                recording = false;
+            }
         }
 
         this.clear = function () {
