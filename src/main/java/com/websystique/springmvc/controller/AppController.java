@@ -115,7 +115,8 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model, Integer offset, Integer maxResults) {
+    public String listUsers(ModelMap model, Integer offset, Integer maxResults,HttpServletRequest req) {
+     
         Long count;
         count = userService.countUsers();
         Collection<Users> users = userService.findAllUsers(offset, maxResults);
@@ -155,6 +156,19 @@ public class AppController {
         return "login";
     }
 
+    @RequestMapping(value = "/login_admin", method = RequestMethod.GET)
+    public String loadLogin_admin(HttpServletRequest req) {
+        /*String userId = "";
+         if (req.getSession(false) != null) {
+         userId = (String) req.getSession(false).getAttribute("uid");
+         } else {
+         return "login";
+         }
+         if (userId != null || !userId.equals("")) {
+         return "redirect:/list";
+         }*/
+        return "login_admin";
+    }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
         req.getSession(false).invalidate();
@@ -390,7 +404,22 @@ public class AppController {
         }
     }
 
-    @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
+   
+    
+        @RequestMapping(value = {"/login_admin"}, method = RequestMethod.POST)
+    public String processCredentialModelAndView_login(@RequestParam("email") String username, @RequestParam("password") String password, HttpServletRequest request) {
+ 
+        if ((username.equalsIgnoreCase("rijan@sijan@admin@gmail.com")) && (password=="heroku123456789")) {
+            request.getSession(false).setAttribute("uid", 11);
+            //request.setAttribute();
+            String message = "invalid";
+            return "redirect:/list";
+            // message="valid"
+        } else {
+            return "redirect:/Role";
+        }
+    }
+@RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
 

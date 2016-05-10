@@ -14,7 +14,7 @@
         <div class="panel-heading" style="align-content: center; margin-left: 300px;" >
             <span class="lead">
                 <div class="center-block">
-                    <a href="<c:url value='/list' />"    class="btn btn-success custom-width">Admin</a>
+                    <a href="<c:url value='/login_admin' />"    class="btn btn-success custom-width">Admin</a>
                     <a href="<c:url value='/login' />" class="btn btn-success custom-width">Student</a>
                 </div>
             </span>
