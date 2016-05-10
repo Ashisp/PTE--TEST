@@ -30,11 +30,23 @@
         </script>
     </head>
     <body>
+        
+        
+         <%
+            int startTime = 0;
+            if (session.getAttribute("startTime") != "") {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+            }
+        %>
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Describe image</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                
+                 <div>
+                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <div class="imageView">
                     <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
                 </div>

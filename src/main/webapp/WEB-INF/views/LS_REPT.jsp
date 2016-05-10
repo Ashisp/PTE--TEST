@@ -62,6 +62,8 @@ and open the template in the editor.
   
         </script>
     </head>
+    
+    
     <body onload="loadLibrary();
             init();
             playAudio();">
@@ -85,7 +87,7 @@ and open the template in the editor.
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                  <div>
-<!--                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>-->
+                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>

@@ -39,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -79,7 +80,7 @@ public class AppController {
     }
     
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
-    public String loadSection(@RequestParam("currentSection") int currentSection) {
+    public String loadSection(@RequestParam("currentSection") int currentSection,HttpServletRequest req) {
         int nextSectionToLoad = currentSection + 1;
 
         System.out.println("Next: " + nextSectionToLoad);
@@ -87,11 +88,24 @@ public class AppController {
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
+        if(catId!=catId_next)
+            
+        {
+            HttpSession session = req.getSession();
+
+        session.setAttribute("startTime",0);
+        
+        }
+        
 
 //        if(cat!=cat)
 //        {
 //        
 //        }
+
+
+
+
         Long count = questionService.CountALlQuestionsByCatId(catId);
 
         if (sectionNext.isEmpty()) {
@@ -231,7 +245,7 @@ public class AppController {
 //ashis
         ///sesstion id for type of test;
 //        if (endId == 1) {
-//            loadSection(currentSection);
+//            loadSection(currentSection,req);
 //        } else if (endId == 2) {
 //            loadCategories(catId);
 //        } else {
@@ -269,7 +283,7 @@ public class AppController {
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
         //redir.addAttribute("offset", offset);
     }
 
@@ -286,8 +300,8 @@ public class AppController {
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
         model.addAttribute("count", count);
-        model.addAttribute("offset", offset);
-        return "LR_HOTS";
+
+return "LR_HOTS";
     }
 
     @RequestMapping(value = "/LR-HOTS", method = RequestMethod.POST)
@@ -311,7 +325,7 @@ public class AppController {
             return "redirect:/LR-HOTS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
 
     }
 
@@ -353,7 +367,7 @@ public class AppController {
             return "redirect:/LR-HILI?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
@@ -395,7 +409,7 @@ public class AppController {
             return "redirect:/LL-MAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
@@ -470,7 +484,7 @@ public class AppController {
             return "redirect:/LL-SAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
 
     }
 
@@ -522,7 +536,7 @@ public class AppController {
             return "redirect:/LL-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
@@ -562,7 +576,7 @@ public class AppController {
             return "redirect:/LW-SUMM?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
@@ -602,7 +616,7 @@ public class AppController {
             return "redirect:/LW-DICT?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/end"}, method = RequestMethod.GET)
@@ -648,7 +662,7 @@ public class AppController {
             return "redirect:/RR-SAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -710,7 +724,7 @@ public class AppController {
             return "redirect:/RW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
@@ -757,7 +771,7 @@ public class AppController {
             return "redirect:/RR-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
@@ -799,7 +813,7 @@ public class AppController {
             return "redirect:/RR-MAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
 
     }
 
@@ -841,12 +855,12 @@ public class AppController {
             return "redirect:/RR-DRDR?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = "/BB-BREAK", method = RequestMethod.POST)
-    public String processBB_BREAK(@RequestParam("currentSection") int currentSection) {
-        return loadSection(currentSection);
+    public String processBB_BREAK(@RequestParam("currentSection") int currentSection,HttpServletRequest req) {
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
@@ -866,7 +880,7 @@ public class AppController {
             return "redirect:/SR-READ?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
@@ -884,7 +898,7 @@ public class AppController {
             return "redirect:/LS-SAQS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = "/LS-PRES", method = RequestMethod.POST)
@@ -902,7 +916,7 @@ public class AppController {
             return "redirect:/LS-PRES?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
@@ -920,7 +934,7 @@ public class AppController {
             return "redirect:/LS-REPT?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
@@ -956,7 +970,7 @@ public class AppController {
             return "redirect:/SS-DESC?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
@@ -1070,7 +1084,7 @@ public class AppController {
             return "redirect:/RW-SUMM?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
@@ -1110,7 +1124,7 @@ public class AppController {
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection);
+        return loadSection(currentSection,req);
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
