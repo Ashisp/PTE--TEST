@@ -56,7 +56,7 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload="startTimer(1200, 1)">
+    <body onload="startTimer(600, 1)">
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize written text</h1>
