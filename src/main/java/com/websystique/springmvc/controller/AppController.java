@@ -1041,7 +1041,7 @@ return "LR_HOTS";
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-        count = questionService.CountALlQuestions(sectionId);
+        
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LS_REPT";

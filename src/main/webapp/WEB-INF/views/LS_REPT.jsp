@@ -17,7 +17,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
-         <script src="<c:url value='/static/js/mytimer.js' />"></script>
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
@@ -58,20 +58,25 @@ and open the template in the editor.
                     document.getElementById('audiotag1').play();
                 }, time);
             }
-            
-  
+
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
+
+
         </script>
     </head>
-    
-    
-    <body onload="loadLibrary();
-            init();
-            playAudio();">
-        
-        
-         <%
+    <body onload="loadLibrary;
+                init();
+                startExamTimer();
+                playAudio();">
+
+
+        <%
             int startTime = 0;
-            if (session.getAttribute("startTime") != "") {
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
             }
         %>
@@ -86,8 +91,8 @@ and open the template in the editor.
                 <h1>Repeat sentence</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
-                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
@@ -95,10 +100,12 @@ and open the template in the editor.
                 </div>
                 <p class="clear" />
                 <hr/>
-                <form method="post" onsubmit="return imDone();">
+                <form method="post"  onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
-                         <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                        <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                        <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                         <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
+
                         <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
@@ -220,7 +227,7 @@ and open the template in the editor.
                 var stops = document.getElementById("stopsIn").value;
                 var initialStopCount = 0;
                 var endInterval = setInterval(function () {
-                    if(IS_STOPPED){
+                    if (IS_STOPPED) {
                         clearInterval(endInterval);
                     }
                     if (initialStopCount >= stops) {
@@ -234,7 +241,7 @@ and open the template in the editor.
                 }, 1000);
             }
 
-            function loadLibrary() {
+            function loadLibrary(){
                 try {
                     // webkit shim
                     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -259,6 +266,7 @@ and open the template in the editor.
                 document.getElementById("recordsIn").innerHTML = document.getElementById("startsIn").value;
                 readyRecording();
             }
+
         </script>
         <script src="<c:url value='/static/js/jquery.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
