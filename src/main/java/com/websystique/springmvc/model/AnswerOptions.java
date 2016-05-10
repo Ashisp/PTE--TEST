@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(name = "answer_options", catalog = "expresse", schema = "")
@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AnswerOptions.findByCorrectOption", query = "SELECT a FROM AnswerOptions a WHERE a.correctOption = :correctOption"),
     @NamedQuery(name = "AnswerOptions.findByOrderBlanks", query = "SELECT a FROM AnswerOptions a WHERE a.orderBlanks = :orderBlanks")})
 public class AnswerOptions implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
