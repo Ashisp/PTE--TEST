@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(catalog = "expresse", schema = "", uniqueConstraints = {
@@ -51,9 +51,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByState", query = "SELECT u FROM Users u WHERE u.state = :state"),
     @NamedQuery(name = "Users.findByPostalCode", query = "SELECT u FROM Users u WHERE u.postalCode = :postalCode"),
     @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country"),
-    @NamedQuery(name = "Users.findByApproveStatus", query = "SELECT u FROM Users u WHERE u.approveStatus = :approveStatus")})
+    @NamedQuery(name = "Users.findByApproveStatus", query = "SELECT u FROM Users u WHERE u.approveStatus = :approveStatus"),
+    @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
 public class Users implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,6 +130,10 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "approve_status", nullable = false)
     private boolean approveStatus;
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private boolean isAdmin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Answers> answersCollection;
 
@@ -140,7 +144,7 @@ public class Users implements Serializable {
         this.userId = userId;
     }
 
-    public Users(Integer userId, String firstName, String lastName, String email, String password, Date dob, Date examDate, String phoneNo, String streetAddress1, String streetAddress2, String city, String state, String postalCode, String country, boolean approveStatus) {
+    public Users(Integer userId, String firstName, String lastName, String email, String password, Date dob, Date examDate, String phoneNo, String streetAddress1, String streetAddress2, String city, String state, String postalCode, String country, boolean approveStatus, boolean isAdmin) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -156,6 +160,7 @@ public class Users implements Serializable {
         this.postalCode = postalCode;
         this.country = country;
         this.approveStatus = approveStatus;
+        this.isAdmin = isAdmin;
     }
 
     public Integer getUserId() {
@@ -276,6 +281,14 @@ public class Users implements Serializable {
 
     public void setApproveStatus(boolean approveStatus) {
         this.approveStatus = approveStatus;
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     @XmlTransient

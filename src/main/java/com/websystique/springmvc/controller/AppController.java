@@ -77,23 +77,21 @@ public class AppController {
 
         return "start";
     }
-
+    
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection) {
         int nextSectionToLoad = currentSection + 1;
-        
+
         System.out.println("Next: " + nextSectionToLoad);
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
-        
+
 //        if(cat!=cat)
 //        {
 //        
 //        }
-        
-        
         Long count = questionService.CountALlQuestionsByCatId(catId);
 
         if (sectionNext.isEmpty()) {
@@ -110,13 +108,23 @@ public class AppController {
 
         Long count = questionService.CountALlQuestionsByCatId(cat_next);
 
-
         return "redirect:/";
     }
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model, Integer offset, Integer maxResults,HttpServletRequest req) {
-     
+    public String listUsers(ModelMap model, Integer offset, Integer maxResults, HttpServletRequest req) {
+        Enumeration<String> attributeNames = req.getSession(false).getAttributeNames();
+        System.out.println(attributeNames.hasMoreElements());
+        while (attributeNames.hasMoreElements()) {
+            String attribute = attributeNames.nextElement();
+            if (attribute.equals("isAdmin")) {
+                boolean isAdmin = Boolean.parseBoolean(req.getSession(false).getAttribute(attribute).toString());
+                if (!isAdmin) {
+                    return "redirect:/restrict";
+                }
+                break;
+            }
+        }
         Long count;
         count = userService.countUsers();
         Collection<Users> users = userService.findAllUsers(offset, maxResults);
@@ -133,15 +141,17 @@ public class AppController {
         System.out.println("users");
         return "Role";
     }
- @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
-    public String firstPage(ModelMap model,HttpServletRequest req) {
-   String userId = (String) req.getSession(false).getAttribute("uid");
+
+    @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
+    public String firstPage(ModelMap model, HttpServletRequest req) {
+        String userId = (String) req.getSession(false).getAttribute("uid");
         if (userId == null) {
             return "redirect:/register";
         }
-      
+
         return "Mainpage";
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loadLogin(HttpServletRequest req) {
         /*String userId = "";
@@ -235,14 +245,14 @@ public class AppController {
         Enumeration<String> parameterNames = req.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameter = parameterNames.nextElement();
-            if(parameter.contains("ans")){
+            if (parameter.contains("ans")) {
                 answers = answers + req.getParameter(parameter) + ",";
             }
             /*if (!parameter.equals("questionId") && !parameter.equals("userId")
-                    && !parameter.equals("done") && !parameter.equals("catId")
-                    && !parameter.equals("currentSection") && !parameter.equals("endId")
-                    && !parameter.equals("offset") && !parameter.equals("count")) {
-            }*/
+             && !parameter.equals("done") && !parameter.equals("catId")
+             && !parameter.equals("currentSection") && !parameter.equals("endId")
+             && !parameter.equals("offset") && !parameter.equals("count")) {
+             }*/
         }
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
@@ -255,7 +265,7 @@ public class AppController {
         }
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
-            
+
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }
@@ -393,10 +403,14 @@ public class AppController {
         List<Users> users = userAuthenticateService.verifyLogin(username, password);
         if ((users != null) && (users.size() > 0)) {
             request.getSession(false).setAttribute("uid", users.get(0).getUserId().toString());
+            request.getSession(false).setAttribute("isAdmin", String.valueOf(users.get(0).getIsAdmin()));
             //request.setAttribute();
-            String message = "invalid";
-
-            return "redirect:/start";
+            //String message = "invalid";
+            if (users.get(0).getIsAdmin()) {
+                return "redirect:/list";
+            } else {
+                return "redirect:/start";
+            }
             // message="valid";
 
         } else {
@@ -486,7 +500,7 @@ public class AppController {
             @RequestParam("missing") String missing,
             @RequestParam("currentSection") int currentSection) {
         long count;
-        
+
         String userId = (String) req.getSession(false).getAttribute("uid");
         Answers ans = new Answers();
         ans.setUserId(new Users(Integer.parseInt(userId)));
@@ -496,7 +510,7 @@ public class AppController {
         answersService.saveAnswers(ans);
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         count = questionService.CountALlQuestions(sectionId);
-String s = req.getParameter("offset");
+        String s = req.getParameter("offset");
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1175,7 +1189,19 @@ String s = req.getParameter("offset");
     }
 
     @RequestMapping(value = {"/answers-{userId}"}, method = RequestMethod.GET)
-    public String listAnswers(ModelMap model, @PathVariable int userId) {
+    public String listAnswers(ModelMap model, @PathVariable int userId, HttpServletRequest req) {
+        Enumeration<String> attributeNames = req.getSession(false).getAttributeNames();
+        System.out.println(attributeNames.hasMoreElements());
+        while (attributeNames.hasMoreElements()) {
+            String attribute = attributeNames.nextElement();
+            if (attribute.equals("isAdmin")) {
+                boolean isAdmin = Boolean.parseBoolean(req.getSession(false).getAttribute(attribute).toString());
+                if (!isAdmin) {
+                    return "redirect:/restrict";
+                }
+                break;
+            }
+        }
         Collection<Answers> answers = answersService.findAllAnswersByUserId(userId);
         System.out.println("User ID: " + userId);
         model.addAttribute("answers", answers);
@@ -1256,6 +1282,11 @@ String s = req.getParameter("offset");
     public String deleteUser(@PathVariable int id) {
         userService.deleteById(id);
         return "userslist";
+    }
+
+    @RequestMapping(value = "/restrict", method = RequestMethod.GET)
+    public String showRestrictPage() {
+        return "restrict";
     }
 
 //	@RequestMapping(value = { "/add-document-{id}" }, method = RequestMethod.GET)
@@ -1341,7 +1372,7 @@ String s = req.getParameter("offset");
         ans.setAudioPath(fileName);
         ans.setQuestionId(new Questions(questionId));
         ans.setUserId(new Users(Integer.parseInt(userId)));
-        answersService.saveAnswers(ans);        
+        answersService.saveAnswers(ans);
     }
 }
 

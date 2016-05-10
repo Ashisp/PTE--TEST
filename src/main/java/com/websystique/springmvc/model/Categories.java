@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(catalog = "expresse", schema = "")
@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findByTotalTime", query = "SELECT c FROM Categories c WHERE c.totalTime = :totalTime"),
     @NamedQuery(name = "Categories.findByOrderSequence", query = "SELECT c FROM Categories c WHERE c.orderSequence = :orderSequence")})
 public class Categories implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

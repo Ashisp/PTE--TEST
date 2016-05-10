@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ashis
+ * @author Nikesh
  */
 @Entity
 @Table(catalog = "expresse", schema = "")
@@ -43,7 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sections.findByMaxRecordingTime", query = "SELECT s FROM Sections s WHERE s.maxRecordingTime = :maxRecordingTime"),
     @NamedQuery(name = "Sections.findByUrlPattern", query = "SELECT s FROM Sections s WHERE s.urlPattern = :urlPattern")})
 public class Sections implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
