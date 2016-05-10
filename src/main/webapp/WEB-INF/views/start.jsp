@@ -25,13 +25,13 @@
                 <img src="static/lrg.jpg" height="300" width="300" alt="Logo" >
             </div>
         
-<!--        <form method="post" action="<c:url value="/loadSection" />">
+        <form method="post" action="<c:url value="/loadSection" />">
             <div style="margin-top: 200px; margin-left: 200px ;  align-content: center">
                 <input type="hidden" name="currentSection" value="0" />
                 <input type="submit" class="btn btn-success" value="Start Test" />
                 <a href="<c:url value='/sections-list' />" class="btn btn-success">Sample Questions</a>
             </div>
-        </form>-->
+        </form>
           </div>
             
             
