@@ -19,7 +19,7 @@
             function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
                 var startTime = document.getElementById("startTime").value;
-                startTimer(timeFromDb, startTime);
+                //startTimer(timeFromDb, startTime);
             }
 
             var time, counter;
@@ -37,7 +37,7 @@
                     counter--;
                     if (counter < 0) {
                         clearInterval(interval);
-                        clearInterval();
+                        //clearInterval();
                         document.getElementById("playing").innerHTML = "Playing...";
                     }
                 }, 1000);
