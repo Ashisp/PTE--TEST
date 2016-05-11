@@ -89,7 +89,6 @@ public class AppController {
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         if(catId!=catId_next)
-            
         {
             HttpSession session = req.getSession();
 
@@ -98,7 +97,6 @@ public class AppController {
         
         }
         
-
 //        if(cat!=cat)
 //        {
 //        
@@ -107,7 +105,7 @@ public class AppController {
 
 
 
-        Long count = questionService.CountALlQuestionsByCatId(catId);
+        Long count = questionService.CountALlQsuestionsByCatId(catId);
 
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
