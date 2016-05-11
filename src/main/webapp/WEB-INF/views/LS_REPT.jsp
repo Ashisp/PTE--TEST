@@ -68,10 +68,10 @@ and open the template in the editor.
 
         </script>
     </head>
-    <body onload="loadLibrary;
-                init();
+    <body onload="init();
                 startExamTimer();
-                playAudio();">
+                playAudio();
+                  ">
 
 
         <%
@@ -101,7 +101,7 @@ and open the template in the editor.
                
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
-                    <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
+                    <audio id="audiotag1" onended="loadLibrary();" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <hr/>
