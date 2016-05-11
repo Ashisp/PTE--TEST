@@ -965,6 +965,8 @@ return "LR_HOTS";
         //System.out.println("CALLED FROM AJAX POST " + req.getParameter("recording"));
         saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {

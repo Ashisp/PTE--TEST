@@ -61,6 +61,9 @@
                 </div>
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace">
+                        <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                        <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                        <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
 
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />" />
@@ -219,6 +222,7 @@
                 document.getElementById("totalRecordTime").innerHTML = document.getElementById("stopsIn").value;
                 document.getElementById("recordsIn").innerHTML = document.getElementById("startsIn").value;
                 readyRecording();
+                startExamTimer();
             };
         </script>
         <script src="<c:url value='/static/js/jquery.js' />"></script>

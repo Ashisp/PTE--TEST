@@ -4,9 +4,9 @@
 <html>
     <head>
         <title>Express Education Solutions</title>
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
+        <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+        <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <style type="text/css">
             #logo {
                 height: 350px;
