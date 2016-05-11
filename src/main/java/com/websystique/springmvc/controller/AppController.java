@@ -925,9 +925,9 @@ return "LR_HOTS";
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
           HttpSession session = req.getSession();
-           if ((session.getAttribute("question_no") != "")) {
-         session.setAttribute("question_no",(Integer.parseInt((String) session.getAttribute("question_no"))+1));
-           }
+//           if ((session.getAttribute("question_no") != "")) {
+//         session.setAttribute("question_no",(Integer.parseInt((String) session.getAttribute("question_no"))+1));
+//           }
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
