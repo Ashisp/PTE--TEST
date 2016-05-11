@@ -10,12 +10,6 @@ and open the template in the editor.
 -->
 <html>
     <head>
-           <%
-            int startTime = 0;
-            if (session.getAttribute("startTime") != "") {
-                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-            }
-        %>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,12 +56,8 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload="startTimer(1200, 1)">
-  
+    <body onload="startTimer(600, 1)">
         <c:forEach var="question" items="${listOfQuestions}">
-                   <div>
-                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
-                </div>
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize written text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>

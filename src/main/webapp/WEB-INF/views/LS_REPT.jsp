@@ -76,8 +76,11 @@ and open the template in the editor.
 
         <%
             int startTime = 0;
+            int question_no=0;
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+                question_no = Integer.parseInt(session.getAttribute("question_no").toString());
+                
             }
         %>
         <c:forEach var="question" items="${listOfQuestions}">
@@ -94,6 +97,10 @@ and open the template in the editor.
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
+                
+                <div>
+                     <span id="time"> <c:out value="${question_no}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -101,6 +108,7 @@ and open the template in the editor.
                 <p class="clear" />
                 <hr/>
                 <form method="post"  onsubmit="return imDone();">
+                    
                     <div class="recorderSpace" style="float:left;">
                         <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                         <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
@@ -129,7 +137,7 @@ and open the template in the editor.
 
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     <div>
-                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="done" value="Next"  class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>

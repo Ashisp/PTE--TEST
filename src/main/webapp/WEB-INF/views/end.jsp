@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>End of Test  congratulations </h1>
+        <a href="<c:url value='/logout' />"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
     </body>
 </html>

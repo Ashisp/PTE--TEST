@@ -8,10 +8,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
-        <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" /><script src="<c:url value='/static/js/jquery.js' />"></script>
+        <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
-
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
@@ -27,14 +29,21 @@
              // For others
              return 'You sure?';
              };*/
+   
+                function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
+            
         </script>
     </head>
     <body>
         
         
-         <%
+      <%
             int startTime = 0;
-            if (session.getAttribute("startTime") != "") {
+            if ((session.getAttribute("startTime") != "") &&(session.getAttribute("startTime") != null)){
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
             }
         %>
@@ -44,8 +53,8 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                 
-                 <div>
-                    Time: <span id="time">00:00<c:out value="${startTime}" /></span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <div class="imageView">
                     <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />

@@ -94,6 +94,7 @@ public class AppController {
             HttpSession session = req.getSession();
 
         session.setAttribute("startTime",0);
+        session.setAttribute("question_no",0);
         
         }
         
@@ -153,7 +154,7 @@ public class AppController {
     public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
 
         System.out.println("users");
-        return "Role";
+        return "index";
     }
 
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
@@ -923,6 +924,10 @@ return "LR_HOTS";
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
+          HttpSession session = req.getSession();
+           if ((session.getAttribute("question_no") != "")) {
+         session.setAttribute("question_no",(Integer.parseInt((String) session.getAttribute("question_no"))+1));
+           }
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
