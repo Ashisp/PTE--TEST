@@ -924,10 +924,7 @@ return "LR_HOTS";
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
-          HttpSession session = req.getSession();
-//           if ((session.getAttribute("question_no") != "")) {
-//         session.setAttribute("question_no",(Integer.parseInt((String) session.getAttribute("question_no"))+1));
-//           }
+        
         String s = req.getParameter("offset");
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1016,9 +1013,6 @@ return "LR_HOTS";
         return "LS_SAQS";
     }
 
-    /**
-     * **************************BAKI CHA *********************
-     */
     @RequestMapping(value = {"/LS-PRES"}, method = RequestMethod.GET)
     public String listALLLSPRES(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;

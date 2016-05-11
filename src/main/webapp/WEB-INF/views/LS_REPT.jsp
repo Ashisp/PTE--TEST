@@ -70,8 +70,7 @@ and open the template in the editor.
     </head>
     <body onload="init();
                 startExamTimer();
-                playAudio();
-                  ">
+                playAudio();">
 
 
         <%
