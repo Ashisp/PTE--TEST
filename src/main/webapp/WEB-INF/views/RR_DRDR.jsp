@@ -16,6 +16,7 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+         <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
 
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
@@ -55,13 +56,27 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body>
+    <body onload="
+                startExamTimer();
+               ">
+        
+        <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Re-order paragraphs</h1>
 
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-
+<div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <form method="POST"  onsubmit="setAnswer()">
                     <div class="col-md-6" style="float: left;">
                         <input type="hidden" value="${question.questionId}" name="questionId" />

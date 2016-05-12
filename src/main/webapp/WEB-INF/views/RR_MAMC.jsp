@@ -29,9 +29,34 @@ and open the template in the editor.
 //                // For others
 //                return 'You sure?';
 //            };
+
+
+
+  function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
+
+
         </script>
     </head>
-    <body>
+    <body onload="
+                startExamTimer();
+             
+                     >
+                     
+                          
+        <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
+                    
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose multiple answers (Reading)</h1>
@@ -39,9 +64,13 @@ and open the template in the editor.
                 <div class="question col-md-6" style="float: left;">
                     <c:out value="${question.passage}" />
                 </div>
-
+                
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-
+                </hr>
+                
+                 <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <form action="" method="post">
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />

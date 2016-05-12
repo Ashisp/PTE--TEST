@@ -10,6 +10,10 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        
+          
+    
+        
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,16 +58,34 @@ and open the template in the editor.
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+              function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
         </script>
     </head>
     <body onload="init();
             playAudio()">
+           
+        <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
+        
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose multiple answers (Listening)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-
+ <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>
@@ -79,10 +101,10 @@ and open the template in the editor.
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <input type="checkbox" name="choices" value="_" checked="" class="hide"  />
+                        <input type="checkbox"  name="choices" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
 
-                            <input type="checkbox" name="choices" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
+                            <input type="checkbox" name="choices"  class="multi-field" value="  <c:out value= '${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
 
                             <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                             <input type="hidden" name="count" value="${count}" />

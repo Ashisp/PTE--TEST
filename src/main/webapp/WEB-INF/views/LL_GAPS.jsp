@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,17 +46,42 @@
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
+            
+            
+            
+            
         </script>
     </head>
     <body onload="callTimer();
+        
+        startExamTimer();
             init();
-            playAudio()">
+            playAudio();">
+        
+          
+        <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
         
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Select missing word...</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                 <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -84,7 +110,7 @@
                         </c:forEach>
                     </div>
                     <div>
-                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="done" value="Next"  class="btn btn-primary" style="float:right" />
                     </div>
                     <hr/>
                 </form>

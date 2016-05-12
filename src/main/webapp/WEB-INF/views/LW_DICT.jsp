@@ -9,6 +9,14 @@ and open the template in the editor.
 -->
 <html>
     <head>
+         <%
+            int startTime = 0;
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,11 +70,14 @@ and open the template in the editor.
                 <h1>Write from dictation</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                 <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
-                <p class="clear" />
+                <p class="clear" /> 
                 <form action="" method="post">
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <c:set var="offset" value="${offset}" />
@@ -78,7 +89,7 @@ and open the template in the editor.
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
                      <div>
-                        <input type="submit" name="submit" value="Finish" class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
 

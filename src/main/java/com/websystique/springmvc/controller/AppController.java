@@ -105,7 +105,7 @@ public class AppController {
 
 
 
-        Long count = questionService.CountALlQsuestionsByCatId(catId);
+        Long count = questionService.CountALlQuestionsByCatId(catId);
 
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
@@ -1359,12 +1359,14 @@ return "LR_HOTS";
     public String uploadRecordedFile(HttpServletRequest request) {
         OutputStream outputStream = null;
         try {
-            String appPath = request.getServletContext().getRealPath("");
+            String appPath = request.getServletContext().getRealPath("/");
 
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
             outputStream = new FileOutputStream(new File(appPath + File.separator + name));//File.separator + "static" + File.separator + "Recordings" + 
             outputStream.write(Base64.getDecoder().decode(encodedData));
+            
+          
         } catch (IOException ex) {
 
         } finally {

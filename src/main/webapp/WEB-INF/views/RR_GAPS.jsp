@@ -15,6 +15,8 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+          <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
 //            window.onbeforeunload = function (e) {
@@ -44,18 +46,40 @@ and open the template in the editor.
                 ev.target.appendChild(document.getElementById(data));
                 setAnswer();
             }
+            
+               function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
 
             function setAnswer() {
                 document.getElementById("answerPassage").value = document.getElementById("paragraph").innerHTML;
             }
         </script>
     </head>
-    <body>
+    <body
+        
+        onload="
+                startExamTimer();>
+         <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+        %>
+        
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Fill in the blanks (Reading)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                <div>
+                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
                 <p class="clear" />
                 <form action="" method="post">
                     <div class="userspace">
