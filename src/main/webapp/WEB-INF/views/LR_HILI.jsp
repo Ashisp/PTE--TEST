@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-    
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-
+        <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script src="<c:url value='/static/js/myjs.js' />"></script>
 
         <script type="text/javascript">
@@ -118,59 +118,68 @@
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
         </script>
 
     </head>
-    <body onload="init();
+    <body onload="startExamTimer();
+            init();
             playAudio()">
-        
-        
-             <%
+
+
+        <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
-            
-int count=0;
-   
+
+            int count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count = Integer.parseInt(session.getAttribute("question_count").toString());
-             
-                
+
             }
         %>
-        
+
         <c:forEach items="${listOfQuestions}" var="question" varStatus="itr">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Highlight incorrect words</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span><c:out value="${offset+1}" /></span> of <span> <c:out value="${count}" /></span>
                 </div>
-                
+
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
                 <form method="post">
+                    <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                    
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <div class="userspace">
                         <p id="passage">
                             <c:out value="${question.passage}" />
                         </p>
                     </div>
-                            <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
+                    <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                     <input type="hidden" name="count" value="${count}" />
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                    
+
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <input type="hidden" name="selected" id="selected-hidden" value="" />
                     <div>
@@ -179,22 +188,22 @@ int count=0;
                 </form>
                 <p class="clear" />
                 <div><b>You've selected (Might be userfriendly):</b>[<span id='selected'></span>]</div>
-             
+
             </div>
         </c:forEach>
     </body>
 
-    
+
 
     <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
     <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     <script>
-                    $(document).bind("mouseup", Kolich.Selector.mouseup);
+        $(document).bind("mouseup", Kolich.Selector.mouseup);
 
-                    var words = formatPassage();
-                    for (var i = 0; i < words.length; i++) {
-                        addAttributeToWord(words[i]);
-                    }
-                    document.getElementById("passage").innerHTML = formattedPassage;
+        var words = formatPassage();
+        for (var i = 0; i < words.length; i++) {
+            addAttributeToWord(words[i]);
+        }
+        document.getElementById("passage").innerHTML = formattedPassage;
     </script>
 </html>

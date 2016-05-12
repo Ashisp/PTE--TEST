@@ -11,10 +11,10 @@
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-        
-         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
+
+        <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
-<script src="<c:url value='/static/js/mytimer.js' />"></script>
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
 
@@ -41,7 +41,7 @@
                     document.getElementById('audiotag1').play();
                 }, time);
             }
-               
+
             function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
@@ -50,25 +50,22 @@
         </script>
     </head>
     <body onload="init();
-        
+
             playAudio()">
-        
-         <%
+
+        <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
-                
+
             }
-            
-int count=0;
-   
+
+            int count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count = Integer.parseInt(session.getAttribute("question_count").toString());
-             
-                
+
             }
         %>
         <c:forEach var="question" items="${listOfQuestions}">
@@ -76,18 +73,18 @@ int count=0;
                 <h1>Multiple-choice, choose single answers (Listening)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-  <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span>1</span> 0f <span><c:out value="${count}" /></span>
                 </div>
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>
 
-                
-                
+
+
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -107,12 +104,12 @@ int count=0;
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
-                   <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
 
-             
+
             </div>
         </c:forEach>
 

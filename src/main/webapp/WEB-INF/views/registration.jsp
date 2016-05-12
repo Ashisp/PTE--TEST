@@ -441,6 +441,7 @@
                 if (!validator.checkAll($(this))) {
                     submit = false;
                 }
+                
 
                 if (submit)
                     this.submit();
