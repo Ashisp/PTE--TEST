@@ -803,6 +803,8 @@ return "LR_HOTS";
         answersService.saveAnswers(ans);
         int offset;
         String s = req.getParameter("offset");
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -844,6 +846,10 @@ return "LR_HOTS";
         ans.setAnswer(answer);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1365,7 +1371,7 @@ return "LR_HOTS";
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
             outputStream = new FileOutputStream(new File(appPath + File.separator + name));//File.separator + "static" + File.separator + "Recordings" + 
-            outputStream.write(Base64.getDecoder().decode(encodedData));
+           //outputStream.write(Base64.getDecoder().decode(encodedData));
             
           
         } catch (IOException ex) {
