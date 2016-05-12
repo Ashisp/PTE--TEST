@@ -266,6 +266,10 @@ public class AppController {
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -951,12 +955,14 @@ public class AppController {
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
-            @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+                @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
 
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
+        
+        int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1149,6 +1155,10 @@ public class AppController {
         answer.setAnswer(essay);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1157,7 +1167,7 @@ public class AppController {
         }
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
-            return "redirect:/LW-GAPS?offset=" + offset;
+            return "redirect:/WW-ESSA?offset=" + offset;
 
         }
         return loadSection(currentSection, req);
