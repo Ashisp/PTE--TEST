@@ -110,7 +110,7 @@ and open the template in the editor.
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                     
-                    <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
+                    <!--<input type="hidden" name="startTime" id="startTime" value="c:out value="{startTime}" default="1" />" />-->
                     
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" name="userId" value="1000" />
