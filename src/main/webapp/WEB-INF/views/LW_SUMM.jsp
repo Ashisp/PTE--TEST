@@ -70,12 +70,29 @@
     </head>
     <body onload="init();
             playAudio();startTimer(1200, 1)">
+        
+        
+        
+            <%
+            
+            
+int count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count = Integer.parseInt(session.getAttribute("question_count").toString());
+             
+                
+            }
+        %>
+        
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize spoken text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                
+                 <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>

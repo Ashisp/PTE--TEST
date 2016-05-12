@@ -80,6 +80,9 @@ and open the template in the editor.
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
+                 <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                </div>
                 <p class="clear" />
                 <form action="" method="post">
                     <div class="userspace">

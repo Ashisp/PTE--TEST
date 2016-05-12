@@ -62,6 +62,9 @@ and open the template in the editor.
                 <h1>Summarize written text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                 <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                </div>
                 <div class="question">
                     <p>
                         <c:out value="${question.passage}" />

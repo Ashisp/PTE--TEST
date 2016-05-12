@@ -58,6 +58,9 @@
                 <h1>Write Essay</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
+                 <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                </div>
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>

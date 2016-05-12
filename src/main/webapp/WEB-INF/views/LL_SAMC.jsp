@@ -60,6 +60,15 @@
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
              
                 
+                
+            }
+            
+int count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count = Integer.parseInt(session.getAttribute("question_count").toString());
+             
+                
             }
         %>
         <c:forEach var="question" items="${listOfQuestions}">
@@ -69,6 +78,9 @@
                 <hr />
   <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                </div>
+                 <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
                 </div>
                 <div class="question">
                     <c:out value="${question.question}" />

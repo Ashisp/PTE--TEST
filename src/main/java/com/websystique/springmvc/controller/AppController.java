@@ -82,18 +82,21 @@ public class AppController {
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection,HttpServletRequest req) {
         int nextSectionToLoad = currentSection + 1;
-
+   HttpSession session = req.getSession();
         System.out.println("Next: " + nextSectionToLoad);
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
+        Long count = questionService.CountALlQuestionsByCatId(catId_next);
+ session.setAttribute("question_count",count);
+ 
         if(catId!=catId_next)
         {
-            HttpSession session = req.getSession();
+         
 
         session.setAttribute("startTime",0);
-        session.setAttribute("question_no",0);
+        session.setAttribute("question_count",0);
         
         }
         
@@ -103,16 +106,14 @@ public class AppController {
 //        }
 
 
-
-
-        Long count = questionService.CountALlQuestionsByCatId(catId);
-
+      
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
         }
         return "redirect:/" + sectionNext;
     }
 
+    
     @RequestMapping(value = "/loadcategories", method = RequestMethod.POST)
     public String loadCategories(@RequestParam("currentSection") int currentCat) {
         int nextCattoLoad = currentCat + 1;

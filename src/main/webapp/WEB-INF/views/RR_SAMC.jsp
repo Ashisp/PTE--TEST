@@ -41,7 +41,10 @@ and open the template in the editor.
                 </div>
 
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-
+                </hr>
+ <div>
+                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                </div>
                 <form action="" method="post">
                     <div class="userspace col-md-6">
                       

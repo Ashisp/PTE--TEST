@@ -38,10 +38,21 @@
 
     </head>
     <body>
-        <%
+             <%
             int startTime = 0;
-            if ((session.getAttribute("startTime") != "") &&(session.getAttribute("startTime") != null)){
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
+            }
+            
+int count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count = Integer.parseInt(session.getAttribute("question_count").toString());
+             
+                
             }
         %>
         <c:forEach items="${listOfQuestions}" var="question">
@@ -53,6 +64,9 @@
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
+                  <div>
+                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count}" /></span>
+                </div>  
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
                         <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
