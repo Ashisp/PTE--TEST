@@ -78,42 +78,36 @@ public class AppController {
 
         return "start";
     }
-    
+
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
-    public String loadSection(@RequestParam("currentSection") int currentSection,HttpServletRequest req) {
+    public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
         int nextSectionToLoad = currentSection + 1;
-   HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         System.out.println("Next: " + nextSectionToLoad);
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
- session.setAttribute("question_count",count);
- 
-        if(catId!=catId_next)
-        {
-         
+        session.setAttribute("question_count", count);
 
-        session.setAttribute("startTime",0);
-        session.setAttribute("question_count",0);
-        
+        if (catId != catId_next) {
+
+            session.setAttribute("startTime", 0);
+            session.setAttribute("question_count", 0);
+
         }
-        
+
 //        if(cat!=cat)
 //        {
 //        
 //        }
-
-
-      
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
         }
         return "redirect:/" + sectionNext;
     }
 
-    
     @RequestMapping(value = "/loadcategories", method = RequestMethod.POST)
     public String loadCategories(@RequestParam("currentSection") int currentCat) {
         int nextCattoLoad = currentCat + 1;
@@ -193,6 +187,7 @@ public class AppController {
          }*/
         return "login_admin";
     }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
         req.getSession(false).invalidate();
@@ -283,7 +278,7 @@ public class AppController {
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
         //redir.addAttribute("offset", offset);
     }
 
@@ -301,7 +296,7 @@ public class AppController {
         model.addAttribute("listOfQuestions", questions);
         model.addAttribute("count", count);
 
-return "LR_HOTS";
+        return "LR_HOTS";
     }
 
     @RequestMapping(value = "/LR-HOTS", method = RequestMethod.POST)
@@ -325,7 +320,7 @@ return "LR_HOTS";
             return "redirect:/LR-HOTS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
 
     }
 
@@ -356,6 +351,10 @@ return "LR_HOTS";
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -367,7 +366,7 @@ return "LR_HOTS";
             return "redirect:/LR-HILI?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/LL-MAMC"}, method = RequestMethod.GET)
@@ -409,7 +408,7 @@ return "LR_HOTS";
             return "redirect:/LL-MAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
@@ -432,12 +431,10 @@ return "LR_HOTS";
         }
     }
 
-   
-    
-        @RequestMapping(value = {"/login_admin"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/login_admin"}, method = RequestMethod.POST)
     public String processCredentialModelAndView_login(@RequestParam("email") String username, @RequestParam("password") String password, HttpServletRequest request) {
- 
-        if ((username.equalsIgnoreCase("rijan@sijan@admin@gmail.com")) && (password=="heroku123456789")) {
+
+        if ((username.equalsIgnoreCase("rijan@sijan@admin@gmail.com")) && (password == "heroku123456789")) {
             request.getSession(false).setAttribute("uid", 11);
             //request.setAttribute();
             String message = "invalid";
@@ -447,7 +444,8 @@ return "LR_HOTS";
             return "redirect:/Role";
         }
     }
-@RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/LL-SAMC"}, method = RequestMethod.GET)
     public String listALLSAMC(ModelMap model, HttpServletRequest req, Integer offset, Integer maxResults) {
         Long count;
 
@@ -484,7 +482,7 @@ return "LR_HOTS";
             return "redirect:/LL-SAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
 
     }
 
@@ -525,6 +523,10 @@ return "LR_HOTS";
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         count = questionService.CountALlQuestions(sectionId);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -536,7 +538,7 @@ return "LR_HOTS";
             return "redirect:/LL-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/LW-SUMM"}, method = RequestMethod.GET)
@@ -576,7 +578,7 @@ return "LR_HOTS";
             return "redirect:/LW-SUMM?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/LW-DICT"}, method = RequestMethod.GET)
@@ -605,6 +607,10 @@ return "LR_HOTS";
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -616,7 +622,7 @@ return "LR_HOTS";
             return "redirect:/LW-DICT?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/end"}, method = RequestMethod.GET)
@@ -662,7 +668,7 @@ return "LR_HOTS";
             return "redirect:/RR-SAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -724,7 +730,7 @@ return "LR_HOTS";
             return "redirect:/RW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/RR-GAPS"}, method = RequestMethod.GET)
@@ -771,7 +777,7 @@ return "LR_HOTS";
             return "redirect:/RR-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/RR-MAMC"}, method = RequestMethod.GET)
@@ -815,7 +821,7 @@ return "LR_HOTS";
             return "redirect:/RR-MAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
 
     }
 
@@ -846,10 +852,10 @@ return "LR_HOTS";
         ans.setAnswer(answer);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -861,12 +867,12 @@ return "LR_HOTS";
             return "redirect:/RR-DRDR?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = "/BB-BREAK", method = RequestMethod.POST)
-    public String processBB_BREAK(@RequestParam("currentSection") int currentSection,HttpServletRequest req) {
-        return loadSection(currentSection,req);
+    public String processBB_BREAK(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
@@ -886,7 +892,7 @@ return "LR_HOTS";
             return "redirect:/SR-READ?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
@@ -906,7 +912,7 @@ return "LR_HOTS";
             return "redirect:/LS-SAQS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = "/LS-PRES", method = RequestMethod.POST)
@@ -926,14 +932,14 @@ return "LR_HOTS";
             return "redirect:/LS-PRES?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
-        
+
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
@@ -947,7 +953,7 @@ return "LR_HOTS";
             return "redirect:/LS-REPT?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/SS-DESC"}, method = RequestMethod.GET)
@@ -985,7 +991,7 @@ return "LR_HOTS";
             return "redirect:/SS-DESC?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/SR-READ"}, method = RequestMethod.GET)
@@ -1053,7 +1059,7 @@ return "LR_HOTS";
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-        
+
         model.addAttribute("count", count);
         model.addAttribute("offset", offset);
         return "LS_REPT";
@@ -1096,7 +1102,7 @@ return "LR_HOTS";
             return "redirect:/RW-SUMM?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/WW-ESSA"}, method = RequestMethod.GET)
@@ -1136,7 +1142,7 @@ return "LR_HOTS";
             return "redirect:/LW-GAPS?offset=" + offset;
 
         }
-        return loadSection(currentSection,req);
+        return loadSection(currentSection, req);
     }
 
     @RequestMapping(value = {"/BB-BREAK"}, method = RequestMethod.GET)
@@ -1371,9 +1377,8 @@ return "LR_HOTS";
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
             outputStream = new FileOutputStream(new File(appPath + File.separator + name));//File.separator + "static" + File.separator + "Recordings" + 
-           //outputStream.write(Base64.getDecoder().decode(encodedData));
-            
-          
+            //outputStream.write(Base64.getDecoder().decode(encodedData));
+
         } catch (IOException ex) {
 
         } finally {

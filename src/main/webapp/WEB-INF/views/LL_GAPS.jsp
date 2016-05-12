@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +15,13 @@
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-       
 
-            function callTimer() {
+
+            /*function callTimer() {
                 var timeFromDb = document.getElementById("timeDb").value;
                 var startTime = document.getElementById("startTime").value;
                 //startTimer(timeFromDb, startTime);
-            }
+            }*/
 
             var time, counter;
             function init() {
@@ -46,56 +46,49 @@
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+            
             function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
-            
-            
-            
-            
         </script>
     </head>
-    <body onload="callTimer();
-        
-        startExamTimer();
+    <body onload="startExamTimer();
             init();
             playAudio();">
-        
-          
+
+
         <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
-            
-int count=0;
-   
+
+            int count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count = Integer.parseInt(session.getAttribute("question_count").toString());
-             
-                
+
             }
         %>
-        
+
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Select missing word...</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span><c:out value="${offset+1}" /></span> of <span> <c:out value="${count}" /></span>
                 </div>
-                
-                
-                
+
+
+
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -103,6 +96,9 @@ int count=0;
                 <p class="clear" />
                 <form method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+
                     <input type="hidden" id="catTime" name="catTime" value="${question.catId.totalTime}" />
                     <input type="hidden" id="catId" name="catId" value="${question.catId.catId}" />
                     <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
@@ -112,15 +108,15 @@ int count=0;
                     <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                     <input type="hidden" name="count" value="${count}" />
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                    
-                    
+
+
                     <div class="userspace">
                         <input type="radio" name="missing" value="_" checked class="hide" />
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" >
 
                             <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
-                            
-                            
+
+
                         </c:forEach>
                     </div>
                     <div>
@@ -128,7 +124,7 @@ int count=0;
                     </div>
                     <hr/>
                 </form>
-             
+
             </div>
 
         </c:forEach>

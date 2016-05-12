@@ -9,28 +9,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-         <%
-            int startTime = 0;
-            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
-                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
-            }
-            
-int count=0;
-   
-            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
-             
-                
-            }
-        %>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
@@ -69,20 +54,42 @@ int count=0;
                     document.getElementById('audiotag1').play();
                 }, time);
             }
+
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
+
         </script>
     </head>
-    <body onload="init();
+    <body onload="startExamTimer();
+            init();
             playAudio()">
+        <%
+            int startTime = 0;
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+
+            }
+
+            int count = 0;
+
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count = Integer.parseInt(session.getAttribute("question_count").toString());
+
+            }
+        %>
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Write from dictation</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span><c:out value="${offset+1}" /></span> of <span> <c:out value="${count}" /></span>
                 </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
@@ -90,6 +97,10 @@ int count=0;
                 </div>
                 <p class="clear" /> 
                 <form action="" method="post">
+                    <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <c:set var="offset" value="${offset}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
@@ -99,15 +110,15 @@ int count=0;
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
-                     <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
-                </form>
+                    </form>
 
             </div>
         </c:forEach>
 
-        
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>
