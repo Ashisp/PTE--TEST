@@ -88,7 +88,27 @@ and open the template in the editor.
              
                 
             }
+            int previous_count=0;
+            
+ if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+                
+            }
         %>
+        
+         
+        <c:set var="test" value="${offset+1}"/>
+<%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
+
+
         <c:forEach var="question" items="${listOfQuestions}">
             <table>
                 <tr>
@@ -104,7 +124,7 @@ and open the template in the editor.
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                  <div>
-                     <span id="time"><c:out value="${offset}" /></span> 0f <span id="duration"> <c:out value="<%= (count_ques)%>" /></span>
+                     <span id="question"><c:out value="${resp}" /></span> 0f <span id="quesions"> <c:out value="<%= (count_ques)%>" /></span>
                 </div>
                
                 <div class="col-md-5 audioBox">

@@ -81,20 +81,29 @@ public class AppController {
 
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
+         
         int nextSectionToLoad = currentSection + 1;
         HttpSession session = req.getSession(false);
         System.out.println("Next: " + nextSectionToLoad);
+session.setAttribute("question_count", "0");
+
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
-        session.setAttribute("question_count", count);
+        
+        Long count_question_section=questionService.CountALlQuestions(currentSection);
+        session.setAttribute("previous_count", count_question_section);
+session.setAttribute("question_count", count);
 
         if (catId != catId_next) {
 
             session.setAttribute("startTime", 0);
-            session.setAttribute("question_count", 0);
+           
+            session.setAttribute("previous_count", 0);
+            
+              
 
         }
 
