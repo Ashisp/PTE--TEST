@@ -10,16 +10,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        
-          
-    
-        
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
+        <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
@@ -58,16 +55,17 @@ and open the template in the editor.
                     document.getElementById('audiotag1').play();
                 }, time);
             }
-              function startExamTimer() {
+            function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
         </script>
     </head>
-    <body onload="init();
+    <body onload="startExamTimer();
+            init();
             playAudio()">
-           
+
         <%
             int startTime = 0;
            
@@ -85,17 +83,17 @@ and open the template in the editor.
             }
 
         %>
-        
+
         <c:forEach var="question" items="${listOfQuestions}">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose multiple answers (Listening)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
- <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span>1</span> 0f <spa><c:out value="${count}" /></span>
+                <div>
+                    <span>1</span> 0f <spa><c:out value="${count}" /></span>
                 </div>
                 <div class="question">
                     <c:out value="${question.question}" />
@@ -107,7 +105,13 @@ and open the template in the editor.
                 </div>
                 <p class="clear" />
 
-                <form action="" method="post">
+                <form method="post">
+                    <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                    
+                    <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
+                    
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
@@ -122,11 +126,11 @@ and open the template in the editor.
                             <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         </c:forEach>
                     </div>
-                     <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-              
+
             </div>
         </c:forEach>        
 
