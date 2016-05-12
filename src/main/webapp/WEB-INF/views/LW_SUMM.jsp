@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
 
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-        
+
 
             var time, counter;
             function init() {
@@ -69,29 +69,28 @@
 
     </head>
     <body onload="init();
-            playAudio();startTimer(1200, 1)">
-        
-        
-        
-            <%
-            
-            
-int count=0;
-   
+            playAudio();
+            startTimer(1200, 1)">
+
+
+
+        <%
+
+            int count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count = Integer.parseInt(session.getAttribute("question_count").toString());
-             
-                
+
             }
         %>
-        
+
         <c:forEach items="${listOfQuestions}" var="question">
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize spoken text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span>1</span> 0f <span> <c:out value="${count}" /></span>
                 </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
@@ -115,11 +114,11 @@ int count=0;
                         <span id="time">00:00</span>/10:00
                         <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
-                     <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-              
+
             </div>
         </c:forEach>
 
@@ -127,17 +126,17 @@ int count=0;
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">
-                    var MAX_WORD_COUNT = 70;
-                    function countWord() {
-                        var essay = document.getElementById("summary").value;
-                        var words = essay.split(" ");
-                        document.getElementById("wordCount").innerHTML = (words.length);
-                        if (words.length > MAX_WORD_COUNT) {
-                            $("#submit").attr('disabled', 'true');
-                        } else if (words.length <= MAX_WORD_COUNT) {
-                            $("#submit").removeAttr('disabled');
-                        }
-                    }
+                            var MAX_WORD_COUNT = 70;
+                            function countWord() {
+                                var essay = document.getElementById("summary").value;
+                                var words = essay.split(" ");
+                                document.getElementById("wordCount").innerHTML = (words.length);
+                                if (words.length > MAX_WORD_COUNT) {
+                                    $("#submit").attr('disabled', 'true');
+                                } else if (words.length <= MAX_WORD_COUNT) {
+                                    $("#submit").removeAttr('disabled');
+                                }
+                            }
         </script>
     </body>
 </html>
