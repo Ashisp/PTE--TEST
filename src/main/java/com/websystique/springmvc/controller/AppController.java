@@ -309,6 +309,10 @@ public class AppController {
         answersService.saveAnswers(answer);
 
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
