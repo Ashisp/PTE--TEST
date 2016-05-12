@@ -47,13 +47,26 @@
                 
             }
             
-int count=0;
+int count_questions=0;
+int previous_count=0;
    
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                 
+                
              
                 
             }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+                
+             
+                
+            }
+
         %>
         <c:forEach items="${listOfQuestions}" var="question">
 
@@ -65,7 +78,7 @@ int count=0;
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                   <div>
-                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count}" /></span>
+                     <span id="time"><c:out value="${offset+1}" /></span> of <span id="duration"> <c:out value="${count_questions}" /></span>
                 </div>  
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">

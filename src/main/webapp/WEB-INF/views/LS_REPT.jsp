@@ -104,7 +104,7 @@ and open the template in the editor.
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                  <div>
-                     <span id="time"><c:out value="${offset}" /></span> 0f <span id="duration"> <c:out value="${count_ques}" /></span>
+                     <span id="time"><c:out value="${offset}" /></span> 0f <span id="duration"> <c:out value="<%= (count_ques)%>" /></span>
                 </div>
                
                 <div class="col-md-5 audioBox">
