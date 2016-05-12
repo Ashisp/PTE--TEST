@@ -266,10 +266,10 @@ public class AppController {
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -313,10 +313,10 @@ public class AppController {
         answersService.saveAnswers(answer);
 
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -359,10 +359,10 @@ public class AppController {
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -405,10 +405,10 @@ public class AppController {
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -483,10 +483,10 @@ public class AppController {
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -539,10 +539,10 @@ public class AppController {
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         count = questionService.CountALlQuestions(sectionId);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -623,10 +623,10 @@ public class AppController {
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -673,10 +673,10 @@ public class AppController {
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -788,10 +788,10 @@ public class AppController {
         ans.setAnswer(answerPassage);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -963,13 +963,13 @@ public class AppController {
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
-                @RequestParam("currentSection") int currentSection) {
+            @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
 
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1009,10 +1009,10 @@ public class AppController {
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
-         String question_count = req.getParameter("question_no").toString();
-        req.getSession(false).setAttribute("question_no", question_count);
-        
+
+        //String question_count = req.getParameter("question_no").toString();
+        //req.getSession(false).setAttribute("question_no", question_count);
+
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1163,10 +1163,10 @@ public class AppController {
         answer.setAnswer(essay);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
