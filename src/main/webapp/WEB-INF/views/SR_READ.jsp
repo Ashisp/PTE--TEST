@@ -88,7 +88,7 @@
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                    
                     <div>           
-                        <input type="submit" name="done" value="Done"  class="btn btn-primary" style="float:right" />
+                        <input type="submit" name="done" value="Next"  class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
             </div>
