@@ -802,6 +802,8 @@ return "LR_HOTS";
         answersService.saveAnswers(ans);
         int offset;
         String s = req.getParameter("offset");
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
