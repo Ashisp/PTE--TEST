@@ -16,13 +16,13 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-         <script src="<c:url value='/static/js/mytimer.js' />"></script>
+        <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
 
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-     
-            
-            
+
+
+
 
             var source;
 
@@ -54,19 +54,22 @@ and open the template in the editor.
             function setAnswer() {
                 document.getElementById("answer").value = document.getElementById("target").innerHTML;
             }
+
+            function startExamTimer() {
+                var duration = document.getElementById("categoryTime").value;
+                var start = document.getElementById("startTimerAt").value;
+                startTimer(duration, start);
+            }
         </script>
     </head>
-    <body onload="
-                startExamTimer();
-               ">
-        
+    <body onload="startExamTimer();">
+
         <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
         %>
         <c:forEach items="${listOfQuestions}" var="question">
@@ -74,23 +77,27 @@ and open the template in the editor.
                 <h1>Re-order paragraphs</h1>
 
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-<div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <form method="POST"  onsubmit="setAnswer()">
                     <div class="col-md-6" style="float: left;">
+                        <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                        <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                        <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
+
                         <input type="hidden" value="${question.questionId}" name="questionId" />
                         <input type="hidden" name="answer" id="answer" />
-                        
-                        
-                            <input type="hidden" name="offset" value="<c:out value="${offset}" />" />
-                            <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
-                        
+
+
+                        <input type="hidden" name="offset" value="<c:out value="${offset}" />" />
+                        <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+
                         <h3>Source</h3>
                         <ul class="source" id="source">
                             <li draggable="false" ondragenter="dragenter(event)" ondragstart="dragstart(event)">&nbsp;</li>
-                            <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                                
+                                <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
+
                                 <li draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">
                                     <c:out value="${option.ansOption}" />
                                 </li>
@@ -105,14 +112,14 @@ and open the template in the editor.
                         </ul>
                     </div>
                     <p class="clear" />
-                     <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-                
+
             </div>
         </c:forEach>
-        
+
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
     </body>
