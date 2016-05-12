@@ -65,6 +65,7 @@ function startExamTimer() {
                  <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
+                
                  <div>
                      <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
                 </div>
@@ -72,6 +73,11 @@ function startExamTimer() {
                 <form method="post" onsubmit="setAnswerPassage();">
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     
+                   
+                      <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
+                
                     <input type="hidden" id="answerPsg" name="answerPassage" value="" />
                     <div class="userspace">
                         <p id="passage">
