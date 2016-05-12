@@ -17,18 +17,6 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
-            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-//            window.onbeforeunload = function (e) {
-//                e = e || window.event;
-//
-//                // For IE and Firefox prior to version 4
-//                if (e) {
-//                    e.returnValue = 'You sure?';
-//                }
-//
-//                // For others
-//                return 'You sure?';
-//            };
 
             function startTimer(duration, start) {
                 var timer = start, minutes, seconds;
@@ -50,8 +38,8 @@ and open the template in the editor.
                     //alert("Timer: " + timer);
                 }, 1000);
             }
-            
-            function extractHiddenSummary(){
+
+            function extractHiddenSummary() {
                 document.getElementById("hiddenSummary").value = document.getElementById("summary").value;
             }
         </script>
@@ -62,8 +50,8 @@ and open the template in the editor.
                 <h1>Summarize written text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                 <div>
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                <div>
+                    <span>1</span> 0f <span> <c:out value="${count}" /></span>
                 </div>
                 <div class="question">
                     <p>
@@ -87,28 +75,28 @@ and open the template in the editor.
                         <span id="time">00:00</span>/10:00
                         <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
-                      <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-             
+
             </div>
         </c:forEach>
 
         <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script type="text/javascript">
-                    var MAX_WORD_COUNT = 75;
-                    function countWord() {
-                        var essay = document.getElementById("summary").value;
-                        var words = essay.split(" ");
-                        document.getElementById("wordCount").innerHTML = (words.length);
-                        if (words.length > MAX_WORD_COUNT) {
-                            $("#submit").attr('disabled', 'true');
-                        } else if (words.length <= MAX_WORD_COUNT) {
-                            $("#submit").removeAttr('disabled');
-                        }
-                    }
+                            var MAX_WORD_COUNT = 75;
+                            function countWord() {
+                                var essay = document.getElementById("summary").value;
+                                var words = essay.split(" ");
+                                document.getElementById("wordCount").innerHTML = (words.length);
+                                if (words.length > MAX_WORD_COUNT) {
+                                    $("#submit").attr('disabled', 'true');
+                                } else if (words.length <= MAX_WORD_COUNT) {
+                                    $("#submit").removeAttr('disabled');
+                                }
+                            }
         </script>
     </body>
 </html>

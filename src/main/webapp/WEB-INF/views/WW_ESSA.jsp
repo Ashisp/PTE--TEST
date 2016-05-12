@@ -12,20 +12,6 @@
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
-            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-//            window.back(event) = function (e) {
-//                e = e || window.event;
-//
-//                // For IE and Firefox prior to version 4
-//                if (e) {
-//                    e.returnValue = 'You sure?';
-//                }
-//
-//                // For others
-//                return 'You sure?';
-//            };
-        </script>
-        <script type="text/javascript">
             function startTimer(duration, start) {
                 var timer = start, minutes, seconds;
                 var display = document.querySelector('#time');
@@ -59,7 +45,7 @@
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
                  <div>
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+                     <span>1</span> 0f <span> <c:out value="${count}" /></span>
                 </div>
                 <div class="question">
                     <c:out value="${question.question}" />

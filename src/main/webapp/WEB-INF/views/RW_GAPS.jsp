@@ -16,19 +16,19 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
-                <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
+        <script src="<c:url value='/static/js/jquery-2.2.3.min.js' />"></script>
         <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
-        
+
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-        
+
             function setAnswerPassage() {
                 document.getElementById("answerPsg").value = document.getElementById("passage").innerHTML;
             }
 
 
-function startExamTimer() {
+            function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
@@ -39,45 +39,39 @@ function startExamTimer() {
         </script>
     </head>
     <body
-        
-        
-         onload="init();
-                startExamTimer();
-             
-                     >
-                     
-                          
+
+
+        onload="startExamTimer();">
         <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
         %>
         <c:forEach var="question" items="${listOfQuestions}">
-            <div class="col-md-10 col-md-offset-1">
+            <div class ="col-md-10 col-md-offset-1">
                 <h1>Fill in the blanks (Reading & Writing)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-        
+
                 <hr />
-                 <div>
+                <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                
-                 <div>
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
+
+                <div>
+                    <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
                 </div>
                 <p class="clear" />
                 <form method="post" onsubmit="setAnswerPassage();">
                     <input type="hidden" name="questionId" value="${question.questionId}" />
-                    
-                   
-                      <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
-                <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-                <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
-                
+
+
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                    <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
+
                     <input type="hidden" id="answerPsg" name="answerPassage" value="" />
                     <div class="userspace">
                         <p id="passage">
@@ -87,11 +81,11 @@ function startExamTimer() {
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
-                   <div>
+                    <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
                 </form>
-                
+
             </div>
         </c:forEach>
 
