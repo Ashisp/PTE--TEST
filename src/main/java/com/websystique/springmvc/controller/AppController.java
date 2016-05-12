@@ -94,7 +94,8 @@ session.setAttribute("question_count", "0");
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
         
         Long count_question_section=questionService.CountALlQuestions(currentSection);
-        session.setAttribute("previous_count", count_question_section);
+        Long total_questions=+count_question_section;
+        session.setAttribute("previous_count", total_questions);
 session.setAttribute("question_count", count);
 
         if (catId != catId_next) {

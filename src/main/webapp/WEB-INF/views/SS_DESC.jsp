@@ -40,22 +40,44 @@
     </head>
     <body>
 
-      <%
+          <%
             int startTime = 0;
-            if ((session.getAttribute("startTime") != "") &&(session.getAttribute("startTime") != null)){
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-            }
-            int count_ques=0;
-   
-            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count_ques = Integer.parseInt(session.getAttribute("question_count").toString());
              
                 
             }
-
+            
+int count_questions=0;
+int previous_count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+                
+             
+                
+            }
+             
 
         %>
+        
         <c:forEach items="${listOfQuestions}" var="question">
+             <c:set var="test" value="${offset+1}"/> 
+            <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
             <div class="col-md-10 col-md-offset-1">
                 <h1>Describe image</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -65,9 +87,8 @@
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                  <div>
-                     
-                     <span id="time">1</span> 0f <span id="duration"> <c:out value="${count_ques}" /></span>
-                </div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div>  
                 <div class="imageView">
                     <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
                 </div>

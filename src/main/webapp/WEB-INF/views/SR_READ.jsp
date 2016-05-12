@@ -90,7 +90,7 @@ int previous_count=0;
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                   <div>
-                     <span id="time"><c:out value="<%=(resp)%>" /></span> of <span id="duration"> <c:out value="<%= (count_questions)%>"  /></span>
+                     <span id="quesion"><c:out value="<%=(resp)%>" /></span> of <span id="quesions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div>  
                 <form method="post" onsubmit="return imDone();">
                     <div class="recorderSpace" style="float:left;">
