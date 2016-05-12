@@ -49,8 +49,8 @@
             }
         </script>
     </head>
-    <body onload="init();
-
+    <body onload="startExamTimer();
+            init();
             playAudio()">
 
         <%
@@ -94,10 +94,14 @@
                 <form action="" method="post">
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
+                    
+                    <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
+                    <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
+                    <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
+                    
                     <div class="userspace">
                         <input type="radio" name="choice" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}" varStatus="itr">
-
                             <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                         <input type="hidden" name="offset" value="<c:out value='${offset}' default='0' />" />

@@ -101,7 +101,7 @@
 
                     <input type="hidden" id="catTime" name="catTime" value="${question.catId.totalTime}" />
                     <input type="hidden" id="catId" name="catId" value="${question.catId.catId}" />
-                    <input type="hidden" name="startTime" id="startTime" value="<c:out value="${startTime}" default="1" />" />
+                    <!--<input type="hidden" name="startTime" id="startTime" value="c:out value="${startTime}" default="1" />" />-->
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" id="timeDb" name="timeDb" value="${question.sectionId.time}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
