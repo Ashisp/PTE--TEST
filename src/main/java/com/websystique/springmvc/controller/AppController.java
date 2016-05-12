@@ -673,6 +673,10 @@ public class AppController {
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
+        
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+        
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
