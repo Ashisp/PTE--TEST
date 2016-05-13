@@ -65,8 +65,7 @@ and open the template in the editor.
     <body onload="startExamTimer();
             init();
             playAudio()">
-
-        <%
+<%
             int startTime = 0;
            
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
@@ -74,17 +73,38 @@ and open the template in the editor.
              
                 
             }
-            int count=0;
+            
+int count_questions=0;
+int previous_count=0;
    
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
              
                 
             }
+             
 
         %>
 
+
         <c:forEach var="question" items="${listOfQuestions}">
+              <c:set var="test" value="${offset+1}"/> 
+            
+                    <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
             <div class="col-md-10 col-md-offset-1">
                 <h1>Multiple-choice, choose multiple answers (Listening)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -93,8 +113,8 @@ and open the template in the editor.
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <div>
-                    <span>1</span> 0f <spa><c:out value="${count}" /></span>
-                </div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>
@@ -109,7 +129,7 @@ and open the template in the editor.
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-                    
+                    <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                     <!--<input type="hidden" name="startTime" id="startTime" value="c:out value="{startTime}" default="1" />" />-->
                     
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />

@@ -44,13 +44,44 @@ and open the template in the editor.
         onload="startExamTimer();">
         <%
             int startTime = 0;
-
+           
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-
+             
+                
             }
+            
+int count_questions=0;
+int previous_count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
+             
+                
+            }
+             
+
         %>
+
         <c:forEach var="question" items="${listOfQuestions}">
+            
+             <c:set var="test" value="${offset+1}"/> 
+            
+                    <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
             <div class ="col-md-10 col-md-offset-1">
                 <h1>Fill in the blanks (Reading & Writing)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -61,12 +92,12 @@ and open the template in the editor.
                 </div>
 
                 <div>
-                    <span id="time">1</span> 0f <span id="duration"> <c:out value="${count}" /></span>
-                </div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
                 <p class="clear" />
                 <form method="post" onsubmit="setAnswerPassage();">
                     <input type="hidden" name="questionId" value="${question.questionId}" />
-
+<input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
 
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />

@@ -22,9 +22,9 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-home"></i> Drop down for more options <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="index.html">User List</a>
+                                        <li><a href="#">User List</a>
                                         </li>
-                                        <li><a href="index2.html">Answers</a>
+                                        <li><a href="/answers-{userId}">Answers</a>
                                         </li>
                                         <li><a href="/register">Add New Users</a>
                                         </li>

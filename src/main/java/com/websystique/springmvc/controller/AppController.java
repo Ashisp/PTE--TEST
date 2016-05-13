@@ -92,23 +92,33 @@ public class AppController {
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
+        if(currentSection!=0)
+        {
         
-        Long count_question_section=questionService.CountALlQuestions(currentSection);
+        Long count_question_section=questionService.CountALlQuestions(currentSection)+Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+         session.setAttribute("previous_count", count_question_section);
+
+
+        }   
+        else
+        {
         
-     
-                if(session.getAttribute("previous_count").toString()!=null){
-                    Long total_questions=Integer.parseInt(session.getAttribute("previous_count").toString())+count_question_section;
- session.setAttribute("startTime", total_questions);
-                }
-       
+        
+Long count_question_section=questionService.CountALlQuestions(currentSection);
+        session.setAttribute("previous_count", count_question_section);
+        }
+             
+        
+
 session.setAttribute("question_count", count);
 
-        if (catId != catId_next) {
+        if (catId !=catId_next) {
 
             session.setAttribute("startTime", 0);
            
             session.setAttribute("previous_count", 0);
             
+
               
 
         }
@@ -281,10 +291,10 @@ session.setAttribute("question_count", count);
         answer.setAnswer(answers);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -328,10 +338,10 @@ session.setAttribute("question_count", count);
         answersService.saveAnswers(answer);
 
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -374,10 +384,10 @@ session.setAttribute("question_count", count);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -420,10 +430,10 @@ session.setAttribute("question_count", count);
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -498,10 +508,10 @@ session.setAttribute("question_count", count);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -554,10 +564,10 @@ session.setAttribute("question_count", count);
         int sectionId = sectionService.findSectionIdByUrlPattern("LL-GAPS");
         count = questionService.CountALlQuestions(sectionId);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -638,10 +648,10 @@ session.setAttribute("question_count", count);
         ans.setQuestionId(new Questions(questionId));
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -688,6 +698,10 @@ session.setAttribute("question_count", count);
         ans.setAnswer(choice);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
+
+        String elapsedTime = req.getParameter("elapsedTime").toString();
+        req.getSession(false).setAttribute("startTime", elapsedTime);
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -799,10 +813,10 @@ session.setAttribute("question_count", count);
         ans.setAnswer(answerPassage);
         answersService.saveAnswers(ans);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -916,6 +930,7 @@ session.setAttribute("question_count", count);
     public String processSR_READ(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
+          req.getSession(false).setAttribute("previous_count", 0);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
@@ -974,13 +989,13 @@ session.setAttribute("question_count", count);
 
     @RequestMapping(value = "/LS-REPT", method = RequestMethod.POST)
     public String processLS_REPT(HttpServletRequest req, Integer maxResults,
-                @RequestParam("currentSection") int currentSection) {
+            @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
 
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
@@ -1007,7 +1022,7 @@ session.setAttribute("question_count", count);
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-        model.addAttribute("count", count);
+       
         model.addAttribute("offset", offset);
         return "SS_DESC";
     }
@@ -1020,10 +1035,10 @@ session.setAttribute("question_count", count);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
-        
-       
-        
+
+        //String question_count = req.getParameter("question_no").toString();
+        //req.getSession(false).setAttribute("question_no", question_count);
+
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1174,10 +1189,10 @@ session.setAttribute("question_count", count);
         answer.setAnswer(essay);
         answersService.saveAnswers(answer);
         String s = req.getParameter("offset");
-        
+
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
-        
+
         int offset;
         if (s.isEmpty() || s.equals("")) {
             offset = 1;

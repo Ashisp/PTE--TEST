@@ -141,6 +141,8 @@ and open the template in the editor.
                         <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
 
                         <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
+                         <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
+                        
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />
                         <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />

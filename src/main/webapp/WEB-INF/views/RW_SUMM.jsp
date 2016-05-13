@@ -44,15 +44,48 @@ and open the template in the editor.
             }
         </script>
     </head>
+    
+    
     <body onload="startTimer(600, 1)">
+        
+        
+        <%
+        int count_questions=0;
+int previous_count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
+             
+                
+            }
+             
+
+        %>
         <c:forEach var="question" items="${listOfQuestions}">
+            
+                    <c:set var="test" value="${offset+1}"/> 
+        <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize written text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                <div>
-                    <span>1</span> 0f <span> <c:out value="${count}" /></span>
-                </div>
+                  <div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
                 <div class="question">
                     <p>
                         <c:out value="${question.passage}" />
@@ -67,6 +100,7 @@ and open the template in the editor.
                         <h5><span id="wordCount">0</span>/75 Word Limit</h5>
                         <input type="hidden" name="summary" id="hiddenSummary" value="" />
                         <textarea id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>
+                         <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                         <input type="hidden" name="offset" value="${offset}" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />

@@ -75,16 +75,34 @@
                 
             }
             
-int count=0;
+int count_questions=0;
+int previous_count=0;
    
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
              
                 
             }
+             
+
         %>
         <c:forEach var="question" items="${listOfQuestions}">
-
+    <c:set var="test" value="${offset+1}"/> 
+        <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
 
             <div class="col-md-10 col-md-offset-1">
                 <h1>Answer short question</h1>
@@ -94,8 +112,8 @@ int count=0;
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                  <div>
-                     <span id="time"><c:out value="${offset}" /> </span> 0f <span id="duration"> <c:out value="${count}" /></span>
-                </div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" onended="loadLibrary();" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -107,7 +125,7 @@ int count=0;
                         <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                         <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                         <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
-                        
+                         <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                         <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                         <input type="hidden" id="stopsIn" name="stopsIn" value="<c:out value="${question.sectionId.maxRecordingTime}" />" />
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />	" />

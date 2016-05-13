@@ -73,25 +73,54 @@
             startTimer(1200, 1)">
 
 
-
-        <%
-
-            int count = 0;
-
-            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
-
+   <%
+            int startTime = 0;
+           
+            if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
+                startTime = Integer.parseInt(session.getAttribute("startTime").toString());
+             
+                
             }
+            
+int count_questions=0;
+int previous_count=0;
+   
+            if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
+            }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
+             
+                
+            }
+             
+
         %>
 
+
         <c:forEach items="${listOfQuestions}" var="question">
+            
+              <c:set var="test" value="${offset+1}"/> 
+            
+                            <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>
             <div class="col-md-10 col-md-offset-1">
                 <h1>Summarize spoken text</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                <div>
-                    <span>1</span> 0f <span> <c:out value="${count}" /></span>
-                </div>
+                      <div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -102,6 +131,7 @@
                     <c:set var="offset" value="${offset}" />
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
+                    <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                     <div class="userspace">
                         <h5><span id="wordCount">0</span>/70 Word Limit</h5>
                         <textarea id="summary" spellcheck="false" class="form-control" rows="7" style="max-height: 10" onkeyup="countWord();"></textarea>

@@ -132,23 +132,49 @@
             playAudio()">
 
 
-        <%
+    
+<%
             int startTime = 0;
-
+           
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-
+             
+                
             }
-
-            int count = 0;
-
+            
+int count_questions=0;
+int previous_count=0;
+   
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
-                count = Integer.parseInt(session.getAttribute("question_count").toString());
-
+                count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
+                
             }
+            
+             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+              
+                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                
+       ;         
+             
+                
+            }
+             
+
         %>
 
+
+
         <c:forEach items="${listOfQuestions}" var="question" varStatus="itr">
+             
+              <c:set var="test" value="${offset+1}"/> 
+            
+                    <%
+  int resp = previous_count;
+  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+  
+%>    
             <div class="col-md-10 col-md-offset-1">
                 <h1>Highlight incorrect words</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -156,9 +182,9 @@
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
-                    <span><c:out value="${offset+1}" /></span> of <span> <c:out value="${count}" /></span>
-                </div>
+               <div>
+                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div> 
 
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
@@ -169,7 +195,7 @@
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-                    
+                     <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <div class="userspace">
                         <p id="passage">

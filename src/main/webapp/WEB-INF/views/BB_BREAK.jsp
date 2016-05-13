@@ -52,14 +52,12 @@ and open the template in the editor.
 
         <div class="col-md-10 col-md-offset-1">
             <h1>Break</h1>
-            <p class="instruction">You can take a break and relax. Press done button when you're ready again.</p>
+            <p class="instruction">You can have an optional 10 mins break. Click next when you are ready.</p>
             <hr />
             <div class="col-md-5 imageView">
                 <img src="../raw_res/image.jpg" alt="image" />
                 </sdiv>
                 <p class="clear" />
-
-
                 <form method="POST">
                     <div>
 
