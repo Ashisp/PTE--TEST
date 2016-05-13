@@ -10,7 +10,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -109,7 +109,7 @@ int previous_count=0;
                 <h1>Multiple-choice, choose multiple answers (Listening)</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <hr />
-                <div>
+                <div id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
                 <div>
@@ -136,16 +136,17 @@ int previous_count=0;
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <input type="checkbox"  name="choices" value="_" checked="" class="hide"  />
+                        <input type="checkbox"  name="choices" value="_" checked="  " class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
 
-                            <input type="checkbox" name="choices"  class="multi-field" value="  <c:out value= '${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
+                            <input type="checkbox" name="choices"  class="multi-field" value="<c:out value= '${options.ansOption}' />"> &nbsp;  <c:out value="${options.ansOption}" /><br/>
 
                             <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                             <input type="hidden" name="count" value="${count}" />
                             <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                         </c:forEach>
                     </div>
+                    <hr/>
                     <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>

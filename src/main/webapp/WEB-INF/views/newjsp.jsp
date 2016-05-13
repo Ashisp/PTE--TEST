@@ -1,18 +1,11 @@
 
 <!DOCTYPE html>
 <html>
-  
+  <head>
     <meta charset="UTF-8">
-    
-    
-    <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Upload/Download/Delete Documents</title>
-	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-        
-</head>
- 
+    <title>WebAudioRecorder.js demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  </head>
   <body>
     <div class="container">
       <h1><a href="https://github.com/higuma/web-audio-recorder-js">WebAudioRecorder.js</a> demo</h1>
@@ -141,7 +134,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="/static/js/WebAudioRecorder.js"></script>
-    <script src="/static/js/RecorderDemo.js"></script>
+    <script src="static/js/WebAudioRecorder.js"></script>
+    <script src="static/js/RecorderDemo.js"></script>
   </body>
 </html>

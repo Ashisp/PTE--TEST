@@ -6,7 +6,7 @@
 <html>
     <head>
 
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -121,7 +121,9 @@ int previous_count=0;
                       <div>
                      <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                
                 <div class="col-md-5 audioBox">
+                    <i class="icon-large icon-music"></i>
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
@@ -144,6 +146,7 @@ int previous_count=0;
                         <span id="time">00:00</span>/10:00
                         <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     </div>
+                    <hr/>
                     <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>

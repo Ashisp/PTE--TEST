@@ -172,7 +172,7 @@ session.setAttribute("question_count", count);
     public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
 
         System.out.println("users");
-        return "index";
+        return "newjsp";
     }
 
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
@@ -1140,6 +1140,7 @@ session.setAttribute("question_count", count);
         return "RW_SUMM";
     }
 
+    
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
     public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary, RedirectAttributes redir, @RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
