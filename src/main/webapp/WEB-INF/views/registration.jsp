@@ -22,7 +22,27 @@
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
-                <!-- top navigation -->
+
+                <div class="top_nav">
+
+                    <div class="nav_menu">
+                        <nav class="" role="navigation">
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="" style="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        
+                                        <span>Log In</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
 
                 <!-- page content -->
                 <div class="right_col" role="main">
@@ -469,7 +489,7 @@
                 if (!validator.checkAll($(this))) {
                     submit = false;
                 }
-                
+
 
                 if (submit)
                     this.submit();
@@ -478,7 +498,7 @@
             });
         </script>
 
-        
+
         <!-- /validator -->
     </body>
 </html>
