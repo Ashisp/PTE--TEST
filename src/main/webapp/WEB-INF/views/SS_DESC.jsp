@@ -38,7 +38,8 @@
             
         </script>
     </head>
-    <body>
+    <body onload="readyRecording();
+                startExamTimer();">
 
           <%
             int startTime = 0;
@@ -254,8 +255,6 @@ int previous_count=0;
                 });
                 document.getElementById("totalRecordTime").innerHTML = document.getElementById("stopsIn").value;
                 document.getElementById("recordsIn").innerHTML = document.getElementById("startsIn").value;
-                readyRecording();
-                startExamTimer();
             };
         </script>
         <script src="<c:url value='/static/js/jquery.js' />"></script>

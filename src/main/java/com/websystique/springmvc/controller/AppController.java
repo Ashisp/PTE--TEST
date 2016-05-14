@@ -27,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -35,11 +36,14 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -72,6 +76,8 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
+    
+    private String GLOBAL_FILENAME = "";
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String loadStartPage(ModelMap map) {
@@ -81,45 +87,33 @@ public class AppController {
 
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
-       
+
         int nextSectionToLoad = currentSection + 1;
         HttpSession session = req.getSession(false);
         System.out.println("Next: " + nextSectionToLoad);
-
-
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
-        if(currentSection!=0)
-        {
-        
-        Long count_question_section=questionService.CountALlQuestions(currentSection)+Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-         session.setAttribute("previous_count", count_question_section);
+        if (currentSection != 0) {
 
+            Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+            session.setAttribute("previous_count", count_question_section);
 
-        }   
-        else
-        {
-        
-        
-Long count_question_section=questionService.CountALlQuestions(currentSection);
-        session.setAttribute("previous_count", count_question_section);
+        } else {
+
+            Long count_question_section = questionService.CountALlQuestions(currentSection);
+            session.setAttribute("previous_count", count_question_section);
         }
-             
-        
 
-session.setAttribute("question_count", count);
+        session.setAttribute("question_count", count);
 
-        if (catId !=catId_next) {
+        if (catId != catId_next) {
 
             session.setAttribute("startTime", 0);
-           
-            session.setAttribute("previous_count", 0);
-            
 
-              
+            session.setAttribute("previous_count", 0);
 
         }
 
@@ -929,8 +923,10 @@ session.setAttribute("question_count", count);
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
     public String processSR_READ(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
+        System.out.println();
+        System.out.println("FIlename: " + req.getParameter("filename"));
         saveFileNameToDatabase(req);
-          req.getSession(false).setAttribute("previous_count", 0);
+        req.getSession(false).setAttribute("previous_count", 0);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
@@ -950,7 +946,7 @@ session.setAttribute("question_count", count);
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
     public String processLS_SAQS(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
-        saveFileNameToDatabase(req);
+//        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
@@ -1022,7 +1018,7 @@ session.setAttribute("question_count", count);
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-       
+
         model.addAttribute("offset", offset);
         return "SS_DESC";
     }
@@ -1038,7 +1034,6 @@ session.setAttribute("question_count", count);
 
         //String question_count = req.getParameter("question_no").toString();
         //req.getSession(false).setAttribute("question_no", question_count);
-
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1140,7 +1135,6 @@ session.setAttribute("question_count", count);
         return "RW_SUMM";
     }
 
-    
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
     public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary, RedirectAttributes redir, @RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -1431,7 +1425,7 @@ session.setAttribute("question_count", count);
         }
     }
 
-    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
     public String uploadRecordedFile(HttpServletRequest request) {
         OutputStream outputStream = null;
         try {
@@ -1452,18 +1446,49 @@ session.setAttribute("question_count", count);
             }
         }
         return "Success";
+    }*/
+
+    @RequestMapping(value = "/handleRecord", method = RequestMethod.POST)
+    public String newRecording(HttpServletRequest request) 
+    {
+        try {
+            String appPath = request.getServletContext().getRealPath("/");
+            String fileName = request.getParameter("fileName").toString();
+            //GLOBAL_FILENAME = fileName;
+            
+            Part d = request.getPart("file");
+            InputStream is = d.getInputStream();
+            
+            OutputStream os = new FileOutputStream(new File(appPath + File.separator + fileName));
+            
+            byte[] buffer = new byte[1024];
+            
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            
+            os.close();
+            is.close();
+            //saveFileNameToDatabase(request, fileName);
+            return "";
+        } catch (IOException ex) {
+            System.out.println("IO Exception while saving.");
+        } catch (ServletException ex) {
+            System.out.println("Servlet Exception while saving.");
+        }
+        return "";
     }
 
-    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
-    public void uploadRecordGET() {
-        System.out.println("GET: RECORDING");
+    /*@RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
+     public void uploadRecordGET() {
+     System.out.println("GET: RECORDING");
 
-    }
-
+     }*/
     private void saveFileNameToDatabase(HttpServletRequest req) {
         int questionId = Integer.parseInt(req.getParameter("questionId"));
-        String fileName = req.getParameter("filename");
         String userId = (String) req.getSession(false).getAttribute("uid");
+        String fileName = req.getParameter("filename").toString();
         Answers ans = new Answers();
         ans.setAudioPath(fileName);
         ans.setQuestionId(new Questions(questionId));
