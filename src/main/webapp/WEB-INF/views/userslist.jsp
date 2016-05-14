@@ -3,7 +3,7 @@
 <%@ taglib uri="http://paginationtag.miin.com" prefix="pagination-tag"%>
 <%@ taglib prefix="tag" uri="/WEB-INF/customTaglib.tld"%>
 
-<%@include file="header.jsp" %>
+<!--@include file="header.jsp" %>-->
 
 <body class="nav-md">
     <div class="container body">
@@ -148,7 +148,6 @@
             <!-- /page content -->
 
             <!-- footer content -->
-            <%@include file="footer.jsp" %>
 
             <script src="assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
             <script src="assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

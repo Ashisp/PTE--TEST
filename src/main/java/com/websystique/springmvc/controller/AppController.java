@@ -27,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -35,11 +36,14 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -72,6 +76,8 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
+    
+    private String GLOBAL_FILENAME = "";
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String loadStartPage(ModelMap map) {
@@ -90,6 +96,7 @@ public class AppController {
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
+
         if ((currentSection != 0)) {
             if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
                 Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
@@ -1417,7 +1424,9 @@ public class AppController {
                     + " because the file was empty.";
         }
     }
-    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
+
+
+    /*@RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
     public String uploadRecordedFile(HttpServletRequest request) {
         OutputStream outputStream = null;
         try {
@@ -1435,15 +1444,49 @@ public class AppController {
             }
         }
         return "Success";
+    }*/
+
+    @RequestMapping(value = "/handleRecord", method = RequestMethod.POST)
+    public String newRecording(HttpServletRequest request) 
+    {
+        try {
+            String appPath = request.getServletContext().getRealPath("/");
+            String fileName = request.getParameter("fileName").toString();
+            //GLOBAL_FILENAME = fileName;
+            
+            Part d = request.getPart("file");
+            InputStream is = d.getInputStream();
+            
+            OutputStream os = new FileOutputStream(new File(appPath + File.separator + fileName));
+            
+            byte[] buffer = new byte[1024];
+            
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            
+            os.close();
+            is.close();
+            //saveFileNameToDatabase(request, fileName);
+            return "";
+        } catch (IOException ex) {
+            System.out.println("IO Exception while saving.");
+        } catch (ServletException ex) {
+            System.out.println("Servlet Exception while saving.");
+        }
+        return "";
     }
-    @RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
-    public void uploadRecordGET() {
-        System.out.println("GET: RECORDING");
-    }
+
+    /*@RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
+     public void uploadRecordGET() {
+     System.out.println("GET: RECORDING");
+
+     }*/
     private void saveFileNameToDatabase(HttpServletRequest req) {
         int questionId = Integer.parseInt(req.getParameter("questionId"));
-        String fileName = req.getParameter("filename");
         String userId = (String) req.getSession(false).getAttribute("uid");
+        String fileName = req.getParameter("filename").toString();
         Answers ans = new Answers();
         ans.setAudioPath(fileName);
         ans.setQuestionId(new Questions(questionId));
