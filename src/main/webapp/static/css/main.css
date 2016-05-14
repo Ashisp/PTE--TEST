@@ -33,9 +33,12 @@ audio {width: 100%}
 }
 
 .audioBox .audioPlayer {
+    text-align: center;
     height:80px;
     margin: 0;
-    padding:26px;
+    padding:20px;
+    font-style: italic;
+    font-size: 20px;
 }
 
 
@@ -54,14 +57,13 @@ audio {width: 100%}
 
 #logo_place_header {
     background-color: #AF151D;
-    height: 60px;
+    height: 70px;
     margin-bottom: 10px;
     width: 100%;
 }
 
 hr {
-    border-color: #23527c;
-    
+    border-color: #6699FF;    
 }
 
 #num_of_num {
@@ -75,8 +77,8 @@ hr {
     margin: 0;
     padding: 15px;
     margin-top: 2em;
-    border: 1px solid gray;
-    border-radius: 5px;
+    border: 2px solid gray;
+    border-radius: 2px;
 }
 
 .userspace p {
@@ -87,7 +89,12 @@ hr {
     max-width: 10em;
     width: 10em;
     display: inline;
+    border-radius: 2px;
+    font-family: cursive;
+    height: 30px;
 }
+
+
 
 .done {
     max-width: 8em;
@@ -129,7 +136,7 @@ textarea {padding: 0; margin:0; resize: none;}
     padding:5px;
 }
 h3 {
-    text-align: center;
+    text-align: left;
     margin-top: 25px;
 }
 .source li {
@@ -142,4 +149,10 @@ h3 {
 .source li, .target li {
     margin: 2px;
     padding: 10px 5px;
+}
+
+.btn-primary {
+    height: 40px;
+    width: 80px;
+    border-radius: 0px;
 }

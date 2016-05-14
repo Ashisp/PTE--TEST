@@ -136,8 +136,7 @@ and open the template in the editor.
             %>
             <div id="logo_place_header"></div>
             <div class="col-md-10 col-md-offset-1">
-                <div class="col-md-7"><h3>Multiple-choice, choose multiple answers (Listening)</h3>
-                </div>
+                <div class="col-md-7"><h3>Multiple-choice, choose multiple answers (Listening)</h3></div>
                 <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
@@ -155,7 +154,7 @@ and open the template in the editor.
 
                 <div class="col-md-5 audioBox">
                     <i></i>
-                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <h3 class="audioPlayer">Audio Player...<br/><span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />

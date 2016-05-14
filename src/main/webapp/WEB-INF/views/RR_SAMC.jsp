@@ -10,7 +10,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,38 +18,38 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
-                 (function ($, global) {
+            (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
@@ -59,47 +59,45 @@ and open the template in the editor.
     </head>
     <body onload="startExamTimer();">
 
-          <%
+        <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
-            
-int count_questions=0;
-int previous_count=0;
-   
+
+            int count_questions = 0;
+            int previous_count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
-                
+
             }
-            
-             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
-              
-                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
-                
-       ;         
-             
-                
+
+            if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+
+                previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                ;
+
             }
-             
+
 
         %>
 
         <c:forEach var="question" items="${listOfQuestions}">
-              <c:set var="test" value="${offset+1}"/> 
-        <%
-  int resp = previous_count;
-  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
-  resp = resp + test;
-  pageContext.setAttribute("resp", resp);
-  
-%>
-            
-            
+            <c:set var="test" value="${offset+1}"/> 
+            <%            int resp = previous_count;
+                int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+                resp = resp + test;
+                pageContext.setAttribute("resp", resp);
+
+            %>
+
+            <div id="logo_place_header"></div>
             <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-7"><h3>Multiple-choice, choose single answer (Reading)</h3>
+                </div>
                 <h1>Multiple-choice, choose single answer (Reading)</h1>
 
                 <div class="question col-md-6" style="float: left;">
@@ -111,16 +109,16 @@ int previous_count=0;
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-               <div>
-                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                <div>
+                    <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
-                
+
                 <form action="" method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                     <div class="userspace col-md-6">
- <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
+                        <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />

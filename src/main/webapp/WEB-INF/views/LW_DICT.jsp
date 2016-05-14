@@ -9,10 +9,23 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <style>
+            .userspace {
+                border: none !important;
+                height: 200px;
+            }
+            
+            #dict_text_space {
+                height: 190px;
+                border-color: black;
+                margin-top: -20px;
+            }
+        </style>
+        
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
@@ -135,19 +148,23 @@ and open the template in the editor.
                 pageContext.setAttribute("resp", resp);
 
             %> 
+                        <div id="logo_place_header"></div>
+
             <div class="col-md-10 col-md-offset-1">
-                <h1>Write from dictation</h1>
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-                <hr />
-                <div>
+<div class="col-md-7"><h3>Write from Dictation</h3>
+                </div>                
+               
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
+                <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
-
+<div class="clear"></div>
+                <hr />
+                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
                 <div class="col-md-5 audioBox">
-                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <h3 class="audioPlayer">Audio Player...<br/><span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" /> 
@@ -160,11 +177,12 @@ and open the template in the editor.
                     <c:set var="offset" value="${offset}" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />
                     <div class="userspace">
-                        <input type="text" name="answer" spellcheck="false" class="form-control"  />
+                        <textarea id="dict_text_space" name="answer" spellcheck="false" class="form-control"></textarea>
                         <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
+                    <hr/>
                     <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>

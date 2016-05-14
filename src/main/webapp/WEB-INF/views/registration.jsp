@@ -22,19 +22,12 @@
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
-
                 <div class="top_nav">
-
                     <div class="nav_menu">
                         <nav class="" role="navigation">
-                            <div class="nav toggle">
-                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                            </div>
-
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="" style="">
-                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        
+                                <li class="" style="margin-right: 30px;">
+                                    <a href="/login">
                                         <span>Log In</span>
                                     </a>
                                 </li>

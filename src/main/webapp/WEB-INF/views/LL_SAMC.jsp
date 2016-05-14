@@ -19,38 +19,38 @@
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
 
 
-     (function ($, global) {
+            (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -119,17 +119,21 @@
                 pageContext.setAttribute("resp", resp);
 
             %>  
-
+            <div id="logo_place_header">
+            </div>
             <div class="col-md-10 col-md-offset-1">
-                <h1>Multiple-choice, choose single answers (Listening)</h1>
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-                <hr />
-                <div>
+                <div class="col-md-7"><h3>Multiple-choice, choose single answer (Listening)</h3>
+                </div>
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
+                <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                <div class="clear"></div>
+                <hr/>
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>
@@ -137,7 +141,7 @@
 
 
                 <div class="col-md-5 audioBox">
-                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <h3 class="audioPlayer">Audio Player...<br/><span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
                 <p class="clear" />
@@ -159,6 +163,7 @@
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
+                    <hr/>
                     <div>
                         <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
                     </div>
