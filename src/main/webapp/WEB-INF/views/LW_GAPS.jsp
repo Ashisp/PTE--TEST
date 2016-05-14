@@ -17,38 +17,38 @@
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
 
         <script type="text/javascript">
-                 (function ($, global) {
+            (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
 //            window.onbeforeunload = function (e) {
 //                e = e || window.event;
@@ -92,56 +92,56 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            function noBack() {
+                window.history.forward();
+            }
         </script>
 
     </head>
-    <body  onload="init();
+    <body  onload="noBack();
+            init();
             startExamTimer();
             playAudio()">
 
 
-       <%
+        <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
-            
-int count_questions=0;
-int previous_count=0;
-   
+
+            int count_questions = 0;
+            int previous_count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
-                
+
             }
-            
-             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
-              
-                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
-                
-       ;         
-             
-                
+
+            if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+
+                previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                ;
+
             }
-             
+
 
         %>
 
 
         <c:forEach items="${listOfQuestions}" var="question">
-              <c:set var="test" value="${offset+1}"/> 
-            
-                    <%
-  int resp = previous_count;
-  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
-  resp = resp + test;
-  pageContext.setAttribute("resp", resp);
-  
-%>
-            
-            
+            <c:set var="test" value="${offset+1}"/> 
+
+            <%                        int resp = previous_count;
+                int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+                resp = resp + test;
+                pageContext.setAttribute("resp", resp);
+
+            %>
+
+
             <div class="col-md-10 col-md-offset-1">
                 <h1>Fill in the blanks (Listening)</h1>
                 <p class="instruction">${question.sectionId.instructions}</p>
@@ -151,8 +151,8 @@ int previous_count=0;
                 <div>
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                 <div>
-                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                <div>
+                    <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
@@ -165,8 +165,8 @@ int previous_count=0;
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-                    
-                                        <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
+
+                    <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                     <div class="userspace">
                         <p>
                             <c:out value="${question.passage}" escapeXml="false" />

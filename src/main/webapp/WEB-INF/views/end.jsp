@@ -12,8 +12,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>JSP Page</title>
+        <script type="text/javascript">
+            function noBack() {
+                window.history.forward();
+            }
+        </script>
     </head>
-    <body>
+    <body onload="noBack();">
         <h1>End of Test  congratulations </h1>
         <a href="<c:url value='/logout' />"><i class="fa fa-sign-out pull-right">Log Out</i></a>
     </body>

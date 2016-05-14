@@ -55,10 +55,12 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            
+            function noBack(){window.history.forward();}
         </script>
 
     </head>
-    <body onload="readyRecording();
+    <body onload="noBack();readyRecording();
             startExamTimer();">
         <%
             int startTime = 0;

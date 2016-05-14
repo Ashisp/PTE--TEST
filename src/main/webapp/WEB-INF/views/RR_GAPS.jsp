@@ -74,9 +74,11 @@ and open the template in the editor.
             function setAnswer() {
                 document.getElementById("answerPassage").value = document.getElementById("paragraph").innerHTML;
             }
+            
+            function noBack(){window.history.forward();}
         </script>
     </head>
-    <body onload="startExamTimer();">
+    <body onload="noBack();startExamTimer();">
      
              <%
             int startTime = 0;

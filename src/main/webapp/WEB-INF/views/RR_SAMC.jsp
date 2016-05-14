@@ -55,9 +55,11 @@ and open the template in the editor.
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            
+            function noBack(){window.history.forward();}
         </script>
     </head>
-    <body onload="startExamTimer();">
+    <body onload="noBack();startExamTimer();">
 
           <%
             int startTime = 0;

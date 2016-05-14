@@ -106,11 +106,11 @@ public class AppController {
             Long count_question_section = questionService.CountALlQuestions(currentSection);
             session.setAttribute("previous_count", count_question_section);
         }   
-        session.setAttribute("question_count", count);
+            session.setAttribute("question_count", count);
 
         if (catId != catId_next) {
 
-            session.setAttribute("startTime", 0);
+                session.setAttribute("startTime", 0);
 
             session.setAttribute("previous_count", 0);
 

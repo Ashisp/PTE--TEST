@@ -73,11 +73,14 @@ and open the template in the editor.
             function extractHiddenSummary() {
                 document.getElementById("hiddenSummary").value = document.getElementById("summary").value;
             }
+            
+            function noBack(){window.history.forward();}
+            
         </script>
     </head>
     
     
-    <body onload="startTimer(600, 1)">
+    <body onload="noBack();startTimer(600, 1)">
         
         
         <%

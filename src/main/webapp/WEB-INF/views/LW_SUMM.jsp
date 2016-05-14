@@ -92,14 +92,16 @@
                     //alert("Timer: " + timer);
                 }, 1000);
             }
-
+            
+            function noBack(){window.history.forward();}
+            
             function extractHiddenSummary() {
                 document.getElementById("hiddenSummary").value = document.getElementById("summary").value;
             }
         </script>
 
     </head>
-    <body onload="init();
+    <body onload="noBack();init();
             playAudio();
             startTimer(1200, 1)">
 

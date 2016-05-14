@@ -67,12 +67,12 @@ and open the template in the editor.
             function setSelectedItem(selectedItem) {
                 selectedItem.options[selectedItem.selectedIndex].setAttribute("selected", "selected");
             }
+            
+            function noBack(){window.history.forward();}
+            
         </script>
     </head>
-    <body
-
-
-        onload="startExamTimer();">
+    <body onload="noBack();startExamTimer();">
         <%
             int startTime = 0;
            
