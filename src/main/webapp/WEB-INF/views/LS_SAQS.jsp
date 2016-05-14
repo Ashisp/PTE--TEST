@@ -163,7 +163,7 @@
                             <p class="clear" />
                             <div class="col-sm-6 control-label">
                                 Starts in <span id="recordsIn"></span><br/>
-                                Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                                <span id="endsIn">00</span>/<span id="totalRecordTime">00</span>
                             </div>
                             <div class="col-sm-9">
                                 <h2>Log</h2>
