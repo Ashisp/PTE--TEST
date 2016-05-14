@@ -14,56 +14,43 @@
 
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
-            
-            
+
+
             (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
-<<<<<<< HEAD
-            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            window.onbeforeunload = function (e) {
-                e = e || window.event;
-                // For IE and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = 'You sure?';
-                }
-=======
->>>>>>> new_recording_integration
 
-                // For others
-                return 'You sure?';
-            };
             var time, counter;
             function init() {
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
@@ -144,7 +131,14 @@
                 </div>
                 <div>
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
-                </div> 
+                </div>
+                <div class="imageView">
+                    <c:if test="${question.imagePath != null}">
+                        <div class="imageView col-md-5">
+                            <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
+                        </div>
+                    </c:if>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" onended="readyRecording();" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
@@ -198,7 +192,7 @@
                     }
                 } else {
                     return true;
-                } 
+                }
             }
 
             function readyRecording() {

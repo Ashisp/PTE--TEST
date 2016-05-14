@@ -102,15 +102,18 @@
                 <div>
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                <div class="imageView">
+                    <c:if test="${question.imagePath != null}">
+                        <div class="imageView col-md-5">
+                            <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
+                        </div>
+                    </c:if>
+                </div>
                 <div class="col-md-5 audioBox">
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" onended="readyRecording();" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
-                <c:if test="${question.imagePath != null}">
-                    <div class="imageView col-md-5">
-                        <img src="<c:url value='../media/files/${question.imagePath}' />" alt="image" />
-                    </div>
-                </c:if>
+
                 <p class="clear" />
                 <hr/>
                 <form method="post" onsubmit="return imDone();">
@@ -154,7 +157,7 @@
                 if (audioRecorder.isRecording() && !IS_STOPPED) {
                     recordStartStop();
                     IS_STOPPED = true;
-                    if(document.getElementById("filename").value !== ""){
+                    if (document.getElementById("filename").value !== "") {
                         return true;
                     }
                 } else {
