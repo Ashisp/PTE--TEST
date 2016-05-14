@@ -97,7 +97,8 @@ int previous_count=0;
   resp = resp + test;
   pageContext.setAttribute("resp", resp);
   
-%>              
+%>
+
             <div class="col-md-10 col-md-offset-1">
                 <h1>Select missing word...</h1>
                 <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
@@ -135,7 +136,7 @@ int previous_count=0;
                         <input type="radio" name="missing" value="_" checked class="hide" />
                         <c:forEach items="${question.answerOptionsCollection}" var="answerOption" >
 
-                            <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"><c:out value="${answerOption.ansOption}" /><br/>
+                            <input type="radio" name="missing" value="<c:out value='${answerOption.ansOption}' />"> &nbsp; <c:out value="${answerOption.ansOption}" /><br/>
 
 
                         </c:forEach>

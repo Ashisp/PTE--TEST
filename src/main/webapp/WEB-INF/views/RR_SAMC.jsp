@@ -82,11 +82,11 @@ int previous_count=0;
                <div>
                      <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                
                 <form action="" method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-
                     <div class="userspace col-md-6">
  <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
@@ -97,7 +97,7 @@ int previous_count=0;
                         <p><c:out value="${question.question}" /></p>
                         <input type="radio" name="choice" value="_" checked="" class="hide"  />
                         <c:forEach var="options" items="${question.answerOptionsCollection}">
-                            <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"><c:out value="${options.ansOption}" /><br/>
+                            <input type="radio" name="choice" value="<c:out value='${options.ansOption}' />"> &nbsp;<c:out value="${options.ansOption}" /><br/>
                         </c:forEach>
                     </div>
 

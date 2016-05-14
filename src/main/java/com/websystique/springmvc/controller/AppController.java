@@ -81,45 +81,35 @@ public class AppController {
 
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
-       
+
         int nextSectionToLoad = currentSection + 1;
         HttpSession session = req.getSession(false);
         System.out.println("Next: " + nextSectionToLoad);
-
-
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
-        if(currentSection!=0)
-        {
-        
-        Long count_question_section=questionService.CountALlQuestions(currentSection)+Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-         session.setAttribute("previous_count", count_question_section);
+        if ((currentSection != 0)) {
+            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
 
+                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+                session.setAttribute("previous_count", count_question_section);
 
-        }   
-        else
-        {
-        
-        
-Long count_question_section=questionService.CountALlQuestions(currentSection);
-        session.setAttribute("previous_count", count_question_section);
+            }
+        } else {
+
+            Long count_question_section = questionService.CountALlQuestions(currentSection);
+            session.setAttribute("previous_count", count_question_section);
         }
-             
-        
 
-session.setAttribute("question_count", count);
+        session.setAttribute("question_count", count);
 
-        if (catId !=catId_next) {
+        if (catId != catId_next) {
 
             session.setAttribute("startTime", 0);
-           
-            session.setAttribute("previous_count", 0);
-            
 
-              
+            session.setAttribute("previous_count", 0);
 
         }
 
@@ -172,7 +162,7 @@ session.setAttribute("question_count", count);
     public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
 
         System.out.println("users");
-        return "newjsp";
+        return "userslist";
     }
 
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
@@ -930,7 +920,7 @@ session.setAttribute("question_count", count);
     public String processSR_READ(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
         saveFileNameToDatabase(req);
-          req.getSession(false).setAttribute("previous_count", 0);
+        req.getSession(false).setAttribute("previous_count", 0);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
@@ -979,6 +969,7 @@ session.setAttribute("question_count", count);
         } else {
             offset = Integer.parseInt(s) + 1;
         }
+
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
             return "redirect:/LS-PRES?offset=" + offset;
@@ -1022,7 +1013,7 @@ session.setAttribute("question_count", count);
         count = questionService.CountALlQuestions(sectionId);
         Collection<Questions> questions = questionService.findAllQuestionsBySectionId(sectionId, offset, maxResults);
         model.addAttribute("listOfQuestions", questions);
-       
+
         model.addAttribute("offset", offset);
         return "SS_DESC";
     }
@@ -1038,7 +1029,6 @@ session.setAttribute("question_count", count);
 
         //String question_count = req.getParameter("question_no").toString();
         //req.getSession(false).setAttribute("question_no", question_count);
-
         if (s.isEmpty() || s.equals("")) {
             offset = 1;
         } else {
@@ -1140,7 +1130,6 @@ session.setAttribute("question_count", count);
         return "RW_SUMM";
     }
 
-    
     @RequestMapping(value = {"/RW-SUMM"}, method = RequestMethod.POST)
     public String processRWSUMM(@RequestParam("questionId") int questionId, HttpServletRequest req, @RequestParam("summary") String summary, RedirectAttributes redir, @RequestParam("currentSection") int currentSection) {
         String userId = (String) req.getSession(false).getAttribute("uid");

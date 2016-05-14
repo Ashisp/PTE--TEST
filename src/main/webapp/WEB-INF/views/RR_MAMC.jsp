@@ -116,7 +116,7 @@ int previous_count=0;
                     <p><c:out value="${question.question}" /></p>
                     <input type="checkbox" name="choices" value="_" checked="" class="hide"  />
                     <c:forEach items="${question.answerOptionsCollection}" var="option" varStatus="itr">
-                        <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"><c:out value="${option.ansOption}" /><br/>
+                        <input type="checkbox" name="choices" value="<c:out value="${option.ansOption}" />"> &nbsp;<c:out value="${option.ansOption}" /><br/>
                     </c:forEach>
 
                     <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
