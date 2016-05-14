@@ -923,8 +923,6 @@ public class AppController {
     @RequestMapping(value = "/SR-READ", method = RequestMethod.POST)
     public String processSR_READ(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
-        System.out.println();
-        System.out.println("FIlename: " + req.getParameter("filename"));
         saveFileNameToDatabase(req);
         req.getSession(false).setAttribute("previous_count", 0);
         String s = req.getParameter("offset");
@@ -946,7 +944,7 @@ public class AppController {
     @RequestMapping(value = "/LS-SAQS", method = RequestMethod.POST)
     public String processLS_SAQS(HttpServletRequest req, Integer maxResults,
             @RequestParam("offset") int offset, @RequestParam("currentSection") int currentSection) {
-//        saveFileNameToDatabase(req);
+        saveFileNameToDatabase(req);
         String s = req.getParameter("offset");
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);

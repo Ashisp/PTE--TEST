@@ -166,7 +166,7 @@ and open the template in the editor.
                         return true;
                     }
                 } else {
-                    return false;
+                    return true;
                 }
             }
 
