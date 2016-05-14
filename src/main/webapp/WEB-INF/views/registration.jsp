@@ -10,14 +10,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title> Express Edu. </title>
-
         <!-- Bootstrap -->
-        <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<c:url value='/static/css/bootstrap.min.css'/>" rel="stylesheet" />
         <!-- Font Awesome -->
-        <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<c:url value='/static/css/font-awesome.min.css'/>" rel="stylesheet">
 
         <!-- Custom Theme Style -->
-        <link href="assets/css/custom.css" rel="stylesheet">
+        <link href="<c:url value='/static/css/custom.css'/>" rel="stylesheet">
     </head>
 
     <body class="nav-md">
@@ -47,27 +46,34 @@
                                     </div>
                                     <div class="x_content">
 
-                                        <form class="form-horizontal form-label-left" novalidate>
+                                        <form method="POST" commandName="user"  class="form-horizontal form-label-left" novalidate>
                                             <span class="section">Please enter your information below:</span>
 
                                             <div class="item form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">First Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                                    <input path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" data-validate-words="1" name="firstName" placeholder="First Name" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Second Name <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" data-validate-words="1" name="lastName" placeholder="Second Name" required="required" type="text">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                                    <input type="email" path="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label for="password" class="control-label col-md-3">Password</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                                                    <input id="password" path="password" type="password" name="password" class="form-control col-md-7 col-xs-12" required="required">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
@@ -80,35 +86,41 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="date" name = "dob" required="required" >
+                                                    <input type="date" path="dob" id="dob" class="form-control col-md-7 col-xs-12" name = "dob" required="required" >
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Exam Date <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="date" name="exm_date" required="required" >
+                                                    <input type="date" path="examDate" id="examDate" class="form-control col-md-7 col-xs-12" name="examDate" required="required" >
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="10,10" class="form-control col-md-7 col-xs-12">
+                                                    <input type="tel" path="phoneNo" id="phoneNo" name="phoneNo" required="required" data-validate-length-range="10,10" class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Postal Code <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="number" name="postal_code" required="required" data-validate-length-range="4,4" class="form-control col-md-7 col-xs-12">
+                                                    <input type="number" name="postalCode" path="postalCode" id="postalCode" required="required" data-validate-length-range="4,4" class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">City <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="city" path="city" name="city" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" data-validate-words="1" placeholder="City" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Select State</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <select class="select2_single form-control" tabindex="-1">
-                                                        <option></option>
+                                                    <select name="state" path="state" class="select2_single form-control" tabindex="-1">
                                                         <option value="NSW">NSW</option>
                                                         <option value="VIC">VIC</option>
                                                         <option value="QLD">QLD</option>
@@ -120,10 +132,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Country</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <select class="select2_single form-control" tabindex="-1">
+                                                    <select path="country" name="country" class="select2_single form-control" tabindex="-1">
                                                         <option value="Australia" selected>Australia</option>
                                                         <option value="Afghanistan">Afghanistan</option>
                                                         <option value="Albania">Albania</option>
@@ -366,6 +378,20 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Street Address 1 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="streetAddress1" path="streetAddress1" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" name="streetAddress1" placeholder="Street Address 1" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Street Address 2
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="streetAddress2" path="streetAddress2" class="form-control col-md-7 col-xs-12" name="streetAddress2" placeholder="Street Address 2" type="text">
+                                                </div>
+                                            </div>
                                             <div class="ln_solid"></div>
                                             <div class="form-group">
                                                 <div class="col-md-6 col-md-offset-3">
@@ -393,16 +419,18 @@
             </div>
         </div>
 
+        <!--<link href="<c:url value='/static/js/jquery.min.js'/>" rel="stylesheet'>">-->
+
         <!-- jQuery -->
-        <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+        <script src="<c:url value='/static/js/jquery.min.js'/>"></script>
         <!-- Bootstrap -->
-        <script src="assets//vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<c:url value='/static/js/bootstrap.min.js'/>"></script>
         <!-- FastClick -->
-        <script src="assets/vendors/fastclick/lib/fastclick.js"></script>
+        <script src="<c:url value='/static/js/fastclick.js'/>"></script>
         <!-- NProgress -->
-        <script src="assets/vendors/nprogress/nprogress.js"></script>
+        <script src="<c:url value='/static/js/nprogress.js'/>"></script>
         <!-- validator -->
-        <script src="assets/vendors/validator/validator.min.js"></script>
+        <script src="<c:url value='/static/js/validator.min.js'/>"></script>
 
         <script>
             $(document).ready(function () {
@@ -416,7 +444,7 @@
         </script>
 
         <!-- Custom Theme Scripts -->
-        <script src="assets/js/custom.js"></script>
+        <script src="<c:url value='assets/js/custom.js'/>"></script>
 
         <!-- validator -->
         <script>

@@ -12,6 +12,38 @@
         <link rel="stylesheet" href="<c:url value='/static/css/bootstrap.css' />" />
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript">
+                 (function ($, global) {
+
+    var _hash = "!",
+    noBackPlease = function () {
+        global.location.href += "#";
+
+        setTimeout(function () {
+            global.location.href += "!";
+        }, 50);
+    };
+
+    global.setInterval(function () {
+        if (global.location.hash != _hash) {
+            global.location.hash = _hash;
+        }
+    }, 100);
+
+    global.onload = function () {
+        noBackPlease();
+
+        // disables backspace on page except on input fields and textarea..
+        $(document.body).keydown(function (e) {
+            var elm = e.target.nodeName.toLowerCase();
+            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
+                e.preventDefault();
+            }
+            // stopping event bubbling up the DOM tree..
+            e.stopPropagation();
+        });
+    }
+
+})(jQuery, window);
             function startTimer(duration, start) {
                 var timer = start, minutes, seconds;
                 var display = document.querySelector('#time');

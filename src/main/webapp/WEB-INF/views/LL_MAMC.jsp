@@ -18,7 +18,40 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
 
+
         <script type="text/javascript">
+            (function ($, global) {
+
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
+
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
+
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
+
+                global.onload = function () {
+                    noBackPlease();
+
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
+
+            })(jQuery, window);
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
 //            window.onbeforeunload = function (e) {
 //                e = e || window.event;
@@ -65,61 +98,63 @@ and open the template in the editor.
     <body onload="startExamTimer();
             init();
             playAudio()">
-<%
+        <%
             int startTime = 0;
-           
+
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {
                 startTime = Integer.parseInt(session.getAttribute("startTime").toString());
-             
-                
+
             }
-            
-int count_questions=0;
-int previous_count=0;
-   
+
+            int count_questions = 0;
+            int previous_count = 0;
+
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count_questions = Integer.parseInt(session.getAttribute("question_count").toString());
-                
+
             }
-            
-             if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
-              
-                  previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
-                
-       ;         
-             
-                
+
+            if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
+
+                previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
+                ;
+
             }
-             
+
 
         %>
 
 
         <c:forEach var="question" items="${listOfQuestions}">
-              <c:set var="test" value="${offset+1}"/> 
-            
-                    <%
-  int resp = previous_count;
-  int test = Integer.parseInt(pageContext.getAttribute("test").toString());
-  resp = resp + test;
-  pageContext.setAttribute("resp", resp);
-  
-%>
+            <c:set var="test" value="${offset+1}"/> 
+
+            <%                        int resp = previous_count;
+                int test = Integer.parseInt(pageContext.getAttribute("test").toString());
+                resp = resp + test;
+                pageContext.setAttribute("resp", resp);
+
+            %>
+            <div id="logo_place_header"></div>
             <div class="col-md-10 col-md-offset-1">
-                <h1>Multiple-choice, choose multiple answers (Listening)</h1>
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-                <hr />
-                <div id="time_display_box">
+                <div class="col-md-7"><h3>Multiple-choice, choose multiple answers (Listening)</h3>
+                </div>
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
-                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
-                </div> 
+                <div class="pull-right" id="num_of_num">
+                    <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
+                </div>
+
+                <div class="clear"></div>
+                <hr />
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+
                 <div class="question">
                     <c:out value="${question.question}" />
                 </div>
 
                 <div class="col-md-5 audioBox">
+                    <i></i>
                     <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
@@ -131,7 +166,7 @@ int previous_count=0;
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                     <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                     <!--<input type="hidden" name="startTime" id="startTime" value="c:out value="{startTime}" default="1" />" />-->
-                    
+
                     <input type="hidden" value="${question.sectionId.audioPlayAfter}" id="audioPlayAfter" />
                     <input type="hidden" name="userId" value="1000" />
                     <input type="hidden" name="questionId" value="${question.questionId}" />

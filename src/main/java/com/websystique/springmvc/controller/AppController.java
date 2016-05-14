@@ -155,10 +155,10 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String firstPage(ModelMap model, Integer offset, Integer maxResults) {
-
+    public String firstPage(ModelMap model, Integer offset, Integer maxResults,HttpServletRequest req) {
+      
         System.out.println("users");
-        return "userslist";
+        return "mainpage";
     }
 
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
