@@ -87,7 +87,7 @@
                         <input type="hidden" id="startsIn" name="startsIn" value="<c:out value="${question.sectionId.startRecordAfter}" />" />
                         <input type="hidden" value="<c:out default="0" value="${offset}" />" name="offset" />
                         <input type="hidden" value="<c:out value="${question.questionId}" />" name="questionId" />
-                        <input type="hidden" name="filename" id="filename" value="nikesh.mp3" />
+                        <input type="hidden" name="filename" id="filename" value="" />
 
                         <div class="form-group">
                             <p class="clear" />
