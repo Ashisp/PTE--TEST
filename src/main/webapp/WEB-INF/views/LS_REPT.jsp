@@ -85,7 +85,7 @@ and open the template in the editor.
    
             if ((session.getAttribute("question_count") != "") && (session.getAttribute("question_count") != null)) {
                 count_ques = Integer.parseInt(session.getAttribute("question_count").toString());
-             
+          
                 
             }
             int previous_count=0;
@@ -93,9 +93,16 @@ and open the template in the editor.
  if ((session.getAttribute("previous_count") != "") && (session.getAttribute("previous_count") != null)) {
               
                   previous_count = Integer.parseInt(session.getAttribute("previous_count").toString());
-                
+               
                 
             }
+ 
+
+if(previous_count>=count_ques)
+{
+
+    previous_count=count_ques;
+}
         %>
         
          

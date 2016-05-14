@@ -79,9 +79,9 @@ public class AppController {
         return "start";
     }
 
+   
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
-
         int nextSectionToLoad = currentSection + 1;
         HttpSession session = req.getSession(false);
         System.out.println("Next: " + nextSectionToLoad);
@@ -92,17 +92,13 @@ public class AppController {
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
         if ((currentSection != 0)) {
             if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
-
                 Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-                session.setAttribute("previous_count", count_question_section);
-
+                    session.setAttribute("previous_count", count_question_section);
             }
         } else {
-
             Long count_question_section = questionService.CountALlQuestions(currentSection);
             session.setAttribute("previous_count", count_question_section);
-        }
-
+        }   
         session.setAttribute("question_count", count);
 
         if (catId != catId_next) {
@@ -177,6 +173,7 @@ public class AppController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loadLogin(HttpServletRequest req) {
+        logout(req);
         /*String userId = "";
          if (req.getSession(false) != null) {
          userId = (String) req.getSession(false).getAttribute("uid");
@@ -205,6 +202,7 @@ public class AppController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
+        if(req.getSession()!=null)
         req.getSession(false).invalidate();
         return "redirect:/login";
     }
@@ -1367,7 +1365,7 @@ public class AppController {
         userService.deleteById(id);
         return "userslist";
     }
-
+    
     @RequestMapping(value = "/restrict", method = RequestMethod.GET)
     public String showRestrictPage() {
         return "restrict";
@@ -1401,8 +1399,8 @@ public class AppController {
                 File dir = new File(rootPath + File.separator + "AudioFiles");
                 if (!dir.exists()) {
                     dir.mkdirs();
+                   
                 }
-
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
@@ -1410,7 +1408,7 @@ public class AppController {
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                return "You successfully uploaded file=" + name;
+                return "You successfully  ed file=" + name;
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }
@@ -1419,36 +1417,29 @@ public class AppController {
                     + " because the file was empty.";
         }
     }
-
     @RequestMapping(value = "/RecordingHandle", method = RequestMethod.POST)
     public String uploadRecordedFile(HttpServletRequest request) {
         OutputStream outputStream = null;
         try {
             String appPath = request.getServletContext().getRealPath("/");
-
             String name = request.getParameter("fname");
             String encodedData = request.getParameter("audio");
             outputStream = new FileOutputStream(new File(appPath + File.separator + name));//File.separator + "static" + File.separator + "Recordings" + 
             //outputStream.write(Base64.getDecoder().decode(encodedData));
-
         } catch (IOException ex) {
 
         } finally {
             try {
                 outputStream.close();
             } catch (IOException ex) {
-
             }
         }
         return "Success";
     }
-
     @RequestMapping(value = "/RecordingHandle", method = RequestMethod.GET)
     public void uploadRecordGET() {
         System.out.println("GET: RECORDING");
-
     }
-
     private void saveFileNameToDatabase(HttpServletRequest req) {
         int questionId = Integer.parseInt(req.getParameter("questionId"));
         String fileName = req.getParameter("filename");
@@ -1459,63 +1450,5 @@ public class AppController {
         ans.setUserId(new Users(Integer.parseInt(userId)));
         answersService.saveAnswers(ans);
     }
+    
 }
-
-//
-//	@RequestMapping(value = { "/download-document-{userId}-{docId}" }, method = RequestMethod.GET)
-//	public String downloadDocument(@PathVariable int userId, @PathVariable int docId, HttpServletResponse response) throws IOException {
-//		UserDocument document = userDocumentService.findById(docId);
-//		response.setContentType(document.getType());
-//        response.setContentLength(document.getContent().length);
-//        response.setHeader("Content-Disposition","attachment; filename=\"" + document.getName() +"\"");
-// 
-//        FileCopyUtils.copy(document.getContent(), response.getOutputStream());
-// 
-// 		return "redirect:/add-document-"+userId;
-//	}
-//
-//	@RequestMapping(value = { "/delete-document-{userId}-{docId}" }, method = RequestMethod.GET)
-//	public String deleteDocument(@PathVariable int userId, @PathVariable int docId) {
-//		userDocumentService.deleteById(docId);
-//		return "redirect:/add-document-"+userId;
-//	}
-//
-//	@RequestMapping(value = { "/add-document-{userId}" }, method = RequestMethod.POST)
-//	public String uploadDocument(@Valid FileBucket fileBucket, BindingResult result, ModelMap model, @PathVariable int userId) throws IOException{
-//		
-//		if (result.hasErrors()) {
-//			System.out.println("validation errors");
-//			User user = userService.findById(userId);
-//			model.addAttribute("user", user);
-//
-//			List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
-//			model.addAttribute("documents", documents);
-//			
-//			return "managedocuments";
-//		} else {
-//			
-//			System.out.println("Fetching file");
-//			
-//			User user = userService.findById(userId);
-//			model.addAttribute("user", user);
-//
-//			saveDocument(fileBucket, user);
-//
-//			return "redirect:/add-document-"+userId;
-//		}
-//	}
-//	
-//	private void saveDocument(FileBucket fileBucket, User user) throws IOException{
-//		
-//		UserDocument document = new UserDocument();
-//		
-//		MultipartFile multipartFile = fileBucket.getFile();
-//		
-//		document.setName(multipartFile.getOriginalFilename());
-//		document.setDescription(fileBucket.getDescription());
-//		document.setType(multipartFile.getContentType());
-//		document.setContent(multipartFile.getBytes());
-//		document.setUser(user);
-//		userDocumentService.saveDocument(document);
-//	}
-
