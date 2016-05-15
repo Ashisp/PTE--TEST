@@ -106,11 +106,11 @@ public class AppController {
             Long count_question_section = questionService.CountALlQuestions(currentSection);
             session.setAttribute("previous_count", count_question_section);
         }   
-        session.setAttribute("question_count", count);
+            session.setAttribute("question_count", count);
 
         if (catId != catId_next) {
 
-            session.setAttribute("startTime", 0);
+                session.setAttribute("startTime", 0);
 
             session.setAttribute("previous_count", 0);
 
@@ -160,14 +160,14 @@ public class AppController {
         System.out.println("users");
         return "userslist";
     }
-
+    
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String firstPage(ModelMap model, Integer offset, Integer maxResults,HttpServletRequest req) {
       
         System.out.println("users");
         return "index";
     }
-
+   
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
     public String firstPage(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -292,7 +292,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -339,7 +339,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -385,7 +385,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -431,7 +431,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -509,7 +509,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -565,7 +565,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -605,7 +605,7 @@ public class AppController {
         String s = req.getParameter("offset");
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -649,7 +649,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -699,7 +699,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -763,7 +763,7 @@ public class AppController {
         req.getSession(false).setAttribute("startTime", elapsedTime);
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -814,7 +814,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -858,7 +858,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -904,7 +904,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -930,7 +930,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -950,7 +950,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -970,7 +970,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -994,7 +994,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1035,7 +1035,7 @@ public class AppController {
         //String question_count = req.getParameter("question_no").toString();
         //req.getSession(false).setAttribute("question_no", question_count);
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1146,7 +1146,7 @@ public class AppController {
         String s = req.getParameter("offset");
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1190,7 +1190,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 1;
+            offset = 0;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1454,10 +1454,20 @@ public class AppController {
             String fileName = request.getParameter("fileName").toString();
             //GLOBAL_FILENAME = fileName;
             
+         
+         
             Part d = request.getPart("file");
             InputStream is = d.getInputStream();
+            String savePath =appPath + File.separator+"Recordings";
             
-            OutputStream os = new FileOutputStream(new File(appPath + File.separator + fileName));
+            
+                File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+            
+            
+            OutputStream os = new FileOutputStream(new File(savePath+ File.separator + fileName));
             
             byte[] buffer = new byte[1024];
             
