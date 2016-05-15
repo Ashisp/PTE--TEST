@@ -163,13 +163,12 @@
 
                         <div class="form-group">
                             <p class="clear" />
-                            <div class="col-sm-6 control-label">
-                                Starts in <span id="recordsIn"></span><br/>
-                                <span id="endsIn">00</span>/<span id="totalRecordTime">00</span>
+                            <div class="col-sm-12 control-label">
+                                <span id="sHide">Starts in <span id="recordsIn"></span></span>
+                                <span class="recordEndDisplay"><span id="endsIn">00</span>/<span id="totalRecordTime">00</span></span>
                             </div>
-                            <div class="col-sm-9">
-                                <h2>Log</h2>
-                                <pre id="log"></pre>
+                            <div class="col-sm-12">
+                                <img id="mic" src="<c:url value="static/images/mic.png" />" />
                             </div>
                             <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                         </div>
