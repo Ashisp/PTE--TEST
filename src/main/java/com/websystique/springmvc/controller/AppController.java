@@ -5,7 +5,7 @@ import com.websystique.springmvc.model.Answers;
 import com.websystique.springmvc.model.Categories;
 //import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.Questions;
-import com.websystique.springmvc.model.Sections;
+import com.websystique.springmvc.model.Sections;;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +87,12 @@ public class AppController {
 
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
-   currentSection=currentSection+1;
-        
+ 
+         int nextSectionToLoad = currentSection + 1;
         if (currentSection >= 21) {
             return "redirect:/end";
         }
-        int nextSectionToLoad = currentSection + 1;
+       
         long count_question_section = 0L;
 
         HttpSession session = req.getSession(false);
@@ -120,11 +120,8 @@ public class AppController {
           
             session.setAttribute("current_section_on_count", currentSection);
 
- session.setAttribute("previous_count", count_question_section);
- 
         } else {
-          
-          
+   
           if((session.getAttribute("current_section_on_count")!=null)&&(session.getAttribute("current_section_on_count")!=""))
           {
               
@@ -140,7 +137,7 @@ public class AppController {
                     
                 for (Integer i = 1; i <= nextSectionToLoad; i++) {
 
-                    count_question_section += questionService.CountALlQuestions(i);
+                    count_question_section =count_question_section + questionService.CountALlQuestions(i);
 
                     
                 }    
@@ -150,9 +147,7 @@ public class AppController {
               
               
               
-            System.out.println("sum 5"+questionService.CountALlQuestions(5)+"");
-                
-  System.out.println("sum 6"+questionService.CountALlQuestions(6)+"");
+         
                 session.setAttribute("previous_count", count_question_section);
             
 

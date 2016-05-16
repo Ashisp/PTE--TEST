@@ -122,11 +122,14 @@
         <c:forEach var="question" items="${listOfQuestions}">
 
             <c:set var="test" value="${offset+1}"/> 
+            <c:set var="time_total" value="${question.catId.totalTime/60}"/> 
 
             <%                        int resp = previous_count;
                 int test = Integer.parseInt(pageContext.getAttribute("test").toString());
                 resp = resp + test;
                 pageContext.setAttribute("resp", resp);
+                
+
 
             %>
             <div id="logo_place_header">
@@ -135,7 +138,7 @@
                 <div class="col-md-7"><h3>Select Missing Word</h3>
                 </div>
                 <div class="pull-right" id="time_display_box">
-                    Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
+                    Time: <span id="time">00:00</span>/<span id="duration"> time_total:00</span>
                 </div>
                 <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>

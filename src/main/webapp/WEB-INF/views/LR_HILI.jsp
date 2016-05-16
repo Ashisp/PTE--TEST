@@ -16,9 +16,7 @@
         <script src="<c:url value='/static/js/myjs.js' />"></script>
 
         <script type="text/javascript">
-            $('#submitbtn').click(function() {
-$(this).attr('disabled', true);
-});
+
             /*(function ($, global) {
              
              var _hash = "!",
