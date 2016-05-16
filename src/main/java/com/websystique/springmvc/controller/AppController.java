@@ -123,13 +123,34 @@ public class AppController {
  session.setAttribute("previous_count", count_question_section);
  
         } else {
+          
+          
+          if((session.getAttribute("current_section_on_count")!=null)&&(session.getAttribute("current_section_on_count")!=""))
+          {
+              
                 for (Integer i = Integer.parseInt(session.getAttribute("current_section_on_count").toString()); i <= nextSectionToLoad; i++) {
 
                     count_question_section += questionService.CountALlQuestions(i);
 
                     
                 }
-                System.out.println("sum 5"+questionService.CountALlQuestions(5)+"");
+          }
+                else
+                {
+                    
+                for (Integer i = 1; i <= nextSectionToLoad; i++) {
+
+                    count_question_section += questionService.CountALlQuestions(i);
+
+                    
+                }    
+          
+                
+                }
+              
+              
+              
+            System.out.println("sum 5"+questionService.CountALlQuestions(5)+"");
                 
   System.out.println("sum 6"+questionService.CountALlQuestions(6)+"");
                 session.setAttribute("previous_count", count_question_section);
