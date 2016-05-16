@@ -58,10 +58,8 @@ $(this).attr('disabled', true);
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
-
-            function noBack() {
-                window.history.forward();
-            }
+            
+            function noBack(){window.history.forward();}
         </script>
     </head>
     <body onload="noBack();startExamTimer();">

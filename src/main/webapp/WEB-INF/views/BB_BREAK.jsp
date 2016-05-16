@@ -119,12 +119,15 @@ and open the template in the editor.
                     //alert("Timer: " + timer);
                 }, 1000);
             }
+            
+            function noBack(){window.history.forward();}
+            
         </script>
 
         <link rel="icon" type="image/png" href="<c:out value='/assets/images/favicon.png'/>">
 
     </head>
-    <body onload="startTimer(1200, 1)">
+    <body onload="noBack();startTimer(1200, 1)">
 
         <div id = "container">
             <h1>Break</h1>

@@ -77,16 +77,13 @@ and open the template in the editor.
             function setAnswer() {
                 document.getElementById("answerPassage").value = document.getElementById("paragraph").innerHTML;
             }
-
-            function noBack() {
-                window.history.forward();
-            }
+            
+            function noBack(){window.history.forward();}
         </script>
     </head>
-    <body onload="noBack();
-            startExamTimer();">
-
-        <%
+    <body onload="noBack();startExamTimer();">
+     
+             <%
             int startTime = 0;
 
             if ((session.getAttribute("startTime") != "") && (session.getAttribute("startTime") != null)) {

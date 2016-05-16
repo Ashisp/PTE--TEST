@@ -71,13 +71,10 @@ $(this).attr('disabled', true);
             function extractHiddenEssay() {
                 document.getElementById("hiddenEssay").value = document.getElementById("essay").value;
             }
-            function noBack() {
-                window.history.forward();
-            }
+            function noBack(){window.history.forward();}
         </script>
     </head>
-    <body onload="noBack();
-            startTimer(2400, 1);">
+    <body onload="noBack();startTimer(2400, 1);">
         <%
             int count_questions = 0;
             int previous_count = 0;

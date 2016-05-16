@@ -81,19 +81,16 @@ $(this).attr('disabled', true);
             function extractHiddenSummary() {
                 document.getElementById("hiddenSummary").value = document.getElementById("summary").value;
             }
-
-            function noBack() {
-                window.history.forward();
-            }
-
+            
+            function noBack(){window.history.forward();}
+            
         </script>
     </head>
-
-
-    <body onload="noBack();
-            startTimer(600, 1)">
-
-
+    
+    
+    <body onload="noBack();startTimer(600, 1)">
+        
+        
         <%
             int count_questions = 0;
             int previous_count = 0;

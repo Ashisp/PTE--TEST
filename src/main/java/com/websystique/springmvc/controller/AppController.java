@@ -124,6 +124,18 @@ if(currentSection==1)
 }
 
 
+
+//        if ((currentSection != 0)) {
+//            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
+//                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+//                    session.setAttribute("previous_count", count_question_section);
+//            }
+//        } else {
+//            Long count_question_section = questionService.CountALlQuestions(currentSection);
+//            session.setAttribute("previous_count", count_question_section);
+//        }   
+//            session.setAttribute("question_count", count);
+
      
 else if ((catId != catId_next)){
     
