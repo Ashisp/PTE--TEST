@@ -17,61 +17,52 @@
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
 
+
+            (function ($, global) {
+
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
+
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
+
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
+
+                global.onload = function () {
+                    noBackPlease();
+
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
+
+            })(jQuery, window);
+
+
             function startExamTimer() {
-                 (function ($, global) {
-
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
-
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
-
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
-
-    global.onload = function () {
-        noBackPlease();
-
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
-
-})(jQuery, window);
-            /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-            /*window.onbeforeunload = function (e) {
-             e = e || window.event;
-             
-             // For IE and Firefox prior to version 4
-             if (e) {
-             e.returnValue = 'You sure?';
-             }
-             
-             // For others
-             return 'You sure?';
-             };*/
-   
-                function startExamTimer() {
                 var duration = document.getElementById("categoryTime").value;
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            
+            function noBack(){window.history.forward();}
 
         </script>
     </head>
-    <body onload="readyRecording();
+    <body onload="noBack();readyRecording();
             startExamTimer();">
 
         <%
@@ -135,13 +126,12 @@
                         <input type="hidden" name="filename" id="filename" value="" />
                         <div class="form-group">
                             <p class="clear" />
-                            <div class="col-sm-6 control-label">
-                                Starts in <span id="recordsIn"></span><br/>
-                                Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                            <div class="col-sm-12 control-label">
+                                <span id="sHide">Starts in <span id="recordsIn"></span></span>
+                                <span class="recordEndDisplay"><span id="endsIn">00</span>/<span id="totalRecordTime">00</span></span>
                             </div>
-                            <div class="col-sm-9">
-                                <h2>Log</h2>
-                                <pre id="log"></pre>
+                            <div class="col-sm-12">
+                                <img id="mic" src="<c:url value="static/images/mic.png" />" />
                             </div>
                             <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                         </div>
@@ -165,7 +155,7 @@
                 if (audioRecorder.isRecording() && !IS_STOPPED) {
                     recordStartStop();
                     IS_STOPPED = true;
-                    if(document.getElementById("filename").value !== ""){
+                    if (document.getElementById("filename").value !== "") {
                         return true;
                     }
                 } else {
@@ -182,7 +172,7 @@
                 var starts = 5;//parseInt(document.getElementById("startsIn").value);
                 var interval = setInterval(function () {
                     if (starts < 0) {
-
+                        document.getElementById("sHide").innerHTML = "Recording...";
                         recordStartStop();   // GOT INTO PROBLEM? RETHINK ABOUT THIS LINK (MIGHT SOLVE BY ADDING SOMETHING HERE clearInterval and stoprec.
                         clearInterval(interval);
                         endRecording();

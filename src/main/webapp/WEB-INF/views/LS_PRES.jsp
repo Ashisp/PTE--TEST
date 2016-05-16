@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,43 +13,49 @@
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
 
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
-
+        <style>
+            .recorderSpace {
+                margin-right: 140px;
+            }
+        </style>
         <script type="text/javascript">
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
-            
-                 (function ($, global) {
+$('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
+            (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
             /*window.onbeforeunload = function (e) {
              e = e || window.event;
@@ -69,6 +75,7 @@
                 time = parseInt(document.getElementById("audioPlayAfter").value) * 1000;
                 counter = time / 1000 - 1;
             }
+
 
             function playAudio() {
                 var interval = setInterval(function () {
@@ -93,9 +100,13 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            function noBack() {
+                window.history.forward();
+            }
         </script>
     </head>
-    <body onload="startExamTimer();
+    <body onload="noBack();
+            startExamTimer();
             init();
             playAudio();">
 
@@ -138,16 +149,22 @@
                 pageContext.setAttribute("resp", resp);
 
             %>
+            <div id="logo_place_header"></div>
+
             <div class="col-md-10 col-md-offset-1">
-                <h1>Re-tell lecture</h1>
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-                <hr />
-                <div>
+                <div class="col-md-7"><h3>Re-Tell Lecture</h3>
+                </div>
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
+                <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                <div class="clear"></div>
+                <hr/>
+
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+
                 <div class="imageView">
                     <c:if test="${question.imagePath != null}">
                         <div class="imageView col-md-5">
@@ -156,14 +173,14 @@
                     </c:if>
                 </div>
                 <div class="col-md-5 audioBox">
-                    <h3 class="audioPlayer">Audio Player...<span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
+                    <h3 class="audioPlayer">Audio Player...<br/><span class="text-success" id="playing">Plays in <span id="playsIn"><c:out value="${question.sectionId.audioPlayAfter}" /></span></span></h3>
                     <audio id="audiotag1" onended="readyRecording();" src="<c:url value='../media/files/${question.audioPath}' />"></audio>
                 </div>
 
                 <p class="clear" />
-                <hr/>
+                
                 <form method="post" onsubmit="return imDone();">
-                    <div class="recorderSpace" style="float:left;">
+                    <div class="col-md-5 recorderSpace" style="float:right;">
                         <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                         <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
                         <input type="hidden" id="elapsedTime" name="elapsedTime" value="" />
@@ -177,20 +194,22 @@
 
                         <div class="form-group">
                             <p class="clear" />
-                            <div class="col-sm-6 control-label">
-                                Starts in <span id="recordsIn"></span><br/>
-                                Recording time <span id="endsIn"></span>/<span id="totalRecordTime"></span>
+                            <div class="col-sm-12 control-label">
+                                <span id="sHide">Starts in <span id="recordsIn"></span></span>
+                                <span class="recordEndDisplay"><span id="endsIn">00</span>/<span id="totalRecordTime">00</span></span>
                             </div>
-                            <div class="col-sm-9">
-                                <h2>Log</h2>
-                                <pre id="log"></pre>
+                            <div class="col-sm-12">
+                                <img id="mic" src="<c:url value="static/images/mic.png" />" />
                             </div>
                             <!--<div class="col-sm-6"><span id="date-time" class="text-info"></span></div>-->
                         </div>
                     </div>
                     <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
+                    <br/>
+                    <div class="clear"></div>
+                    <hr/>
                     <div>
-                        <input type="submit" name="done" value="Next"  class="btn btn-primary" style="float:right" />
+                       <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
             </div>
@@ -217,7 +236,7 @@
                 var fileNameHaita = document.getElementById("filename");
                 fileNameHaita.value = "recording" + new Date().getTime() + ".mp3";
 
-                var starts = 5;//parseInt(document.getElementById("startsIn").value);
+                parseInt(document.getElementById("startsIn").value);
                 var interval = setInterval(function () {
                     if (starts < 0) {
 

@@ -45,7 +45,7 @@ $microphone.attr('disabled', false);
 $microphone[0].checked = false;
 
 $microphoneLevel.attr('disabled', false);
-$microphoneLevel[0].valueAsNumber = 10;
+$microphoneLevel[0].valueAsNumber = 5;
 $timeLimit.attr('disabled', false);
 $timeLimit[0].valueAsNumber = 3;
 $encoding.attr('disabled', false);
@@ -75,7 +75,7 @@ var testTone = (function () {
     lfo.frequency.value = 2;
     osc.connect(ampMod);
     lfo.connect(ampMod.gain);
-    output.gain.value = 0.5;
+    output.gain.value = 0;
     ampMod.connect(output);
     osc.start();
     lfo.start();
@@ -101,9 +101,9 @@ var testToneLevel = audioContext.createGain(),
 testTone.connect(testToneLevel);
 testToneLevel.gain.value = 0;
 testToneLevel.connect(mixer);
-microphoneLevel.gain.value = 0;
+microphoneLevel.gain.value = 5;
 microphoneLevel.connect(mixer);
-mixer.connect(audioContext.destination);
+//mixer.connect(audioContext.destination);
 
 // audio recorder object
 var audioRecorder = new WebAudioRecorder(mixer, {
@@ -124,11 +124,11 @@ $testToneLevel.on('input', function () {
     var level = $testToneLevel[0].valueAsNumber / 100;
     testToneLevel.gain.value = level * level;
 });
-
-//$microphoneLevel.on('input', function() {
-var level = 0.7; //$microphoneLevel[0].valueAsNumber / 100;
+$microphoneLevel.on('input', function() {
+var level = 0.7; 
+$microphoneLevel[0].valueAsNumber / 100;
 microphoneLevel.gain.value = level * level;
-//});
+});
 
 
 

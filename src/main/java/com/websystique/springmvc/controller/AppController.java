@@ -85,41 +85,95 @@ public class AppController {
         return "start";
     }
 
-   
+  
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
+        if(currentSection==0)
+        {
+        
+        currentSection=1;
+        
+        }
+          if (currentSection>=21) {
+            return "redirect:/end";
+        }
         int nextSectionToLoad = currentSection + 1;
+        long count_question_section=0L;
+       
         HttpSession session = req.getSession(false);
+          session.setAttribute("previous_count", 0);
         System.out.println("Next: " + nextSectionToLoad);
 
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
-
-        if ((currentSection != 0)) {
-            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
-                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-                    session.setAttribute("previous_count", count_question_section);
-            }
-        } else {
-            Long count_question_section = questionService.CountALlQuestions(currentSection);
-            session.setAttribute("previous_count", count_question_section);
-        }   
+      
+               
+           
+                
+               // Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+                   
+            
+       
             session.setAttribute("question_count", count);
+if(currentSection==1)
+{
+    
+    session.setAttribute("previous_count", 0);
+}
 
-        if (catId != catId_next) {
+
+     
+else if ((catId != catId_next)){
+    
+session.setAttribute("current_section_on_count", currentSection);
 
                 session.setAttribute("startTime", 0);
 
             session.setAttribute("previous_count", 0);
-
+ 
         }
+        
+        else
+        {
+            
+            if(session.getAttribute("current_section_on_count")==null)
+            {
+         for(int i=1;i<=currentSection;i++)
+                {
+                    
+             count_question_section+=questionService.CountALlQuestions(i);
+            
+             
+           
+                }
+            }
+        else
+                
+            {
+            
+                 for(int i=Integer.parseInt(session.getAttribute("current_section_on_count").toString());i<=currentSection;i++)
+                {
+                    
+             count_question_section+=questionService.CountALlQuestions(i);
+            
+             
+           
+                }
+            }
+          
+         
+         
+                     session.setAttribute("previous_count", count_question_section);
+        
+        }
+        
+       
+        
+        
+         
 
-//        if(cat!=cat)
-//        {
-//        
-//        }
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
         }
@@ -292,7 +346,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -339,7 +393,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -385,7 +439,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -431,7 +485,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -509,7 +563,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -565,7 +619,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -605,7 +659,7 @@ public class AppController {
         String s = req.getParameter("offset");
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -649,7 +703,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -672,7 +726,7 @@ public class AppController {
         Long count;
         //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
-        if (userId == null) {
+            if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
@@ -699,7 +753,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -708,7 +762,12 @@ public class AppController {
             return "redirect:/RR-SAMC?offset=" + offset;
 
         }
-        return loadSection(currentSection, req);
+        
+      else
+        {
+             return loadSection(currentSection, req);
+        }
+       
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -763,7 +822,7 @@ public class AppController {
         req.getSession(false).setAttribute("startTime", elapsedTime);
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -814,7 +873,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -858,7 +917,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -904,7 +963,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -930,7 +989,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -950,7 +1009,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -970,7 +1029,7 @@ public class AppController {
         String elapsedTime = req.getParameter("elapsedTime").toString();
         req.getSession(false).setAttribute("startTime", elapsedTime);
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -994,7 +1053,7 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1035,7 +1094,7 @@ public class AppController {
         //String question_count = req.getParameter("question_no").toString();
         //req.getSession(false).setAttribute("question_no", question_count);
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1146,7 +1205,7 @@ public class AppController {
         String s = req.getParameter("offset");
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
@@ -1190,13 +1249,13 @@ public class AppController {
 
         int offset;
         if (s.isEmpty() || s.equals("")) {
-            offset = 0;
+            offset = 1;
         } else {
             offset = Integer.parseInt(s) + 1;
         }
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
-            return "redirect:/WW-ESSA?offset=" + offset;
+            return "redirect:/WW-ESSA" ;
 
         }
         return loadSection(currentSection, req);

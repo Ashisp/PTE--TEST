@@ -10,7 +10,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Express Edu.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,6 +21,9 @@ and open the template in the editor.
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
 
         <script type="text/javascript">
+            $('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
      (function ($, global) {
 
@@ -67,12 +70,12 @@ and open the template in the editor.
             function setSelectedItem(selectedItem) {
                 selectedItem.options[selectedItem.selectedIndex].setAttribute("selected", "selected");
             }
+            
+            function noBack(){window.history.forward();}
+            
         </script>
     </head>
-    <body
-
-
-        onload="startExamTimer();">
+    <body onload="noBack();startExamTimer();">
         <%
             int startTime = 0;
            
@@ -113,18 +116,23 @@ int previous_count=0;
   pageContext.setAttribute("resp", resp);
   
 %>
-            <div class ="col-md-10 col-md-offset-1">
-                <h1>Fill in the blanks (Reading & Writing)</h1>
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+            <div id="logo_place_header"></div>
 
-                <hr />
-                <div>
+            <div class ="col-md-10 col-md-offset-1">
+                <div class="col-md-7"><h3>Fill In the Blanks (Reading and Writing)</h3>
+                </div>
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
 
-                <div>
+                <div class="pull-right" id="num_of_num">
                      <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
+                
+                <div class="clear"></div>
+                <hr/>
+                                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+
                 <p class="clear" />
                 <form method="post" onsubmit="setAnswerPassage();">
                     <input type="hidden" name="questionId" value="${question.questionId}" />
@@ -143,8 +151,9 @@ int previous_count=0;
                         <input type="hidden" name="count" value="${count}" />
                         <input type="hidden" value="${question.sectionId.sectionId}" name="currentSection" />
                     </div>
+                    <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                       <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
 

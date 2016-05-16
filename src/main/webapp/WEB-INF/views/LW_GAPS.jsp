@@ -17,6 +17,9 @@
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
 
         <script type="text/javascript">
+            $('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
             (function ($, global) {
 
                 var _hash = "!",
@@ -92,10 +95,14 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            function noBack() {
+                window.history.forward();
+            }
         </script>
 
     </head>
-    <body  onload="init();
+    <body  onload="noBack();
+            init();
             startExamTimer();
             playAudio()">
 
@@ -137,13 +144,18 @@
 
             %>
 
+
             <div id="logo_place_header"></div>
+
+
+
             <div class="col-md-10 col-md-offset-1">
                 <div class="col-md-7"><h3>Fill in the blanks (Listening)</h3>
                 </div>
                 <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
+
                 <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
                 </div> 
@@ -178,7 +190,7 @@
                     </div>
                         <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                      <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
 

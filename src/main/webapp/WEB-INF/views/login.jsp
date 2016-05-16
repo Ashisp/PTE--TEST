@@ -93,12 +93,14 @@
                 color: #FFF;
             }
         </style>
-
+        <script type="text/javascript">
+            function noBack(){window.history.forward();}
+        </script>
         <!-- Linking the favicon icon-image -->
         <link rel="icon" type="image/png" href="assets/images/favicon.png">
     </head>
 
-    <body>
+    <body onload="noBack();">
         
         <div id = "container">
             <div id = "logo">

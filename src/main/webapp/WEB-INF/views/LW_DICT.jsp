@@ -32,7 +32,9 @@ and open the template in the editor.
 
         <script type="text/javascript">
                  (function ($, global) {
-
+$('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
     var _hash = "!",
     noBackPlease = function () {
         global.location.href += "#";
@@ -105,10 +107,12 @@ and open the template in the editor.
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            
+            function noBack(){window.history.forward();}
 
         </script>
     </head>
-    <body onload="startExamTimer();
+    <body onload="noBack();startExamTimer();
             init();
             playAudio()">
 
@@ -184,7 +188,7 @@ and open the template in the editor.
                     </div>
                     <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                       <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
 

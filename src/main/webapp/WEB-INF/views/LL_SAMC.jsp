@@ -17,7 +17,9 @@
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
             /** SHOW WARNING WHILE USER TRIES TO LEAVE PAGE IN ANY WAY **/
-
+$('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
 
             (function ($, global) {
 
@@ -80,9 +82,11 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            
+            function noBack(){window.history.forward();}
         </script>
     </head>
-    <body onload="startExamTimer();
+    <body onload="noBack();startExamTimer();
             init();
             playAudio()">
         <%
@@ -165,7 +169,7 @@
                     </div>
                     <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                      <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
 

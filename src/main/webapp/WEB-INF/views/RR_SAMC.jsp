@@ -18,6 +18,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="<c:url value='/static/css/main.css' />" />
         <script type="text/javascript" src="<c:url value='static/js/mytimer.js' />"></script>
         <script type="text/javascript">
+            $('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
             (function ($, global) {
 
                 var _hash = "!",
@@ -55,9 +58,13 @@ and open the template in the editor.
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+
+            function noBack() {
+                window.history.forward();
+            }
         </script>
     </head>
-    <body onload="startExamTimer();">
+    <body onload="noBack();startExamTimer();">
 
         <%
             int startTime = 0;
@@ -96,28 +103,28 @@ and open the template in the editor.
 
             <div id="logo_place_header"></div>
             <div class="col-md-10 col-md-offset-1">
-                <div class="col-md-7"><h3>Multiple-choice, choose single answer (Reading)</h3>
-                </div>
-                <h1>Multiple-choice, choose single answer (Reading)</h1>
 
-                <div class="question col-md-6" style="float: left;">
-                    <c:out value="${question.passage}" />
+                <div class="col-md-7"><h3>Multiple Choice, Choose Single Answer (Reading)</h3>
                 </div>
-
-                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
-                </hr>
-                <div>
+                <div class="pull-right" id="time_display_box">
                     Time: <span id="time">00:00</span>/<span id="duration"> <c:out value="${question.catId.totalTime/60}" />:00</span>
                 </div>
-                <div>
+                <div class="pull-right" id="num_of_num">
                     <span id="question"><c:out value="<%=(resp)%>" /></span> of <span id="questions"> <c:out value="<%= (count_questions)%>"  /></span>
-                </div> 
+                </div>
+                <div class="clear"></div>
+                <hr/>
+                <p class="instruction"><c:out value="${question.sectionId.instructions}" /></p>
+
+                <div class="question col-md-12">
+                    <c:out value="${question.passage}" />
+                </div>
 
                 <form action="" method="post">
                     <input type="hidden" name="elapsedTime" id="elapsedTime" value="" />
                     <input type="hidden" id="categoryTime" value="<c:out value="${question.catId.totalTime}" />" />
                     <input type="hidden" id="startTimerAt" value="<%= (startTime)%>" />
-                    <div class="userspace col-md-6">
+                    <div class="userspace col-md-12">
                         <input type="hidden" id="previous_count" name="previous_count" value="<c:out value="${resp}" />" />
                         <input type="hidden" name="questionId" value="${question.questionId}" />
                         <input type="hidden" name="offset" value="<c:out default="0" value="${offset}" />" />
@@ -131,8 +138,10 @@ and open the template in the editor.
                         </c:forEach>
                     </div>
 
+                        <div class="clear"></div>
+                        <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                      <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
 
                 </form>

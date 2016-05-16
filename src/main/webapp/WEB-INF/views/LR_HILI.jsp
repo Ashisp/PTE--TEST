@@ -16,6 +16,9 @@
         <script src="<c:url value='/static/js/myjs.js' />"></script>
 
         <script type="text/javascript">
+            $('#submitbtn').click(function() {
+$(this).attr('disabled', true);
+});
             /*(function ($, global) {
              
              var _hash = "!",
@@ -156,10 +159,11 @@
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
+            function noBack(){window.history.forward();}
         </script>
 
     </head>
-    <body onload="startExamTimer();
+    <body onload="noBack();startExamTimer();
             init();
             playAudio()">
 
@@ -241,7 +245,7 @@
                     <input type="hidden" name="selected" id="selected-hidden" value="" />
                     <hr/>
                     <div>
-                        <input type="submit" name="submit" value="Next" class="btn btn-primary" style="float:right" />
+                       <input type="submit" name="submit" value="Next" id="submitbtn" class="btn btn-primary" style="float:right">
                     </div>
                 </form>
                 <p class="clear" />
