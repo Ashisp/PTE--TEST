@@ -2,13 +2,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.websystique.springmvc</groupId>
-  <artifactId>Spring4MVCFileUploadDownloadWithHibernate</artifactId>
+  <artifactId>ROOT</artifactId>
   <packaging>war</packaging>
   <version>1.0.0</version>
-  <name>ptetest</name>
+  <name>ROOT</name>
   <url>http://maven.apache.org</url>
-  
-  
   	<properties>
 		<springframework.version>4.2.0.RELEASE</springframework.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
@@ -103,12 +101,12 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>Spring4MVCFileUploadDownloadWithHibernate</warName>
+						<warName>ROOT</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>Spring4MVCFileUploadDownloadWithHibernate</finalName>
+		<finalName>ROOT</finalName>
 	</build>
 </project>

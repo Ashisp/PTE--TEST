@@ -76,7 +76,7 @@ public class AppController {
 
     @Autowired
     SectionsService sectionService;
-    
+
     private String GLOBAL_FILENAME = "";
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
@@ -85,106 +85,59 @@ public class AppController {
         return "start";
     }
 
-  
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
-        if(currentSection==0)
-        {
+   currentSection=currentSection+1;
         
-        currentSection=1;
-        
-        }
-          if (currentSection>=21) {
+        if (currentSection >= 21) {
             return "redirect:/end";
         }
         int nextSectionToLoad = currentSection + 1;
-        long count_question_section=0L;
-       
-        HttpSession session = req.getSession(false);
-          session.setAttribute("previous_count", 0);
-        System.out.println("Next: " + nextSectionToLoad);
+        long count_question_section = 0L;
 
+        HttpSession session = req.getSession(false);
+        session.setAttribute("previous_count", 0);
+        System.out.println("Next: " + nextSectionToLoad);
+  //session.setAttribute("current_section_on_count", 0);
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
         Long count = questionService.CountALlQuestionsByCatId(catId_next);
-      
-               
-           
-                
-               // Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-                   
-            
-       
-            session.setAttribute("question_count", count);
-if(currentSection==1)
-{
-    
-    session.setAttribute("previous_count", 0);
-}
 
-
-
-//        if ((currentSection != 0)) {
-//            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
-//                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
-//                    session.setAttribute("previous_count", count_question_section);
-//            }
-//        } else {
-//            Long count_question_section = questionService.CountALlQuestions(currentSection);
-//            session.setAttribute("previous_count", count_question_section);
-//        }   
-//            session.setAttribute("question_count", count);
-
-     
-else if ((catId != catId_next)){
-    
-session.setAttribute("current_section_on_count", currentSection);
-
-                session.setAttribute("startTime", 0);
-
-            session.setAttribute("previous_count", 0);
- 
-        }
-        
-        else
-        {
-            
-            if(session.getAttribute("current_section_on_count")==null)
-            {
-         for(int i=1;i<=currentSection;i++)
-                {
-                    
-             count_question_section+=questionService.CountALlQuestions(i);
-            
-             
-           
-                }
-            }
-        else
-                
-            {
-            
-                 for(int i=Integer.parseInt(session.getAttribute("current_section_on_count").toString());i<=currentSection;i++)
-                {
-                    
-             count_question_section+=questionService.CountALlQuestions(i);
-            
-             
-           
-                }
-            }
+        // Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+        session.setAttribute("question_count", count);
+         //        if ((currentSection != 0)) {
+        //            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
+        //                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
+        //                    session.setAttribute("previous_count", count_question_section);
+        //            }
+        //        } else {  
+        //            Long count_question_section = questionService.CountALlQuestions(currentSection);
+        //            session.setAttribute("previous_count", count_question_section);
+        //        }   
+        //            session.setAttribute("question_count", count);
+      if (!(catId.equals(catId_next))) {
           
-         
-         
-                     session.setAttribute("previous_count", count_question_section);
-        
+            session.setAttribute("current_section_on_count", currentSection);
+
+ session.setAttribute("previous_count", count_question_section);
+ 
+        } else {
+                for (Integer i = Integer.parseInt(session.getAttribute("current_section_on_count").toString()); i <= nextSectionToLoad; i++) {
+
+                    count_question_section += questionService.CountALlQuestions(i);
+
+                    
+                }
+                System.out.println("sum 5"+questionService.CountALlQuestions(5)+"");
+                
+  System.out.println("sum 6"+questionService.CountALlQuestions(6)+"");
+                session.setAttribute("previous_count", count_question_section);
+            
+
+            //session.setAttribute("previous_count", count_question_section);
+
         }
-        
-       
-        
-        
-         
 
         if (sectionNext.isEmpty()) {
             return "redirect:/end";
@@ -192,6 +145,8 @@ session.setAttribute("current_section_on_count", currentSection);
         return "redirect:/" + sectionNext;
     }
 
+    
+    
     @RequestMapping(value = "/loadcategories", method = RequestMethod.POST)
     public String loadCategories(@RequestParam("currentSection") int currentCat) {
         int nextCattoLoad = currentCat + 1;
@@ -226,14 +181,14 @@ session.setAttribute("current_section_on_count", currentSection);
         System.out.println("users");
         return "userslist";
     }
-    
+
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String firstPage(ModelMap model, Integer offset, Integer maxResults,HttpServletRequest req) {
-      
+    public String firstPage(ModelMap model, Integer offset, Integer maxResults, HttpServletRequest req) {
+
         System.out.println("users");
         return "index";
     }
-   
+
     @RequestMapping(value = {"/Mainpage"}, method = RequestMethod.GET)
     public String firstPage(ModelMap model, HttpServletRequest req) {
         String userId = (String) req.getSession(false).getAttribute("uid");
@@ -275,8 +230,9 @@ session.setAttribute("current_section_on_count", currentSection);
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
-        if(req.getSession()!=null)
-        req.getSession(false).invalidate();
+        if (req.getSession() != null) {
+            req.getSession(false).invalidate();
+        }
         return "redirect:/login";
     }
 
@@ -738,7 +694,7 @@ session.setAttribute("current_section_on_count", currentSection);
         Long count;
         //  count=questionService.CountALlQuestions(sectionId);
         String userId = (String) req.getSession(false).getAttribute("uid");
-            if (userId == null) {
+        if (userId == null) {
             return "redirect:/register";
         }
         int sectionId = sectionService.findSectionIdByUrlPattern("RR-SAMC");
@@ -773,13 +729,10 @@ session.setAttribute("current_section_on_count", currentSection);
             // load section
             return "redirect:/RR-SAMC?offset=" + offset;
 
+        } else {
+            return loadSection(currentSection, req);
         }
-        
-      else
-        {
-             return loadSection(currentSection, req);
-        }
-       
+
     }
 
     @RequestMapping(value = {"/RW-GAPS"}, method = RequestMethod.GET)
@@ -1267,7 +1220,7 @@ session.setAttribute("current_section_on_count", currentSection);
         }
         if (offset != questionService.CountALlQuestions(currentSection)) {
             // load section
-            return "redirect:/WW-ESSA" ;
+            return "redirect:/WW-ESSA";
 
         }
         return loadSection(currentSection, req);
@@ -1443,7 +1396,7 @@ session.setAttribute("current_section_on_count", currentSection);
         userService.deleteById(id);
         return "userslist";
     }
-    
+
     @RequestMapping(value = "/restrict", method = RequestMethod.GET)
     public String showRestrictPage() {
         return "restrict";
@@ -1477,7 +1430,7 @@ session.setAttribute("current_section_on_count", currentSection);
                 File dir = new File(rootPath + File.separator + "AudioFiles");
                 if (!dir.exists()) {
                     dir.mkdirs();
-                   
+
                 }
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
@@ -1516,37 +1469,31 @@ session.setAttribute("current_section_on_count", currentSection);
         }
         return "Success";
     }*/
-
     @RequestMapping(value = "/handleRecord", method = RequestMethod.POST)
-    public String newRecording(HttpServletRequest request) 
-    {
+    public String newRecording(HttpServletRequest request) {
         try {
             String appPath = request.getServletContext().getRealPath("/");
             String fileName = request.getParameter("fileName").toString();
             //GLOBAL_FILENAME = fileName;
-            
-         
-         
+
             Part d = request.getPart("file");
             InputStream is = d.getInputStream();
-            String savePath =appPath + File.separator+"Recordings";
-            
-            
-                File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }
-            
-            
-            OutputStream os = new FileOutputStream(new File(savePath+ File.separator + fileName));
-            
+            String savePath = appPath + File.separator + "Recordings";
+
+            File fileSaveDir = new File(savePath);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdir();
+            }
+
+            OutputStream os = new FileOutputStream(new File(savePath + File.separator + fileName));
+
             byte[] buffer = new byte[1024];
-            
+
             int bytesRead;
             while ((bytesRead = is.read(buffer)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
-            
+
             os.close();
             is.close();
             //saveFileNameToDatabase(request, fileName);
@@ -1574,5 +1521,5 @@ session.setAttribute("current_section_on_count", currentSection);
         ans.setUserId(new Users(Integer.parseInt(userId)));
         answersService.saveAnswers(ans);
     }
-    
+
 }

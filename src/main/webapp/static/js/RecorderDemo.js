@@ -277,10 +277,6 @@ function saveRecording(blob, encoding) {
             "'>Delete</button>" +
             "</p>";
     //$recordingList.prepend($(html));
-
-
-
-
     var data = new FormData();
     data.append('file', blob);
     var mp3Name = document.getElementById("filename").value;//encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
@@ -288,13 +284,12 @@ function saveRecording(blob, encoding) {
     //document.getElementById("filename").value = mp3Name;
 
     $.ajax({
-        url: "/ptetest/handleRecord",
+    url: "handleRecord",
         type: 'POST',
         data: data,
         contentType: false,
         processData: false,
         success: function (data) {
-            //alert("boa!");
         },
         error: function () {
             //alert("not so boa!");

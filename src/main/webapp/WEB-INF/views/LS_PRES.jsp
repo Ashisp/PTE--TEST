@@ -233,7 +233,7 @@ $(this).attr('disabled', true);
                 var fileNameHaita = document.getElementById("filename");
                 fileNameHaita.value = "recording" + new Date().getTime() + ".mp3";
 
-                parseInt(document.getElementById("startsIn").value);
+                 var starts = parseInt(document.getElementById("startsIn").value);
                 var interval = setInterval(function () {
                     if (starts < 0) {
 

@@ -14,7 +14,7 @@
                 margin-left: auto;
                 margin-right: auto;
             }
-
+ 
             html, body {
                 width: 100%;
                 height: 100%;

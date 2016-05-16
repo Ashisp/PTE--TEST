@@ -223,7 +223,7 @@
                 //alert("Form DATA: " + fd.get('data'));
                 $.ajax({
                     type: 'POST',
-                    url: '/ptetest/RecordingHandle',
+                    url: '/RecordingHandle',
                     data: fd,
                     processData: false,
                     contentType: false/*,

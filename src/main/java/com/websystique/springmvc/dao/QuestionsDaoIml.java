@@ -100,13 +100,13 @@ public class QuestionsDaoIml extends AbstractDao<Integer, Questions> implements 
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
  @SuppressWarnings("unchecked")
     public Long CountQuestions(Integer sectionId) {
-       
-        
-        return ((Long)getSession().  createQuery("select count(*) from Questions  WHERE sectionId = :sectionId").
+           
+        return ((Long)getSession().createQuery("select count(*) from Questions  WHERE sectionId = :sectionId").
                     setString("sectionId", String.valueOf(sectionId)).uniqueResult());
-    
+
     }
     
      @SuppressWarnings("unchecked")
