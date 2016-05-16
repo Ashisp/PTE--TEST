@@ -5,7 +5,8 @@ import com.websystique.springmvc.model.Answers;
 import com.websystique.springmvc.model.Categories;
 //import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.Questions;
-import com.websystique.springmvc.model.Sections;;
+import com.websystique.springmvc.model.Sections;
+;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+
 @Controller
 @RequestMapping("/")
 @MultipartConfig
@@ -87,18 +90,18 @@ public class AppController {
 
     @RequestMapping(value = "/loadSection", method = RequestMethod.POST)
     public String loadSection(@RequestParam("currentSection") int currentSection, HttpServletRequest req) {
- 
-         int nextSectionToLoad = currentSection + 1;
+
+        int nextSectionToLoad = currentSection + 1;
         if (currentSection >= 21) {
             return "redirect:/end";
         }
-       
+
         long count_question_section = 0L;
 
         HttpSession session = req.getSession(false);
         session.setAttribute("previous_count", 0);
         System.out.println("Next: " + nextSectionToLoad);
-  //session.setAttribute("current_section_on_count", 0);
+        //session.setAttribute("current_section_on_count", 0);
         String sectionNext = sectionService.findUrlPatternByOrderSequence(nextSectionToLoad);
         Integer catId = sectionService.findCatIdBySectionId(currentSection);
         Integer catId_next = sectionService.findCatIdBySectionId(nextSectionToLoad);
@@ -106,7 +109,7 @@ public class AppController {
 
         // Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
         session.setAttribute("question_count", count);
-         //        if ((currentSection != 0)) {
+        //        if ((currentSection != 0)) {
         //            if ((req.getSession(false).getAttribute("previous_count").toString() != null) && (req.getSession(false).getAttribute("previous_count").toString() != "")) {
         //                Long count_question_section = questionService.CountALlQuestions(currentSection) + Integer.parseInt(req.getSession(false).getAttribute("previous_count").toString());
         //                    session.setAttribute("previous_count", count_question_section);
@@ -116,43 +119,32 @@ public class AppController {
         //            session.setAttribute("previous_count", count_question_section);
         //        }   
         //            session.setAttribute("question_count", count);
-      if (!(catId.equals(catId_next))) {
-          
-            session.setAttribute("current_section_on_count", currentSection);
+        if (!(catId.equals(catId_next))) {
+
+            session.setAttribute("current_section_on_count", nextSectionToLoad);
 
         } else {
-   
-          if((session.getAttribute("current_section_on_count")!=null)&&(session.getAttribute("current_section_on_count")!=""))
-          {
-              
-                for (Integer i = Integer.parseInt(session.getAttribute("current_section_on_count").toString()); i <= nextSectionToLoad; i++) {
+
+            if ((session.getAttribute("current_section_on_count") != null) && (session.getAttribute("current_section_on_count") != "")) {
+
+                for (Integer i = Integer.parseInt(session.getAttribute("current_section_on_count").toString()); i <= currentSection; i++) {
 
                     count_question_section += questionService.CountALlQuestions(i);
 
-                    
                 }
-          }
-                else
-                {
-                    
+            } else {
+
                 for (Integer i = 1; i <= nextSectionToLoad; i++) {
 
-                    count_question_section =count_question_section + questionService.CountALlQuestions(i);
+                    count_question_section = count_question_section + questionService.CountALlQuestions(i);
 
-                    
-                }    
-          
-                
                 }
-              
-              
-              
-         
-                session.setAttribute("previous_count", count_question_section);
-            
+
+            }
+
+            session.setAttribute("previous_count", count_question_section);
 
             //session.setAttribute("previous_count", count_question_section);
-
         }
 
         if (sectionNext.isEmpty()) {
@@ -161,8 +153,6 @@ public class AppController {
         return "redirect:/" + sectionNext;
     }
 
-    
-    
     @RequestMapping(value = "/loadcategories", method = RequestMethod.POST)
     public String loadCategories(@RequestParam("currentSection") int currentCat) {
         int nextCattoLoad = currentCat + 1;

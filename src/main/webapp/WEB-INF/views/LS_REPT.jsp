@@ -18,38 +18,38 @@ and open the template in the editor.
 
         <script src="<c:url value='/static/js/mytimer.js' />"></script>
         <script type="text/javascript">
-                 (function ($, global) {
+            (function ($, global) {
 
-    var _hash = "!",
-    noBackPlease = function () {
-        global.location.href += "#";
+                var _hash = "!",
+                        noBackPlease = function () {
+                            global.location.href += "#";
 
-        setTimeout(function () {
-            global.location.href += "!";
-        }, 50);
-    };
+                            setTimeout(function () {
+                                global.location.href += "!";
+                            }, 50);
+                        };
 
-    global.setInterval(function () {
-        if (global.location.hash != _hash) {
-            global.location.hash = _hash;
-        }
-    }, 100);
+                global.setInterval(function () {
+                    if (global.location.hash != _hash) {
+                        global.location.hash = _hash;
+                    }
+                }, 100);
 
-    global.onload = function () {
-        noBackPlease();
+                global.onload = function () {
+                    noBackPlease();
 
-        // disables backspace on page except on input fields and textarea..
-        $(document.body).keydown(function (e) {
-            var elm = e.target.nodeName.toLowerCase();
-            if (e.which == 8 && elm !== 'input' && elm  !== 'textarea') {
-                e.preventDefault();
-            }
-            // stopping event bubbling up the DOM tree..
-            e.stopPropagation();
-        });
-    }
+                    // disables backspace on page except on input fields and textarea..
+                    $(document.body).keydown(function (e) {
+                        var elm = e.target.nodeName.toLowerCase();
+                        if (e.which == 8 && elm !== 'input' && elm !== 'textarea') {
+                            e.preventDefault();
+                        }
+                        // stopping event bubbling up the DOM tree..
+                        e.stopPropagation();
+                    });
+                }
 
-})(jQuery, window);
+            })(jQuery, window);
             var GLOBAL_IS_AUDIO_SAVED = false;
             var IS_STOPPED = false;
 
@@ -82,13 +82,16 @@ and open the template in the editor.
                 var start = document.getElementById("startTimerAt").value;
                 startTimer(duration, start);
             }
-            
-            function noBack(){window.history.forward();}
+
+            function noBack() {
+                window.history.forward();
+            }
 
 
         </script>
     </head>
-    <body onload="noBack();init();
+    <body onload="noBack();
+            init();
             startExamTimer();
             playAudio();">
 
@@ -212,7 +215,7 @@ and open the template in the editor.
                 var fileNameHaita = document.getElementById("filename");
                 fileNameHaita.value = "recording" + new Date().getTime() + ".mp3";
 
-              var starts = parseInt(document.getElementById("startsIn").value);
+                var starts = parseInt(document.getElementById("startsIn").value);
                 var interval = setInterval(function () {
                     if (starts < 0) {
 

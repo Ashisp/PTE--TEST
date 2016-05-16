@@ -37,7 +37,7 @@
                         <td>
                             <c:out value="${answer.answer}" escapeXml="false"/>
                             <c:if test="${answer.audioPath ne null}">
-                                <audio controls="" src="/Recordings/<c:out value="${answer.audioPath}"/>" />
+                                <audio controls="" src="../Recordings/<c:out value="${answer.audioPath}"/>" />
                             </c:if>                            
                         </td>
                     </tr>
